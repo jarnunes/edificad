@@ -4,6 +4,7 @@ package com.puc.edificad.web.api;
 import com.puc.edificad.model.Person;
 import com.puc.edificad.services.PersonRepository;
 import com.puc.edificad.services.PersonService;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import static com.puc.edificad.web.response.BaseResponse.of;
 
 @RestController
 @RequestMapping("/demo/person")
+@CommonsLog
 public class PersonController {
     @Autowired
     private PersonService personService;

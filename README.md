@@ -3,8 +3,8 @@
 <!--ts-->
 ### 📖 Menu
 * [Features](#-features)
-* [Running project](#-running-project)
-* [Technologies](#-technologies)
+* [Running project](#-executar-em-ambiente-de-desenvolvimento)
+* [Technologies](#-tecnologias)
 <!--te-->
 
 --------------------------------------------------------------------------------
@@ -34,6 +34,11 @@
 5. Abra o projeto em uma IDE (neste exemplo foi utilizado o `Intellij IDEA` e execute o projeto;
 6. Acesse o endpoint de teste: [http://localhost:5000/api/demo/person/list](http://localhost:5000/api/demo/person/list)
 
+--------------------------------------------------------------------------------
+
+### Documentação da API
+
+1. Para consultar a documentação da API, acesse o link [Edificad API](http://edificad-api.jnunesc.com.br/)
 --------------------------------------------------------------------------------
 
 ### 🛠 Tecnologias
