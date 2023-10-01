@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.puc.edificad.commons.config.Message;
 import com.puc.edificad.model.edsuser.User;
+import com.puc.edificad.services.edsuser.dto.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,15 @@ public class TokenService {
 
     public String buildToken(User user) {
         return JWT.create()
-                .withIssuer("Person")
                 .withSubject(user.getUsername())
                 .withClaim("id", user.getId())
                 .withExpiresAt(LocalDateTime.now().plusMinutes(30).toInstant(ZoneOffset.of("-03:00")))
                 .sign(getAlgorithm());
+    }
+
+    public AccessToken buildAccessToken(User user){
+        final String token = buildToken(user);
+        return new AccessToken(token);
     }
 
     public String getSubject(String token) {
