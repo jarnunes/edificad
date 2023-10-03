@@ -19,7 +19,7 @@ public class ValidationException extends RuntimeException {
     }
 
 
-    public static ValidationException notFound(){
-        return new ValidationException(MessageUtils.get("entity.not.found"));
+    public static ValidationException ofMessageKey(String messageKey){
+        return new ValidationException(MessageUtils.get(messageKey));
     }
 }

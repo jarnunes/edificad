@@ -39,7 +39,7 @@ public class AuthenticationService implements AuthenticationProvider {
         if (canAuthenticate(user, authentication))
             return new UsernamePasswordAuthenticationToken(user, authentication.getCredentials(), user.getAuthorities());
 
-        throw new ValidationException(msg.get("eds.err.authentication"));
+        throw ValidationException.ofMessageKey("eds.err.authentication");
     }
 
     private void validateUsernamePassword(Authentication authentication) {
@@ -70,7 +70,7 @@ public class AuthenticationService implements AuthenticationProvider {
 
     public Authentication authenticate(String token) {
         if(Objects.isNull(token))
-            throw new ValidationException(msg.get("eds.err.null.token"));
+            throw ValidationException.ofMessageKey("eds.err.null.token");
 
         final String clearToken = token.replace("Bearer ", StringUtils.EMPTY);
         final String subject = tokenService.getSubject(clearToken);
