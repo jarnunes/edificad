@@ -37,7 +37,6 @@ public class TokenService {
 
     public String getSubject(String token) {
         return JWT.require(getAlgorithm())
-                .withIssuer("Person")
                 .build()
                 .verify(token)
                 .getSubject();

@@ -43,10 +43,10 @@ public class WebSecurityConfig {
                 .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(mvc.pattern(POST, "/api/auth/**")).permitAll()
-//                        .requestMatchers(mvc.pattern(GET, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-//                        .requestMatchers(mvc.pattern(POST, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-//                        .requestMatchers(mvc.pattern(PUT, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-//                        .requestMatchers(mvc.pattern(DELETE, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+                        .requestMatchers(mvc.pattern(GET, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+                        .requestMatchers(mvc.pattern(POST, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+                        .requestMatchers(mvc.pattern(PUT, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+                        .requestMatchers(mvc.pattern(DELETE, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
 
                         // TODO: a linha abaixo será utilizada apenas para fins de teste. Remover em momento oportuno.
                         .requestMatchers(mvc.pattern(GET, "/api/demo/**")).permitAll()

@@ -17,10 +17,10 @@ public class ApiAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-        throws IOException {
+            throws IOException {
 
-        ErrorResponse re = new ErrorResponse( );
-        re.setMessageError("Authentication failed. Details: "+ authException.getMessage());
+        ErrorResponse re = new ErrorResponse();
+        re.setMessageError("Authentication failed. Details: " + authException.getMessage());
         re.setPath(request.getRequestURI());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
