@@ -47,9 +47,6 @@ public class WebSecurityConfig {
                         .requestMatchers(mvc.pattern(POST, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
                         .requestMatchers(mvc.pattern(PUT, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
                         .requestMatchers(mvc.pattern(DELETE, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-
-                        // TODO: a linha abaixo será utilizada apenas para fins de teste. Remover em momento oportuno.
-                        .requestMatchers(mvc.pattern(GET, "/api/demo/**")).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class)
