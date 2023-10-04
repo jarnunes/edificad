@@ -12,7 +12,7 @@
     <artifactId>edificad</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>edificad</name>
-    <description>edificad</description>
+    <description>Edificad Application</description>
     <properties>
         <java.version>20</java.version>
     </properties>
@@ -73,6 +73,7 @@
     </dependencies>
 
     <build>
+        <finalName>edificad</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

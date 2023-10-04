@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/java?currentSchema=edificad
+    url: jdbc:postgresql://edificad.com:5432/java?currentSchema=edificad
     username: sa
     password: root
     hikari:

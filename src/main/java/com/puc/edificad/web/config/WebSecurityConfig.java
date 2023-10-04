@@ -42,31 +42,32 @@ public class WebSecurityConfig {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(mvc.pattern(POST, "/api/auth/**")).permitAll()
-                        .requestMatchers(mvc.pattern(GET, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-                        .requestMatchers(mvc.pattern(POST, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-                        .requestMatchers(mvc.pattern(PUT, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-                        .requestMatchers(mvc.pattern(DELETE, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
-                        .anyRequest().authenticated()
+//                        .requestMatchers(mvc.pattern(POST, "/api/auth/**")).permitAll()
+//                        .requestMatchers(mvc.pattern(GET, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+//                        .requestMatchers(mvc.pattern(POST, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+//                        .requestMatchers(mvc.pattern(PUT, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+//                        .requestMatchers(mvc.pattern(DELETE, API_PATTERN)).hasRole(Role.RL_WEBSERVICES)
+//                        .anyRequest().authenticated()
+                          .requestMatchers(mvc.pattern(GET, "/**")).permitAll()
                 )
-                .addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(handler -> handler.authenticationEntryPoint(getEntryPoint()))
+//                .addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .exceptionHandling(handler -> handler.authenticationEntryPoint(getEntryPoint()))
                 .build();
     }
 
-    @Bean
-    TokenFilter getTokenFilter() {
-        return new TokenFilter();
-    }
+//    @Bean
+//    TokenFilter getTokenFilter() {
+//        return new TokenFilter();
+//    }
 
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
         return new MvcRequestMatcher.Builder(introspector);
     }
 
-    @Bean
-    ApiAuthenticationEntryPoint getEntryPoint(){
-        return new ApiAuthenticationEntryPoint();
-    }
+//    @Bean
+//    ApiAuthenticationEntryPoint getEntryPoint(){
+//        return new ApiAuthenticationEntryPoint();
+//    }
 
 }
