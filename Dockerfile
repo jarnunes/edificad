@@ -2,7 +2,9 @@ FROM amazoncorretto:20
 
 ARG JAR_FILE=target/edificad.jar
 
-ADD ${JAR_FILE} app.jar
+COPY target/edificad.jar /app/edificad.jar
+
+WORKDIR /app
 
 ENTRYPOINT ["java", "-jar","/app.jar"]
 
