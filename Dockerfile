@@ -6,10 +6,10 @@ COPY target/edificad.jar /app/edificad.jar
 
 WORKDIR /app
 
-ENTRYPOINT ["java", "-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar","/app/edificad.jar"]
 
 # Construindo imagem
 # docker build -t nome-da-imagem-a-ser-criada .
-# ex: docker build -t spring-boot-docker .
+# ex: docker build -t edificad-docker .
 # Criar um arquivo .env e adicionar as variáveis de ambiente necessárias. [conexões de banco, profile]
-# docker run --env-file=D:\env\spring-app.env -p 5000:5000 spring-boot-docker
+# docker run --env-file=D:\env\spring-app.env -p 5000:5000 edificad-docker
