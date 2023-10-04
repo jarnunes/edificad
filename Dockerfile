@@ -1,8 +1,6 @@
 FROM amazoncorretto:20
 
-VOLUME /tmp
-
-ARG JAR_FILE=target/Edificad.jar
+ARG JAR_FILE=target/edificad.jar
 
 ADD ${JAR_FILE} app.jar
 
