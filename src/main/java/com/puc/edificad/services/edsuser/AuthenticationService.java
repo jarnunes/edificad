@@ -2,6 +2,7 @@ package com.puc.edificad.services.edsuser;
 
 import com.puc.edificad.commons.config.Message;
 import com.puc.edificad.commons.exceptions.ValidationException;
+import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.edsuser.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +70,7 @@ public class AuthenticationService implements AuthenticationProvider {
     }
 
     public Authentication authenticate(String token) {
-        if(Objects.isNull(token))
-            throw ValidationException.ofMessageKey("eds.err.null.token");
+        ValidationUtils.validate(StringUtils.isNotBlank(token), "eds.err.null.token");
 
         final String clearToken = token.replace("Bearer ", StringUtils.EMPTY);
         final String subject = tokenService.getSubject(clearToken);
