@@ -1,14 +1,13 @@
 package com.puc.edificad.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -27,4 +26,7 @@ public class Cesta extends BaseEntity {
 
     @Lob
     private String descricao;
+
+    @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<DistribuicaoCesta> cestas = new HashSet<>();
 }

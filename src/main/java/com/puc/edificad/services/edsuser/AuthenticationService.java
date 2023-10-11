@@ -15,12 +15,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import static org.apache.commons.lang3.StringUtils.isAnyEmpty;
-
 
 @Component
 public class AuthenticationService implements AuthenticationProvider {
@@ -70,7 +68,7 @@ public class AuthenticationService implements AuthenticationProvider {
     }
 
     public Authentication authenticate(String token) {
-        ValidationUtils.validate(StringUtils.isNotBlank(token), "eds.err.null.token");
+        ValidationUtils.validateNotBlank(token, "eds.err.null.token");
 
         final String clearToken = token.replace("Bearer ", StringUtils.EMPTY);
         final String subject = tokenService.getSubject(clearToken);
