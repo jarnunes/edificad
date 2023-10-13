@@ -21,6 +21,9 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  jackson:
+    property-naming-strategy: 'SNAKE_CASE'
+
 logging:
   file:
     name: 'logs/Edificad.log'

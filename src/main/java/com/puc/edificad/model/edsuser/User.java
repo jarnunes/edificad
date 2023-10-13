@@ -1,6 +1,7 @@
 package com.puc.edificad.model.edsuser;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.puc.edificad.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -49,6 +50,7 @@ public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleUser> userRoles = new HashSet<>();
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         UnaryOperator<String> mapperRole = role -> "ROLE_" + role;
