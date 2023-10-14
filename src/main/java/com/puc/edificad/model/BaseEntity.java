@@ -28,7 +28,7 @@ public abstract class BaseEntity implements Serializable {
 
     @Id
     @Setter(AccessLevel.PRIVATE)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore
