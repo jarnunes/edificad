@@ -1,10 +1,7 @@
 package com.puc.edificad.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,10 +31,12 @@ public abstract class BaseEntity implements Serializable {
 
     @JsonIgnore
     @CreatedDate
+    @Column(updatable = false)
     private LocalDateTime createDate;
 
     @JsonIgnore
     @CreatedBy
+    @Column(updatable = false)
     private String createUser;
 
     @JsonIgnore
