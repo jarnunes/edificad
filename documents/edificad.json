@@ -1,0 +1,1101 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Edificad API",
+    "description": "API para controle da ONG Edificando Vidas.",
+    "version": "0.0.1",
+    "termsOfService": "https://mockapi.io",
+    "contact": {
+      "name": "Suporte a Devs",
+      "email": "contato@gmail.com",
+      "url": "https://github.com"
+    },
+    "license": {
+      "name": "GPLv3",
+      "url": "https://www.gnu.org/licences/gpl-3.0.html"
+    }
+  },
+  "externalDocs": {
+    "description": "External Documentation Name",
+    "url": "http://google.com.br"
+  },
+  "servers": [
+    {
+      "url": "https://edificad.com/hml/swagger",
+      "description": "Teste"
+    },
+    {
+      "url": "https://edificad.com/swagger",
+      "description": "Produção"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Autenticação"
+        ],
+        "summary": "Gerar token para um usuário e senha cadastrado",
+        "description": "Gera um token que será utilizado para acesso a todos os endpoints da API",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Autenticacao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutenticacaoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficiario": {
+      "get": {
+        "tags": [
+          "Beneficiários"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BeneficiarioArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Beneficiários"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BeneficiarioPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "example": "Ocorreu um erro na validação do campo 'telefone'"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficiario/{id}": {
+      "get": {
+        "tags": [
+          "Beneficiários"
+        ],
+        "summary": "Busca um beneficiário pelo ID",
+        "operationId": "getBeneficiarioById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do beneficiário a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Beneficiários"
+        ],
+        "summary": "Atualiza o beneficiário referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do beneficiário",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiario"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Beneficiários"
+        ],
+        "summary": "Remove um beneficiário referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do beneficiário a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cesta": {
+      "get": {
+        "tags": [
+          "Cestas"
+        ],
+        "summary": "Retorna um array com todas as cestas cadastradas",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CestaArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cestas"
+        ],
+        "summary": "Cadastro de uma nova cesta",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CestaPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cesta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "example": "Ocorreu um erro na validação do campo 'nome_campo'"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cesta{id}": {
+      "get": {
+        "tags": [
+          "Cestas"
+        ],
+        "summary": "Busca uma cesta pelo ID",
+        "operationId": "getCestaById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da cesta ser retornada",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cesta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cestas"
+        ],
+        "summary": "Atualiza a cesta referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da Cesta",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cesta"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cestas"
+        ],
+        "summary": "Remove a cesta referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da cesta a ser removida",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cesta"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voluntario": {
+      "get": {
+        "tags": [
+          "Voluntários"
+        ],
+        "summary": "Retorna um array com todos os voluntários cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoluntarioArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Voluntários"
+        ],
+        "summary": "Cadastro de novo voluntário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoluntarioPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voluntario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "example": "Ocorreu um erro na validação do campo 'nome_campo'"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voluntario/{id}": {
+      "get": {
+        "tags": [
+          "Voluntários"
+        ],
+        "summary": "Busca um voluntário pelo ID",
+        "operationId": "getVoluntarioById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do voluntário ser retornada",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voluntario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Voluntários"
+        ],
+        "summary": "Atualiza o voluntário referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do voluntário",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voluntario"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Voluntários"
+        ],
+        "summary": "Remove o voluntário referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do voluntário a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voluntario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dependente": {
+      "get": {
+        "tags": [
+          "Dependentes"
+        ],
+        "summary": "Retorna um array com todos os dependentes cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DependenteArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Dependentes"
+        ],
+        "summary": "Criar um novo dependente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DependentePost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dependente/{id}": {
+      "get": {
+        "tags": [
+          "Dependentes"
+        ],
+        "summary": "Busca um dependente pelo ID",
+        "operationId": "getDependenteById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Dependentes"
+        ],
+        "summary": "Atualizar o dependente referente ao Id do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DependentePost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Dependentes"
+        ],
+        "summary": "Remove dependente pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não Encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/colaborador": {
+      "get": {
+        "tags": [
+          "Colaboradores"
+        ],
+        "summary": "Retorna um array com todos os dependentes cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DependenteArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Colaboradores"
+        ],
+        "summary": "Criar um novo dependente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DependentePost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/colaborador/{id}": {
+      "get": {
+        "tags": [
+          "Colaboradores"
+        ],
+        "summary": "Busca um colaborador pelo ID",
+        "operationId": "getColaboradorById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Colaboradores"
+        ],
+        "summary": "Atualizar o dependente referente ao Id do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DependentePost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Colaboradores"
+        ],
+        "summary": "Remove dependente pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não Encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/colaborador/find": {
+      "get": {
+        "tags": [
+          "Colaboradores"
+        ],
+        "summary": "Busca um colaborador pelos parametros principais",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "Email do colaborador cadastrado no sistema para login",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "description": "Nome do colaborador",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DependenteArray"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Autenticacao": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "marcelo129"
+          },
+          "password": {
+            "type": "string",
+            "example": "921elorem"
+          }
+        }
+      },
+      "AutenticacaoResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQZXJzb24iLCJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTYxOTgwODN9.HLuHYcliYR2W33RgwMqkZPlxrIX1c_H6rmSmlLcruT8"
+          }
+        }
+      },
+      "BeneficiarioPost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "data_nascimento": {
+            "type": "string"
+          }
+        }
+      },
+      "Beneficiario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string",
+            "example": "Marcello Du Claro"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000-00",
+            "minLength": 11,
+            "maxLength": 14
+          },
+          "data_nascimento": {
+            "type": "string",
+            "example": "01/01/2000",
+            "minLength": 10,
+            "maxLength": 10
+          }
+        }
+      },
+      "BeneficiarioArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Beneficiario"
+        }
+      },
+      "Cesta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string",
+            "example": "Cesta AB"
+          },
+          "descricao": {
+            "type": "string",
+            "example": "Destinada a familias com 4 a 6 integrantes"
+          },
+          "quantidade_estoque": {
+            "type": "integer",
+            "example": 60
+          }
+        }
+      },
+      "CestaArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Cesta"
+        }
+      },
+      "CestaPost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          },
+          "quantidade_estoque": {
+            "type": "integer"
+          }
+        }
+      },
+      "Voluntario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "nome": {
+            "type": "string",
+            "example": "Marcello Du Claro"
+          },
+          "telefone": {
+            "type": "string",
+            "minLength": 11,
+            "maxLength": 15,
+            "example": "(99) 99999-9999"
+          },
+          "email": {
+            "type": "string",
+            "example": "marcelo.duclaro@edificad.com"
+          }
+        }
+      },
+      "VoluntarioArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Voluntario"
+        }
+      },
+      "VoluntarioPost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Marcello Du Claro"
+          },
+          "telefone": {
+            "type": "string",
+            "minLength": 11,
+            "maxLength": 15,
+            "example": "(99) 99999-9999"
+          },
+          "email": {
+            "type": "string",
+            "example": "marcelo.duclaro@edificad.com"
+          }
+        }
+      },
+      "Dependente": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "descricao": {
+            "type": "string"
+          }
+        }
+      },
+      "DependenteArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Dependente"
+        }
+      },
+      "DependentePost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Marcelo Du Claro Filho"
+          },
+          "id_beneficiario": {
+            "type": "integer",
+            "example": 22
+          },
+          "email": {
+            "type": "string",
+            "example": "marcelo.duclaro.filho@gmail.com"
+          },
+          "descricao": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

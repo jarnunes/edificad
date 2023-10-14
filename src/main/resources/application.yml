@@ -21,6 +21,9 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  jackson:
+    property-naming-strategy: 'SNAKE_CASE'
+
 logging:
   file:
     name: 'logs/Edificad.log'
@@ -53,7 +56,7 @@ spring:
             database:
               action: none
             scripts:
-              action: drop # values: create or drop
+              action: create # values: create or drop
               create-target: database/postgress/schema-create.sql
               drop-target: database/postgress/schema-drop.sql
 

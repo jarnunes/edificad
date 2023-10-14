@@ -1,5 +1,6 @@
 package com.puc.edificad.model.edsuser;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.puc.edificad.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -23,6 +24,7 @@ public class RoleUser extends BaseEntity implements Serializable {
     @Column(nullable = false)
     private Role role;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 }
