@@ -46,8 +46,13 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public Optional<User> findUserByUsernameOrEmail(String username, String email) {
-        return repository.findUserByUsernameEqualsOrEmailEquals(username, email);
+    public Optional<User> findByUsername(String username) {
+        return repository.findUserByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return repository.findUserByEmail(email);
     }
 
     @Override

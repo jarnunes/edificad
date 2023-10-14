@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface UserService extends BaseService<User> {
 
-    Optional<User> findUserByUsernameOrEmail(String username, String email);
-
     void resetPassword(Login login);
+
+    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
 }

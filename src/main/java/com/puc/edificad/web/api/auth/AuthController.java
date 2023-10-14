@@ -45,9 +45,14 @@ public class AuthController {
         return of(userService.findAll());
     }
 
-    @GetMapping("/find-by")
-    public ResponseEntity<User> findByUsernameEmail(@RequestParam String username, @RequestParam String email){
-        return of(userService.findUserByUsernameOrEmail(username, email));
+    @GetMapping("/find-by-username")
+    public ResponseEntity<User> findByUsername(@RequestParam String username){
+        return of(userService.findByUsername(username));
+    }
+
+    @GetMapping("/find-by-email")
+    public ResponseEntity<User> findByEmail( @RequestParam String email){
+        return of(userService.findByEmail(email));
     }
 
     @PostMapping
@@ -63,12 +68,6 @@ public class AuthController {
 
         return user.map(us -> BaseResponse.of("eds.success.remove.user", us.getUsername()))
                 .orElseGet(() -> notFound().build());
-    }
-
-    @PutMapping
-    public ResponseEntity<User> update(@RequestBody User user) {
-        userService.update(user);
-        return ok(user);
     }
 
     @PostMapping("/reset-password")
