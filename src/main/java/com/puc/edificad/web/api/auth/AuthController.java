@@ -7,6 +7,7 @@ import com.puc.edificad.services.edsuser.TokenService;
 import com.puc.edificad.services.edsuser.UserService;
 import com.puc.edificad.services.edsuser.dto.AccessToken;
 import com.puc.edificad.services.edsuser.dto.Login;
+import com.puc.edificad.web.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.puc.edificad.web.response.BaseResponse.of;
+import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -38,22 +40,29 @@ public class AuthController {
         return tokenService.buildAccessToken(user);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public ResponseEntity<List<User>> list() {
         return of(userService.findAll());
     }
 
-    @PostMapping("/create")
+    @GetMapping("/find-by")
+    public ResponseEntity<User> findByUsernameEmail(@RequestParam String username, @RequestParam String email){
+        return of(userService.findUserByUsernameOrEmail(username, email));
+    }
+
+    @PostMapping
     public ResponseEntity<User> create(@RequestBody User user) {
         userService.save(user);
         return ok(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         Optional<User> user = userService.findById(id);
         user.map(User::getId).ifPresent(userService::deleteById);
-        return of(user);
+
+        return user.map(us -> BaseResponse.of("eds.success.remove.user", us.getUsername()))
+                .orElseGet(() -> notFound().build());
     }
 
     @PutMapping
@@ -62,5 +71,10 @@ public class AuthController {
         return ok(user);
     }
 
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody Login login) {
+        userService.resetPassword(login);
+        return BaseResponse.of("eds.success.updated.password");
+    }
 
 }

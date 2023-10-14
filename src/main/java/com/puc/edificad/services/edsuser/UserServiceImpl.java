@@ -3,9 +3,13 @@ package com.puc.edificad.services.edsuser;
 import com.puc.edificad.commons.exceptions.ValidationException;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.BaseServiceImpl;
+import com.puc.edificad.services.edsuser.dto.Login;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+import static com.puc.edificad.commons.utils.UserUtils.encode;
 
 
 @Service
@@ -14,7 +18,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     private UserRepository repository;
 
     @Autowired
-    public void setRepository(UserRepository repositoryIn){
+    public void setRepository(UserRepository repositoryIn) {
         this.repository = repositoryIn;
     }
 
@@ -25,20 +29,36 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         repository.findUserByEmail(entity.getEmail()).map(User::getEmail)
             .ifPresent(email -> lancarExcecaoUsuarioJaExistente("email", email));
 
-        entity.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode(entity.getPassword()));
+        entity.setPassword(encode(entity.getPassword()));
         entity.getUserRoles().forEach(it -> it.setUser(entity));
         return super.save(entity);
     }
 
-    private void lancarExcecaoUsuarioJaExistente(String attrName, String attrValue){
+    private void lancarExcecaoUsuarioJaExistente(String attrName, String attrValue) {
         throw new ValidationException("eds.err.user.already.exists", attrName, attrValue);
     }
 
     @Override
     public User update(User entity) {
         entity.getUserRoles().forEach(it -> it.setUser(entity));
+        repository.findById(entity.getId()).map(User::getPassword).ifPresent(entity::setPassword);
         return super.update(entity);
     }
 
+    @Override
+    public Optional<User> findUserByUsernameOrEmail(String username, String email) {
+        return repository.findUserByUsernameEqualsOrEmailEquals(username, email);
+    }
+
+    @Override
+    public void resetPassword(Login login) {
+        Optional.of(login).map(Login::username).flatMap(repository::findUserByUsername)
+                .ifPresent(user -> setNewPasswordUpdateUser(login, user));
+    }
+
+    private void setNewPasswordUpdateUser(Login login, User user){
+        user.setPassword(encode(login.password()));
+        super.update(user);
+    }
 
 }

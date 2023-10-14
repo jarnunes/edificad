@@ -12,11 +12,10 @@ public class ValidationUtils {
     public static void validate(boolean expectedCondition, String msgKey, Object... args) {
         if (!expectedCondition)
             throw new ValidationException(msgKey, args);
-
     }
 
-    public static void validateNotBlank(String value, String msgKey, Object... args) {
-        validate(StringUtils.isNotBlank(value), msgKey, args);
+    public static void validateNotBlank(Object value, String msgKey, Object... args) {
+        validate(StringUtils.isNotBlank(String.valueOf(value)), msgKey, args);
     }
 
     public static void validateNonNull(Object value, String msgKey, Object... args) {
