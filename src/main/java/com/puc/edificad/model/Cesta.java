@@ -1,5 +1,6 @@
 package com.puc.edificad.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class Cesta extends BaseEntity {
     @Lob
     private String descricao;
 
-    @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "cesta", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DistribuicaoCesta> cestas = new HashSet<>();
 }

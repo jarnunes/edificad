@@ -40,9 +40,9 @@ public class VoluntarioController extends BaseController{
     }
 
     @PutMapping
-    public void update(@RequestBody Voluntario voluntario){
+    public Voluntario update(@RequestBody Voluntario voluntario){
         ValidationUtils.validateNonNull(voluntario::getId, "entity.id.not.null");
-        service.update(voluntario);
+        return service.update(voluntario);
     }
 
     @DeleteMapping("/{id}")

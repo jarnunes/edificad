@@ -2,7 +2,6 @@ package com.puc.edificad.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +26,6 @@ public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = -4918450243438648047L;
 
     @Id
-    @Setter(AccessLevel.PRIVATE)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generator")
     private Long id;
 

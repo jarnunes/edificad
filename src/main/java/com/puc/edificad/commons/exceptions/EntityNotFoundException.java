@@ -15,7 +15,7 @@ public class EntityNotFoundException extends RuntimeException {
     }
 
     public static EntityNotFoundException notFoundForId(){
-        return new EntityNotFoundException("entity.not.found");
+        return new EntityNotFoundException("entity.not.found.for.id");
     }
 
     public static EntityNotFoundException notFound(){

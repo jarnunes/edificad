@@ -6,7 +6,6 @@ import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.Configuracao;
 import com.puc.edificad.services.ConfiguracaoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,15 +27,13 @@ public class ConfiguracaoController {
 
     @PostMapping
     public Configuracao create(@RequestBody Configuracao entity) {
-        configuracaoService.save(entity);
-        return entity;
+        return configuracaoService.save(entity);
     }
 
     @PutMapping
     public Configuracao update(@RequestBody Configuracao entity) {
         ValidationUtils.validateNonNull(entity::getId, "entity.id.not.null");
-        configuracaoService.update(entity);
-        return entity;
+        return configuracaoService.update(entity);
     }
 
 }

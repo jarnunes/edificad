@@ -21,12 +21,16 @@ public class ConfiguracaoServiceImpl extends BaseServiceImpl<Configuracao> imple
 
     @Override
     public Configuracao save(Configuracao entity){
-        return super.save(copyToStoredEntityOrToNewInstance(entity));
+        Configuracao storedEntity = copyToStoredEntityOrToNewInstance(entity);
+        super.save(storedEntity);
+        return storedEntity;
     }
 
     @Override
     public Configuracao update(Configuracao entity){
-        return super.update(copyToStoredEntityOrToNewInstance(entity));
+        Configuracao storedEntity = copyToStoredEntityOrToNewInstance(entity);
+        super.update(storedEntity);
+        return storedEntity;
     }
 
     private Configuracao copyToStoredEntityOrToNewInstance(Configuracao entity){
