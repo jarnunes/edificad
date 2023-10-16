@@ -4,6 +4,7 @@ import com.puc.edificad.commons.exceptions.ValidationException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
+import java.util.function.Supplier;
 
 public class ValidationUtils {
     private ValidationUtils() {
@@ -20,6 +21,9 @@ public class ValidationUtils {
 
     public static void validateNonNull(Object value, String msgKey, Object... args) {
         validate(Objects.nonNull(value), msgKey, args);
+    }
+    public static void validateNonNull(Supplier<Object> value, String msgKey, Object... args) {
+        validate(Objects.nonNull(value.get()), msgKey, args);
     }
 
     public static void validateNull(Object value, String msgKey, Object... args) {

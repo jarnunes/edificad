@@ -11,7 +11,7 @@ import java.io.Serial;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@SequenceGenerator(name = "endereco", sequenceName = "seq_endereco", allocationSize = 1)
+@SequenceGenerator(name = "seq_generator", sequenceName = "seq_endereco", allocationSize = 1)
 public class Endereco extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 8102073050405161584L;

@@ -30,7 +30,7 @@ public abstract class Pessoa extends BaseEntity {
 
     private LocalDate dataNascimento;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "endereco_fk")
     private Endereco endereco;
 }

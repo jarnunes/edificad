@@ -1,5 +1,6 @@
 package com.puc.edificad.web.handlers;
 
+import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.commons.exceptions.ValidationException;
 import com.puc.edificad.web.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +25,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleException(ValidationException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         return createErrorMessage422(e, null, request);
     }
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleException(EntityNotFoundException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        return createResponseEntity(e, null, request, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<Object> handleException(ResponseStatusException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
@@ -47,23 +52,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private ResponseEntity<Object> createErrorMessage500(Exception e, String additionalMessage, HttpServletRequest request){
         e.printStackTrace();
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessageError(additionalMessage + "Details: "+ e.getMessage());
-        errorResponse.setPath(request.getRequestURI());
-
-        return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(errorResponse);
+        return createResponseEntity(e, additionalMessage, request, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private ResponseEntity<Object> createErrorMessage422(Throwable e, String additionalMessage, HttpServletRequest request){
+        return createResponseEntity(e, additionalMessage, request, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+    private ResponseEntity<Object> createResponseEntity(Throwable e, String additionalMessage, HttpServletRequest request,
+        HttpStatus status){
         e.printStackTrace();
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessageError(StringUtils.trimToEmpty(additionalMessage) + e.getMessage());
         errorResponse.setPath(request.getRequestURI());
-
-        return ResponseEntity
-            .status(HttpStatus.UNPROCESSABLE_ENTITY)
-            .body(errorResponse);
+        return ResponseEntity.status(status).body(errorResponse);
     }
 }

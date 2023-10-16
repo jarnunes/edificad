@@ -3,6 +3,7 @@ package com.puc.edificad.model.edsuser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.puc.edificad.model.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +15,9 @@ import java.io.Serializable;
 @Setter
 @Entity
 @EqualsAndHashCode(callSuper = true, exclude = {"user"})
-@SequenceGenerator(name = "seq_role_user", sequenceName = "seq_role_user", allocationSize = 1)
 @Table(name = "eds_role_user")
+@SequenceGenerator(name = "seq_generator", sequenceName = "seq_role_user", allocationSize = 1)
+
 public class RoleUser extends BaseEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 7969397870584868440L;

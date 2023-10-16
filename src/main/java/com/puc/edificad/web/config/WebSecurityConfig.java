@@ -1,6 +1,7 @@
 package com.puc.edificad.web.config;
 
 import com.puc.edificad.model.edsuser.Role;
+import com.puc.edificad.web.handlers.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 import static org.springframework.http.HttpMethod.*;
 
 @Configuration
@@ -26,6 +24,7 @@ import static org.springframework.http.HttpMethod.*;
 public class WebSecurityConfig {
 
     private static final String API_PATTERN = "/api/**";
+    private static final String API_CONFIG_PATTERN = "/api/config/**";
     private AuthenticationProvider authProvider;
 
     @Autowired
@@ -47,13 +46,17 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers(mvc.pattern(POST, "/api/auth/login")).permitAll()
                     .requestMatchers(mvc.pattern(POST, "/api/auth/create")).hasRole(Role.RL_ADMIN)
+                    .requestMatchers(mvc.pattern(POST, API_CONFIG_PATTERN)).hasRole(Role.RL_ADMIN)
+                    .requestMatchers(mvc.pattern(GET, API_CONFIG_PATTERN)).hasRole(Role.RL_ADMIN)
+                    .requestMatchers(mvc.pattern(PUT, API_CONFIG_PATTERN)).hasRole(Role.RL_ADMIN)
                     .requestMatchers(mvc.pattern(GET, API_PATTERN)).hasAnyRole(webServiceOperatorRoles())
                     .requestMatchers(mvc.pattern(POST, API_PATTERN)).hasAnyRole(webServiceOperatorRoles())
                     .requestMatchers(mvc.pattern(PUT, API_PATTERN)).hasAnyRole(webServiceOperatorRoles())
                     .requestMatchers(mvc.pattern(DELETE, API_PATTERN)).hasAnyRole(webServiceOperatorRoles())
                     .anyRequest().authenticated())
                 .addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling(handler -> handler.authenticationEntryPoint(getEntryPoint()))
+                .exceptionHandling(handler -> handler.authenticationEntryPoint(new ApiAuthenticationEntryPoint()))
+                .exceptionHandling(handler -> handler.accessDeniedHandler(new CustomAccessDeniedHandler()))
                 .build();
     }
 
@@ -65,11 +68,6 @@ public class WebSecurityConfig {
     @Bean
     MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
         return new MvcRequestMatcher.Builder(introspector);
-    }
-
-    @Bean
-    ApiAuthenticationEntryPoint getEntryPoint(){
-        return new ApiAuthenticationEntryPoint();
     }
 
     @Bean

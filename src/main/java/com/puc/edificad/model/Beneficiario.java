@@ -1,5 +1,6 @@
 package com.puc.edificad.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,15 +14,16 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true, exclude = {"dependentes"})
-@SequenceGenerator(name = "beneficiario", sequenceName = "seq_beneficiario", allocationSize = 1)
+@SequenceGenerator(name = "seq_generator", sequenceName = "seq_beneficiario", allocationSize = 1)
 public class Beneficiario extends Pessoa {
 
     @Serial
     private static final long serialVersionUID = 3614891896109868616L;
 
-    @OneToMany(mappedBy = "beneficiario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Dependente> dependentes = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "beneficiario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DistribuicaoCesta> cestas = new HashSet<>();
 }

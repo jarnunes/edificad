@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@SequenceGenerator(name = "cesta", sequenceName = "seq_cesta", allocationSize = 1)
+@SequenceGenerator(name = "seq_generator", sequenceName = "seq_dist_cesta", allocationSize = 1)
 public class DistribuicaoCesta extends BaseEntity {
 
     @Serial
