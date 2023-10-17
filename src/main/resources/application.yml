@@ -59,6 +59,23 @@ spring:
               action: create # values: create or drop
               create-target: database/postgress/schema-create.sql
               drop-target: database/postgress/schema-drop.sql
+---
+
+spring:
+  config:
+    activate:
+      on-profile: unit-test
+  datasource:
+    url: ${edificad.dburl}
+    username: ${edificad.dbusername}
+    password: ${edificad.dbpassword}
+
+logging:
+  level:
+    org.hibernate.SQL: fatal
+    org.hibernate.type: fatal
+    org.springframework: warn
+    org.springframework.security: warn
 
 ---
 

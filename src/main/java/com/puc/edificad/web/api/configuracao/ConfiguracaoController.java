@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/config")
-//@PreAuthorize("hasRole('ADMIN')")
 public class ConfiguracaoController {
 
     private ConfiguracaoService configuracaoService;

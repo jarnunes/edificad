@@ -21,7 +21,7 @@ public class Endereco extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String numero;
 
-    @Column(unique = true, length = 14)
+    @Column(length = 14)
     private String cep;
 
     private String bairro;

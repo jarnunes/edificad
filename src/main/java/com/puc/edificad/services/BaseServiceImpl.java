@@ -1,5 +1,6 @@
 package com.puc.edificad.services;
 
+import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,12 @@ public abstract class BaseServiceImpl<T extends BaseEntity> implements BaseServi
     @Override
     public T update(T entity) {
         return repository.save(entity);
+    }
+
+    @Override
+    public void delete(T entity) {
+        ValidationUtils.validateNonNull(entity::getId, "entity.id.not.null");
+        deleteById(entity.getId());
     }
 
     @Override
