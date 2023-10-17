@@ -37,7 +37,8 @@ public class TokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         }catch (TokenExpiredException exception){
             ErrorResponse errorResponse = new ErrorResponse();
-            errorResponse.setMessageError("Invalid token. Details: "+ exception.getMessage());
+            errorResponse.setCause("Invalid token.");
+            errorResponse.setMessageError(exception.getMessage());
             errorResponse.setPath(request.getRequestURI());
 
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);

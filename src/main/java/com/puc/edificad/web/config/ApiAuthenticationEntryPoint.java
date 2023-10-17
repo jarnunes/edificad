@@ -20,7 +20,8 @@ public class ApiAuthenticationEntryPoint implements AuthenticationEntryPoint {
             throws IOException {
 
         ErrorResponse re = new ErrorResponse();
-        re.setMessageError("Authentication failed. Details: " + authException.getMessage());
+        re.setCause("Authentication failed.");
+        re.setMessageError(authException.getMessage());
         re.setPath(request.getRequestURI());
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);

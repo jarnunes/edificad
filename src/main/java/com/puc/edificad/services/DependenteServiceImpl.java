@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class DependenteServiceImpl extends BaseServiceImpl<Dependente> implements DependenteService {
@@ -16,6 +18,11 @@ public class DependenteServiceImpl extends BaseServiceImpl<Dependente> implement
     @Autowired
     public void setDependenteMapper(DependenteMapper mapper) {
         this.dependenteMapper = mapper;
+    }
+
+    @Override
+    public List<DependenteDto> findAllDto() {
+        return super.findAll().stream().map(dependenteMapper::toDto).toList();
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.puc.edificad.web.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -27,7 +30,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleException(EntityNotFoundException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        return createResponseEntity(e, null, request, HttpStatus.NOT_FOUND);
+        return createResponseEntity(e, "Entity not found.", request, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(ResponseStatusException.class)
@@ -42,7 +45,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Object> handleException(DataIntegrityViolationException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        return createErrorMessage422(e.getRootCause(), null, request);
+        String substring = Optional.of(e).map(NestedRuntimeException::getRootCause).map(String::valueOf)
+                .map(rc -> StringUtils.substringAfter(rc, "Detalhe: ")).orElse(StringUtils.EMPTY);
+        return createErrorMessage422(e.getRootCause(), substring, request);
     }
 
     @ExceptionHandler(Exception.class)
@@ -59,11 +64,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return createResponseEntity(e, additionalMessage, request, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
-    private ResponseEntity<Object> createResponseEntity(Throwable e, String additionalMessage, HttpServletRequest request,
+    private ResponseEntity<Object> createResponseEntity(Throwable e, String cause, HttpServletRequest request,
         HttpStatus status){
         e.printStackTrace();
         ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessageError(StringUtils.trimToEmpty(additionalMessage) + e.getMessage());
+        errorResponse.setCause(cause);
+        errorResponse.setMessageError(e.getMessage());
         errorResponse.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(errorResponse);
     }

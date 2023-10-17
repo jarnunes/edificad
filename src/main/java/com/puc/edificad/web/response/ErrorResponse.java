@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class ErrorResponse {
 
+    private String cause;
     @JsonProperty("message_error")
     private String messageError;
 

@@ -24,14 +24,13 @@ public class DependenteController extends BaseController{
     }
 
     @GetMapping
-    public List<Dependente> listAll() {
-        return service.findAll();
+    public List<DependenteDto> listAll() {
+        return service.findAllDto();
     }
 
     @PostMapping
     public DependenteDto create(@RequestBody DependenteDto dto) {
-        service.save(dto);
-        return dto;
+        return service.save(dto);
     }
 
     @PutMapping
