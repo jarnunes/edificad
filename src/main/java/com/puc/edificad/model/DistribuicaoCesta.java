@@ -20,15 +20,15 @@ public class DistribuicaoCesta extends BaseEntity {
     private LocalDateTime dataHora;
 
     @ManyToOne
-    @JoinColumn(name = "beneficiario_fk")
+    @JoinColumn(name = "beneficiario_fk", nullable = false)
     private Beneficiario beneficiario;
 
     @ManyToOne
-    @JoinColumn(name = "voluntario_fk")
+    @JoinColumn(name = "voluntario_fk", nullable = false)
     private Voluntario voluntario;
 
     @ManyToOne
-    @JoinColumn(name = "cesta_fk")
+    @JoinColumn(name = "cesta_fk", nullable = false)
     private Cesta cesta;
 
 }

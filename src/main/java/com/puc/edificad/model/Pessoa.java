@@ -17,7 +17,7 @@ public abstract class Pessoa extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = -4506988147216672139L;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String nome;
 
     @Column(unique = true, length = 100)
@@ -26,6 +26,7 @@ public abstract class Pessoa extends BaseEntity {
     @Column(unique = true, length = 14)
     private String cpf;
 
+    @Column(unique = true, length = 15)
     private String telefone;
 
     private LocalDate dataNascimento;

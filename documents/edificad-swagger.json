@@ -1,0 +1,1628 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Edificad API",
+    "description": "Espeicificação da API Edificad, voltada para a gestão da ONG Edificando Vidas. ",
+    "version": "0.0.1",
+    "contact": {
+      "name": "Repositório",
+      "url": "https://github.com/jarnunes/edificad"
+    },
+    "license": {
+      "name": "GPLv3",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://edificad-production.up.railway.app/api",
+      "description": "Produção"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Authenticar um usuário e gerar token de acesso aos endpoints",
+        "description": "Gera um token que será utilizado para acesso a todos os endpoints da API",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Autenticacao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutenticacaoResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Retornar array com usuários cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsuarioArray"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenInvalido"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Cadastrar usuário",
+        "description": "Endpoint para criação de um novo usuário. Roles aceitas ('WEBSERVICES', 'ADMIN', 'OPERATOR')",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsuarioPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado"
+          }
+        }
+      }
+    },
+    "/auth/{id}": {
+      "delete": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Remover usuário referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do usuário a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "example": "Usuário {username} removido com sucesso"
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Atualizar a senha",
+        "security": [
+          {
+            "auth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Autenticacao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "example": "Senha atualizada com sucesso"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/{email}": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Obter usuário pelo email",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Usuario"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/config": {
+      "get": {
+        "tags": [
+          "Configuração"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuracao"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Configuração"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfiguracaoPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Configuracao"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Configuração"
+        ],
+        "summary": "Atualizar entidade",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Configuracao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "example": "Configuração atualizada com sucesso"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficiario": {
+      "get": {
+        "tags": [
+          "Beneficiário"
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BeneficiarioArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Beneficiário"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BeneficiarioPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiario"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Beneficiário"
+        ],
+        "summary": "Atualizar entidade",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Beneficiario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiario"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beneficiario/{id}": {
+      "delete": {
+        "tags": [
+          "Beneficiário"
+        ],
+        "summary": "Remove um beneficiário referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do beneficiário a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cesta": {
+      "get": {
+        "tags": [
+          "Cesta"
+        ],
+        "summary": "Retornar array com os itens cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CestaArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cesta"
+        ],
+        "summary": "Cadastrar entidade",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CestaPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cesta"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "example": "Ocorreu um erro na validação do campo 'nome_campo'"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cesta"
+        ],
+        "summary": "Atualizar entidade",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cesta"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cesta/{id}": {
+      "delete": {
+        "tags": [
+          "Cesta"
+        ],
+        "summary": "Remove a cesta referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID da cesta a ser removida",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cesta"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não Autorizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TokenInvalido"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voluntario": {
+      "get": {
+        "tags": [
+          "Voluntário"
+        ],
+        "summary": "Retorna um array com todos os voluntários cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VoluntarioArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Voluntário"
+        ],
+        "summary": "Cadastro de novo voluntário",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoluntarioPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voluntario"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Erro de validação",
+            "content": {
+              "application/json": {
+                "example": "Ocorreu um erro na validação do campo 'nome_campo'"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Voluntário"
+        ],
+        "summary": "Atualizar entidade",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Voluntario"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voluntario"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/voluntario/{id}": {
+      "get": {
+        "tags": [
+          "Voluntário"
+        ],
+        "summary": "Busca um voluntário pelo ID",
+        "operationId": "getVoluntarioById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do voluntário ser retornada",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Voluntario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Voluntário"
+        ],
+        "summary": "Remove o voluntário referente ao ID do parâmetro",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do voluntário a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "example": "Voluntário {nome_pessoa} removido com sucesso"
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dependente": {
+      "get": {
+        "tags": [
+          "Dependente"
+        ],
+        "summary": "Retorna um array com todos os dependentes cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DependenteArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Dependente"
+        ],
+        "summary": "Criar um novo dependente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DependentePost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Dependente"
+        ],
+        "summary": "Atualizar entidade",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Dependente"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          }
+        }
+      }
+    },
+    "/dependente/{id}": {
+      "get": {
+        "tags": [
+          "Dependente"
+        ],
+        "summary": "Busca um dependente pelo ID",
+        "operationId": "getDependenteById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Dependente"
+        ],
+        "summary": "Remove dependente pelo ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não Encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/colaborador": {
+      "get": {
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Retorna um array com todos os dependentes cadastrados",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DependenteArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Criar um novo dependente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DependentePost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Atualizar o dependente referente ao Id do parâmetro",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Dependente"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          }
+        }
+      }
+    },
+    "/colaborador/{id}": {
+      "get": {
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Busca um colaborador pelo ID",
+        "operationId": "getColaboradorById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser retornado",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Colaborador"
+        ],
+        "summary": "Remover entidade",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do dependente a ser removido",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dependente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não Encontrado",
+            "content": {
+              "application/json": {
+                "example": "Objeto não encontrado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/distribuicao-cesta": {
+      "get": {
+        "tags": [
+          "Distribuição Cesta"
+        ],
+        "summary": "Retorna um array com todas as distribuições registradas",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DistribuicaoCestaArray"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Distribuição Cesta"
+        ],
+        "summary": "Registar nova distribuição de cesta",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DistribuicaoCestaPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DistribuicaoCesta"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Autenticacao": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "marcelo129"
+          },
+          "password": {
+            "type": "string",
+            "example": "921elorem"
+          }
+        }
+      },
+      "AutenticacaoResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJQZXJzb24iLCJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTYxOTgwODN9.HLuHYcliYR2W33RgwMqkZPlxrIX1c_H6rmSmlLcruT8"
+          }
+        }
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "locked": {
+            "type": "boolean",
+            "example": false
+          },
+          "user_roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleUsuario"
+            }
+          }
+        }
+      },
+      "UsuarioPost": {
+        "type": "object",
+        "properties": {
+          "full_name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "locked": {
+            "type": "boolean",
+            "example": false
+          },
+          "user_roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleUsuarioPost"
+            }
+          }
+        }
+      },
+      "UsuarioArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Usuario"
+        }
+      },
+      "RoleUsuario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 22
+          },
+          "role": {
+            "type": "string",
+            "example": "ADMIN"
+          }
+        }
+      },
+      "RoleUsuarioPost": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "example": "WEBSERVICES"
+          }
+        }
+      },
+      "BeneficiarioPost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "beneficiario@gmail.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000-00"
+          },
+          "telefone": {
+            "type": "string",
+            "example": "(99) 9 9999-9999"
+          },
+          "data_nascimento": {
+            "type": "string",
+            "example": "yyyy-mm-dd"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/EnderecoPost"
+          }
+        }
+      },
+      "Beneficiario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "example": "beneficiario@gmail.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000-00"
+          },
+          "telefone": {
+            "type": "string",
+            "example": "(99) 9 9999-9999"
+          },
+          "data_nascimento": {
+            "type": "string",
+            "example": "yyyy-mm-dd"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/Endereco"
+          },
+          "dependentes": {
+            "$ref": "#/components/schemas/DependenteArray"
+          }
+        }
+      },
+      "BeneficiarioArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Beneficiario"
+        }
+      },
+      "BeneficiarioDistribuicaoCesta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 999
+          },
+          "nome": {
+            "type": "string",
+            "example": "Beneficiário A"
+          },
+          "email": {
+            "type": "string",
+            "example": "beneficiario@email.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000-00"
+          },
+          "telefone": {
+            "type": "string",
+            "example": "(99) 99999-9999"
+          },
+          "data_nascimento": {
+            "type": "string",
+            "example": "yyyy-mm-dd"
+          },
+          "qtde_projetos_participado": {
+            "type": "integer",
+            "example": 5
+          }
+        }
+      },
+      "Cesta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string",
+            "example": "Cesta AB"
+          },
+          "descricao": {
+            "type": "string",
+            "example": "Destinada a familias com 4 a 6 integrantes"
+          },
+          "quantidade_estoque": {
+            "type": "integer",
+            "example": 60
+          }
+        }
+      },
+      "CestaArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Cesta"
+        }
+      },
+      "CestaPost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "descricao": {
+            "type": "string"
+          },
+          "quantidade_estoque": {
+            "type": "integer"
+          }
+        }
+      },
+      "CestaDistribuicao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 999
+          },
+          "nome": {
+            "type": "string",
+            "example": "CESTA 01"
+          }
+        }
+      },
+      "Voluntario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "nome": {
+            "type": "string",
+            "example": "Marcello Du Claro"
+          },
+          "telefone": {
+            "type": "string",
+            "minLength": 11,
+            "maxLength": 15,
+            "example": "(99) 99999-9999"
+          },
+          "email": {
+            "type": "string",
+            "example": "marcelo.duclaro@edificad.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000-00"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/Endereco"
+          }
+        }
+      },
+      "VoluntarioArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Voluntario"
+        }
+      },
+      "VoluntarioPost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Marcello Du Claro"
+          },
+          "telefone": {
+            "type": "string",
+            "minLength": 11,
+            "maxLength": 15,
+            "example": "(99) 99999-9999"
+          },
+          "email": {
+            "type": "string",
+            "example": "marcelo.duclaro@edificad.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000-00"
+          },
+          "endereco": {
+            "$ref": "#/components/schemas/EnderecoPost"
+          }
+        }
+      },
+      "VoluntarioDistribuicaoCesta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 999
+          },
+          "nome": {
+            "type": "string",
+            "example": "Voluntario A"
+          },
+          "email": {
+            "type": "string",
+            "example": "voluntario@email.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "000.000.000-00"
+          },
+          "telefone": {
+            "type": "string",
+            "example": "(99) 99999-9999"
+          },
+          "data_nascimento": {
+            "type": "string",
+            "example": "yyyy-mm-dd"
+          },
+          "qtde_projetos_participado": {
+            "type": "integer",
+            "example": 5
+          }
+        }
+      },
+      "Dependente": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "telefone": {
+            "type": "string"
+          },
+          "data_nascimento": {
+            "type": "string"
+          },
+          "id_responsavel": {
+            "type": "integer"
+          }
+        }
+      },
+      "DependenteArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Dependente"
+        }
+      },
+      "DependentePost": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "telefone": {
+            "type": "string"
+          },
+          "data_nascimento": {
+            "type": "string"
+          },
+          "id_responsavel": {
+            "type": "integer"
+          }
+        }
+      },
+      "Endereco": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "logradouro": {
+            "type": "string",
+            "example": "Rua Alvarenga Dia"
+          },
+          "numero": {
+            "type": "string",
+            "example": "952 Casa C"
+          },
+          "cep": {
+            "type": "string",
+            "example": "00000-678"
+          },
+          "bairro": {
+            "type": "string",
+            "example": "Bairro Alv"
+          },
+          "cidade": {
+            "type": "string",
+            "example": "Belo Horizonte"
+          },
+          "estado": {
+            "type": "string",
+            "example": "MG"
+          }
+        }
+      },
+      "EnderecoPost": {
+        "type": "object",
+        "properties": {
+          "logradouro": {
+            "type": "string",
+            "example": "Rua Alvarenga Dia"
+          },
+          "numero": {
+            "type": "string",
+            "example": "952 Casa C"
+          },
+          "cep": {
+            "type": "string",
+            "example": "00000-678"
+          },
+          "bairro": {
+            "type": "string",
+            "example": "Bairro Alv"
+          },
+          "cidade": {
+            "type": "string",
+            "example": "Belo Horizonte"
+          },
+          "estado": {
+            "type": "string",
+            "example": "MG"
+          }
+        }
+      },
+      "Configuracao": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "token_secret_key": {
+            "type": "string",
+            "example": "secret-key1654dketkdisies-23943929s939393kdkgjti6989493920"
+          },
+          "token_expires_at": {
+            "type": "integer",
+            "example": 120
+          }
+        }
+      },
+      "ConfiguracaoPost": {
+        "type": "object",
+        "properties": {
+          "token_secret_key": {
+            "type": "string",
+            "example": "secret-key1654dketkdisies-23943929s939393kdkgjti6989493920"
+          },
+          "token_expires_at": {
+            "type": "integer",
+            "example": 120
+          }
+        }
+      },
+      "TokenInvalido": {
+        "type": "object",
+        "properties": {
+          "cause": {
+            "type": "string",
+            "example": "Invalid token"
+          },
+          "message_error": {
+            "type": "string",
+            "example": "The Token has expired on 2023-10-16T18:43:02Z."
+          },
+          "path": {
+            "type": "string",
+            "example": "/api/cesta"
+          }
+        }
+      },
+      "DistribuicaoCesta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 999
+          },
+          "data_hora": {
+            "type": "string",
+            "example": "2023-10-27T20:36:38.150664"
+          },
+          "beneficiario": {
+            "$ref": "#/components/schemas/BeneficiarioDistribuicaoCesta"
+          },
+          "voluntario": {
+            "$ref": "#/components/schemas/VoluntarioDistribuicaoCesta"
+          },
+          "cesta": {
+            "$ref": "#/components/schemas/CestaDistribuicao"
+          }
+        }
+      },
+      "DistribuicaoCestaArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/DistribuicaoCesta"
+        }
+      },
+      "DistribuicaoCestaPost": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 999
+          },
+          "data_hora": {
+            "type": "string",
+            "example": "2023-10-27T20:36:38.150664"
+          },
+          "beneficiario": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 21
+              }
+            }
+          },
+          "voluntario": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 244
+              }
+            }
+          },
+          "cesta": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 233
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

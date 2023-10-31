@@ -19,7 +19,7 @@ public class Voluntario extends Pessoa {
     @Serial
     private static final long serialVersionUID = 6305563136938823147L;
 
-    private Integer numeroProjetosParticipados;
+    private Integer numeroProjetosParticipados = 0;
 
     @JsonIgnore
     @OneToMany(mappedBy = "voluntario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

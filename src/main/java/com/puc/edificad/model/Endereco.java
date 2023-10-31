@@ -24,11 +24,14 @@ public class Endereco extends BaseEntity {
     @Column(length = 14)
     private String cep;
 
+    @Column(length = 100)
     private String bairro;
 
+    @Column(length = 50)
     private String cidade;
 
     @Enumerated(EnumType.STRING)
+    @Column(length = 2, nullable = false)
     private Estado estado = Estado.MG;
 
 
