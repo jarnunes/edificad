@@ -59,7 +59,7 @@ spring:
             database:
               action: none
             scripts:
-              action: create # values: create or drop
+              action: drop # values: create or drop
               create-target: database/postgress/schema-create.sql
               drop-target: database/postgress/schema-drop.sql
 ---

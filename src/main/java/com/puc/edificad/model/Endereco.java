@@ -34,5 +34,4 @@ public class Endereco extends BaseEntity {
     @Column(length = 2, nullable = false)
     private Estado estado = Estado.MG;
 
-
 }
