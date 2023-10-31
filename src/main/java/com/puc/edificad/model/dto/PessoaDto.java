@@ -1,23 +1,27 @@
-package com.puc.edificad.services.dto;
+package com.puc.edificad.model.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.puc.edificad.model.Pessoa;
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class DependenteDto extends PessoaDto {
-
+public class PessoaDto implements Serializable {
     @Serial
-    private static final long serialVersionUID = 1033999706531398559L;
-
-    @JsonProperty(required = true)
-    private Long idResponsavel;
+    private static final long serialVersionUID = 9135775622911235075L;
+    private Long id;
+    private String nome;
+    private String email;
+    private String cpf;
+    private String telefone;
+    private LocalDate dataNascimento;
 
     public void copy(Pessoa entity){
         this.setId(entity.getId());

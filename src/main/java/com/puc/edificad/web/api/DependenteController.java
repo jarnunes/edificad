@@ -5,7 +5,7 @@ import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.BaseEntity;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.services.DependenteService;
-import com.puc.edificad.services.dto.DependenteDto;
+import com.puc.edificad.model.dto.DependenteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

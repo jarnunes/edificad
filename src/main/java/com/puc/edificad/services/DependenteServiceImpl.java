@@ -2,7 +2,7 @@ package com.puc.edificad.services;
 
 import com.puc.edificad.mapper.DependenteMapper;
 import com.puc.edificad.model.Dependente;
-import com.puc.edificad.services.dto.DependenteDto;
+import com.puc.edificad.model.dto.DependenteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

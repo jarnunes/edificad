@@ -1,14 +1,10 @@
 package com.puc.edificad.web.api;
 
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
-import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.BaseEntity;
-import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.DistribuicaoCesta;
-import com.puc.edificad.services.DependenteService;
 import com.puc.edificad.services.DistribuicaoCestaService;
-import com.puc.edificad.services.dto.DependenteDto;
-import com.puc.edificad.services.dto.DistribuicaoCestaDto;
+import com.puc.edificad.model.dto.DistribuicaoCestaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +23,8 @@ public class DistribuicaoCestaController extends BaseController{
     }
 
     @GetMapping
-    public List<DistribuicaoCesta> listAll() {
-        return service.findAll();
+    public List<DistribuicaoCestaDto> listAll() {
+        return service.findAllDto();
     }
 
     @PostMapping
@@ -47,7 +43,7 @@ public class DistribuicaoCestaController extends BaseController{
         Optional<DistribuicaoCesta> entity = service.findById(id);
         entity.map(BaseEntity::getId).ifPresent(service::deleteById);
 
-        return entity.map(DistribuicaoCesta::getId).map(nome -> msg.get("dependente.success.remove", nome))
+        return entity.map(DistribuicaoCesta::getId).map(nome -> msg.get("distribuicao.cesta.remove", nome))
                 .orElseThrow(EntityNotFoundException::notFoundForId);
     }
 }

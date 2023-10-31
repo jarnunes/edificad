@@ -19,15 +19,15 @@ public class DistribuicaoCesta extends BaseEntity {
     private static final long serialVersionUID = 3705931356023443175L;
     private LocalDateTime dataHora;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "beneficiario_fk")
     private Beneficiario beneficiario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "voluntario_fk")
     private Voluntario voluntario;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "cesta_fk")
     private Cesta cesta;
 

@@ -1,6 +1,7 @@
-package com.puc.edificad.services.dto;
+package com.puc.edificad.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,19 +13,22 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class DistribuicaoCestaDto implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4275329005901651001L;
 
-    @JsonProperty(required = true)
-    private Long idVoluntario;
+    private Long id;
 
     @JsonProperty(required = true)
-    private Long idBeneficiario;
+    private VoluntarioDto voluntario;
 
     @JsonProperty(required = true)
-    private Long idCesta;
+    private BeneficiarioDto beneficiario;
+
+    @JsonProperty(required = true)
+    private CestaDto cesta;
 
     @JsonProperty(required = true)
     private LocalDateTime dataHora;

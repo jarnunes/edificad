@@ -1,7 +1,7 @@
 package com.puc.edificad.services;
 
 import com.puc.edificad.model.Dependente;
-import com.puc.edificad.services.dto.DependenteDto;
+import com.puc.edificad.model.dto.DependenteDto;
 
 import java.util.List;
 
