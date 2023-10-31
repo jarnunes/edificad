@@ -1,5 +1,8 @@
 server:
   port: 5000
+  max-http-request-header-size: 102400
+
+
 
 spring:
   datasource:

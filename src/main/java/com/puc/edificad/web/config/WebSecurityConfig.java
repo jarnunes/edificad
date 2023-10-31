@@ -5,8 +5,6 @@ import com.puc.edificad.web.handlers.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,9 +15,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
+import java.util.Arrays;
 
 import static org.springframework.http.HttpMethod.*;
 
@@ -61,6 +62,7 @@ public class WebSecurityConfig {
                 .addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(handler -> handler.authenticationEntryPoint(new ApiAuthenticationEntryPoint()))
                 .exceptionHandling(handler -> handler.accessDeniedHandler(new CustomAccessDeniedHandler()))
+                .cors(AbstractHttpConfigurer::disable) //TODO: Habilitar posteriormente e configurar corretamente
                 .build();
     }
 
@@ -81,15 +83,12 @@ public class WebSecurityConfig {
 
 
     @Bean
-    public WebMvcConfigurer corsConfig(){
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("*") //TODO: Revisar para restringir e deixar apenas o necessário.
-                        .allowedMethods(GET.name(), POST.name(), PUT.name(), DELETE.name())
-                        .allowedHeaders("*");
-            }
-        };
+    CorsConfigurationSource corsConfigurationSourceInstance() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS",  "HEAD", "TRACE", "CONNECT"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
