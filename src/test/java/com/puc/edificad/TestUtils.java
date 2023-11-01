@@ -31,4 +31,7 @@ public class TestUtils {
             throw new RuntimeException(e);
         }
     }
+    public static String getBearerToken(MockMvc mockMvc){
+        return "Bearer " + getToken(mockMvc);
+    }
 }

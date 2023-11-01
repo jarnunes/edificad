@@ -2,8 +2,6 @@ server:
   port: 5000
   max-http-request-header-size: 102400
 
-
-
 spring:
   datasource:
     url: jdbc:postgresql://edificad.com:5432/java?currentSchema=edificad
