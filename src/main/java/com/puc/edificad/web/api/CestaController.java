@@ -27,8 +27,8 @@ public class CestaController extends BaseController {
     }
 
     @GetMapping
-    public List<Cesta> list() {
-        return service.findAll();
+    public List<Cesta> list(@RequestParam(required = false) Long id, @RequestParam(required = false) String nome) {
+        return service.findByIdNome(id, nome);
     }
 
     @PostMapping

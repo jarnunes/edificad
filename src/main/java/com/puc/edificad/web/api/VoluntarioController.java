@@ -3,23 +3,17 @@ package com.puc.edificad.web.api;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.BaseEntity;
-import com.puc.edificad.model.Cesta;
-import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.Voluntario;
 import com.puc.edificad.services.VoluntarioService;
-import com.puc.edificad.web.response.BaseResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.notFound;
-
 @RestController
 @RequestMapping("/voluntario")
-public class VoluntarioController extends BaseController{
+public class VoluntarioController extends BaseController {
 
     private VoluntarioService service;
 
@@ -29,8 +23,9 @@ public class VoluntarioController extends BaseController{
     }
 
     @GetMapping
-    public List<Voluntario> listAll() {
-        return service.findAll();
+    public List<Voluntario> list(@RequestParam(required = false) Long id, @RequestParam(required = false) String cpf,
+        @RequestParam(required = false) String nome) {
+        return service.findByIdNomeCpf(id, cpf, nome);
     }
 
     @PostMapping
@@ -40,13 +35,13 @@ public class VoluntarioController extends BaseController{
     }
 
     @PutMapping
-    public Voluntario update(@RequestBody Voluntario voluntario){
+    public Voluntario update(@RequestBody Voluntario voluntario) {
         ValidationUtils.validateNonNull(voluntario::getId, "entity.id.not.null");
         return service.update(voluntario);
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id) {
         Optional<Voluntario> entity = service.findById(id);
         entity.map(BaseEntity::getId).ifPresent(service::deleteById);
 

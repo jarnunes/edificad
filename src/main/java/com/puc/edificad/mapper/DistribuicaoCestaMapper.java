@@ -57,7 +57,7 @@ public class DistribuicaoCestaMapper {
         return dto;
     }
 
-    public List<DistribuicaoCestaDto> doDtoList(List<DistribuicaoCesta> entities) {
+    public List<DistribuicaoCestaDto> toDtoList(List<DistribuicaoCesta> entities) {
         return entities.stream().map(this::toDto).toList();
     }
 

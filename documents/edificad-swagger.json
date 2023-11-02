@@ -17,6 +17,10 @@
     {
       "url": "https://edificad-production.up.railway.app/api",
       "description": "Produção"
+    },
+    {
+      "url": "http://edificad.com:5000/api",
+      "description": "Desenvolvimento"
     }
   ],
   "paths": {
@@ -286,6 +290,29 @@
         "tags": [
           "Beneficiário"
         ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Sucesso",
@@ -398,6 +425,22 @@
           "Cesta"
         ],
         "summary": "Retornar array com os itens cadastrados",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Sucesso",
@@ -528,7 +571,30 @@
         "tags": [
           "Voluntário"
         ],
-        "summary": "Retorna um array com todos os voluntários cadastrados",
+        "summary": "Retorna um array com os voluntários cadastrados",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "nome",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpf",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Sucesso",
@@ -824,156 +890,45 @@
         }
       }
     },
-    "/colaborador": {
-      "get": {
-        "tags": [
-          "Colaborador"
-        ],
-        "summary": "Retorna um array com todos os dependentes cadastrados",
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DependenteArray"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Colaborador"
-        ],
-        "summary": "Criar um novo dependente",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DependentePost"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dependente"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Colaborador"
-        ],
-        "summary": "Atualizar o dependente referente ao Id do parâmetro",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Dependente"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Sucesso"
-          }
-        }
-      }
-    },
-    "/colaborador/{id}": {
-      "get": {
-        "tags": [
-          "Colaborador"
-        ],
-        "summary": "Busca um colaborador pelo ID",
-        "operationId": "getColaboradorById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID do dependente a ser retornado",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dependente"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Não encontrado",
-            "content": {
-              "application/json": {
-                "example": "Objeto não encontrado"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Colaborador"
-        ],
-        "summary": "Remover entidade",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID do dependente a ser removido",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Sucesso",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Dependente"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Não Encontrado",
-            "content": {
-              "application/json": {
-                "example": "Objeto não encontrado"
-              }
-            }
-          }
-        }
-      }
-    },
     "/distribuicao-cesta": {
       "get": {
         "tags": [
           "Distribuição Cesta"
         ],
         "summary": "Retorna um array com todas as distribuições registradas",
+        "parameters": [
+          {
+            "name": "cesta",
+            "in": "query",
+            "description": "Nome da cesta",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpfBeneficiario",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cpfVoluntario",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "data",
+            "in": "query",
+            "description": "Data de distribuição da cesta",
+            "schema": {
+              "type": "string",
+              "example": "2023-10-28"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Sucesso",

@@ -24,8 +24,9 @@ public class BeneficiarioController extends BaseController {
     }
 
     @GetMapping
-    List<Beneficiario> list() {
-        return service.findAll();
+    List<Beneficiario> list(@RequestParam(required = false) Long id,@RequestParam(required = false) String nome,
+        @RequestParam(required = false) String cpf) {
+        return service.findByIdNomeCpf(id, nome, cpf);
     }
 
     @PostMapping

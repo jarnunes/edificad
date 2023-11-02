@@ -3,11 +3,12 @@ package com.puc.edificad.web.api;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.model.BaseEntity;
 import com.puc.edificad.model.DistribuicaoCesta;
-import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.model.dto.DistribuicaoCestaDto;
+import com.puc.edificad.services.DistribuicaoCestaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,14 +24,15 @@ public class DistribuicaoCestaController extends BaseController{
     }
 
     @GetMapping
-    public List<DistribuicaoCestaDto> listAll() {
-        return service.findAllDto();
+    public List<DistribuicaoCestaDto> findBy(@RequestParam(required = false) String cesta,
+        @RequestParam(required = false) String cpfBeneficiario, @RequestParam(required = false) String cpfVoluntario,
+        @RequestParam(required = false) LocalDate data) {
+        return service.findBy(cesta, cpfBeneficiario, cpfVoluntario, data);
     }
 
     @PostMapping
     public DistribuicaoCestaDto create(@RequestBody DistribuicaoCestaDto dto) {
-        service.save(dto);
-        return dto;
+        return service.save(dto);
     }
 
     @PutMapping

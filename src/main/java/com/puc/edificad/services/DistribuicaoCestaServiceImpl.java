@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @Transactional
 public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCesta> implements DistribuicaoCestaService {
 
+    private DistribuicaoCestaRepository repository;
     private DistribuicaoCestaMapper distribuicaoCestaMapper;
 
     @Autowired
@@ -21,12 +23,16 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
     }
 
 
+    @Autowired
+    public void setRepository(DistribuicaoCestaRepository repositoryIn) {
+        this.repository = repositoryIn;
+    }
+
     @Override
     public DistribuicaoCestaDto save(DistribuicaoCestaDto dto) {
         DistribuicaoCesta entity = distribuicaoCestaMapper.toEntity(dto);
         super.save(entity);
-        dto.setId(entity.getId());
-        return dto;
+        return distribuicaoCestaMapper.toDto(entity);
     }
 
     @Override
@@ -37,6 +43,13 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
 
     @Override
     public List<DistribuicaoCestaDto> findAllDto() {
-        return distribuicaoCestaMapper.doDtoList(super.findAll());
+        return distribuicaoCestaMapper.toDtoList(super.findAll());
+    }
+
+    @Override
+    public List<DistribuicaoCestaDto> findBy(String cesta, String cpfBeneficiario, String cpfVoluntario, LocalDate data) {
+        List<DistribuicaoCesta> entities = repository.findByCestaBeneficiarioVoluntarioData(cesta, cpfBeneficiario,
+                cpfVoluntario, data);
+        return distribuicaoCestaMapper.toDtoList(entities);
     }
 }
