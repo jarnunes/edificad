@@ -19,10 +19,10 @@ public class ObjMotherBeneficiario extends ObjMotherBase {
     public static Beneficiario criarBeneficiarioComIndice(Integer i) {
         return new BeneficiarioBuilder()
                 .comNome("BENEFICIARIO - " + i)
-                .comCPF("3030450670" + i)
-                .comEmail("beneficiario" + i + "@gmail.com")
+                .comCPF("2030450670" + i)
+                .comEmail("beneficiario_test" + i + "@gmail.com")
                 .comDataNascimento(LocalDate.of(1996, 12, 1))
-                .comEndereco(null)
+                .comEndereco(ObjMotherEndereco.criar())
                 .build();
     }
 

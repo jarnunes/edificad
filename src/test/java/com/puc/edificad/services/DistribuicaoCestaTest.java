@@ -69,7 +69,7 @@ public class DistribuicaoCestaTest {
         entity.setCesta(cestaDto);
 
         distribuicaoCestaService.save(entity);
-        assertNotNull(entity.getId());
+        assertNotNull(distribuicaoCestaService.save(entity).getId());
     }
 
     private DistribuicaoCesta criarDistribuicaoCesta() {

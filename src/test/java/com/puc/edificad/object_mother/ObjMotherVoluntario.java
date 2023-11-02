@@ -1,6 +1,7 @@
 package com.puc.edificad.object_mother;
 
 import com.puc.edificad.builder.VoluntarioBuilder;
+import com.puc.edificad.commons.utils.JsonUtils;
 import com.puc.edificad.model.Voluntario;
 
 import java.time.LocalDate;
@@ -10,6 +11,10 @@ public class ObjMotherVoluntario extends ObjMotherBase {
 
     public static Voluntario criar() {
         return criar(1);
+    }
+
+    public static String criarJson(){
+        return JsonUtils.toJsonString(criar());
     }
 
     public static List<Voluntario> criarLista() {
@@ -23,7 +28,8 @@ public class ObjMotherVoluntario extends ObjMotherBase {
                 .comCPF("3030450670" + i)
                 .comEmail("voluntario" + i + "@gmail.com")
                 .comDataNascimento(LocalDate.of(1996, 12, i + 1))
-                .comEndereco(null)
+                .comTelefone("(13) 99999-999"+i)
+                .comEndereco(ObjMotherEndereco.criar())
                 .build();
     }
 

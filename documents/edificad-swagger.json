@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Edificad API",
-    "description": "Espeicificação da API Edificad, voltada para a gestão da ONG Edificando Vidas. ",
+    "description": "Especificação da API Edificad, voltada para a gestão da ONG Edificando Vidas. ",
     "version": "0.0.1",
     "contact": {
       "name": "Repositório",

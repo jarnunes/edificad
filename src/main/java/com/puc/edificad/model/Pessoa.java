@@ -26,7 +26,7 @@ public abstract class Pessoa extends BaseEntity {
     @Column(unique = true, length = 14)
     private String cpf;
 
-    @Column(unique = true, length = 15)
+    @Column(unique = true, length = 16)
     private String telefone;
 
     private LocalDate dataNascimento;

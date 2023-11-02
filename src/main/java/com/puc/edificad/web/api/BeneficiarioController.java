@@ -47,7 +47,7 @@ public class BeneficiarioController extends BaseController {
         Optional<Beneficiario> beneficiario = service.findById(id);
         beneficiario.map(Beneficiario::getId).ifPresent(service::deleteById);
 
-        return beneficiario.map(Beneficiario::getNome).map(nome -> msg.get("beneficiario.sucess.remove", nome))
+        return beneficiario.map(Beneficiario::getNome).map(nome -> msg.get("beneficiario.success.remove", nome))
                 .orElseThrow(EntityNotFoundException::notFoundForId);
     }
 
