@@ -103,8 +103,8 @@ public class DashboardController {
     private CardDto criarCardQuantidadeEstoque() {
         CardDto card = new CardDto();
         card.setTitle("Cestas em Estoque");
-        card.setClassColor("card-green");
-        card.setIcon("bi bi-journals");
+        card.setClassColor("card-cian");
+        card.setIcon("bi-database-exclamation");
         card.setCount(cestaService.findAll().stream().map(Cesta::getQuantidadeEstoque).reduce(Integer::sum).orElse(0));
         return card;
     }
@@ -113,7 +113,7 @@ public class DashboardController {
         CardDto card = new CardDto();
         card.setTitle("Quantidade Distribuída");
         card.setClassColor("card-green");
-        card.setIcon("bi bi-journals");
+        card.setIcon("bi-basket2");
         card.setCount(resumo.getCestasDistribuidas());
         return card;
     }
@@ -121,8 +121,8 @@ public class DashboardController {
     private CardDto criarCardQuantidadeBeneficiariosAssistidos(ResumoDistribuicaoCestaDto resumo) {
         CardDto card = new CardDto();
         card.setTitle("Beneficiários Assistidos");
-        card.setClassColor("card-green");
-        card.setIcon("bi bi-journals");
+        card.setClassColor("card-red");
+        card.setIcon("bi-person-hearts");
         card.setCount(resumo.getBeneficiariosAssistidos());
         return card;
     }

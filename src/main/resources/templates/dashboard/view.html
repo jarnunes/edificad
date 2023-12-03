@@ -10,21 +10,11 @@
 <div layout:fragment="content">
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 cards-dashboard">
-        <div class="col" th:each="card : ${cards}">
-            <div class="card">
-                <div class="card-body">
-                    <i th:class="${card.icon + ' ' + card.classColor}"></i>
-                    <div>
-                        <h3 th:text="${card.count}"></h3>
-                        <span th:text="${card.title}"></span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div th:replace="~{dashboard/cards}"></div>
 
-        <div th:replace="~{dashboard/chart-cestas-entregues}" ></div>
-        <div th:replace="~{dashboard/chart-beneficiarios-assistidos}" ></div>
-        <div th:replace="~{dashboard/chart-estoque-por-tipo-cesta}" ></div>
+        <div th:replace="~{dashboard/chart-cestas-entregues}"></div>
+        <div th:replace="~{dashboard/chart-beneficiarios-assistidos}"></div>
+        <div th:replace="~{dashboard/chart-estoque-por-tipo-cesta}"></div>
 
     </div>
 

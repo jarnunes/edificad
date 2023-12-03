@@ -1,0 +1,11 @@
+<div class="col" th:each="card : ${cards}">
+    <div class="card">
+        <div class="card-body position-relative w-100">
+            <h1 th:class="${card.classColor}" th:text="${card.count}"></h1>
+            <span class="d-block" th:text="${card.title}"></span>
+            <div class="position-absolute end-0 top-0 h-100 w-100 d-flex align-items-center justify-content-end">
+                <i th:class="${'bi ' + card.icon + ' ' + card.classColor + ' fw-bold'}" style="font-size: 50px"></i>
+            </div>
+        </div>
+    </div>
+</div>

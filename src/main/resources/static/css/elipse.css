@@ -12016,25 +12016,26 @@ div.cards-dashboard .card {
   box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
 }
 
-.cards-dashboard .card .card-body:nth-child(1) i {
-  background-color: #DB7093FF;
+.card-pink {
+  color: #DB7093FF;
 }
 
-.cards-dashboard .col .card .card-body:nth-child(2) i {
-  background-color: #70DBDBFF;
+.card-cian {
+  color: #70DBDBFF;
 }
 
-.card .card-body:nth-child(3) i {
-  background-color: #C75C5CFF;
+.card-red {
+  color: #C75C5CFF;
 }
 
-.card .card-body:nth-child(4) i {
-  background-color: #7EDB70FF;
+.card-green {
+  color: #7EDB70FF; !important;
 }
 
-.card .card-body:nth-child(5) i {
-  background-color: #9a6775;
+.card-grey {
+  color: #9a6775;
 }
+
 
 .card .card-body {
   background-color: #fff;
@@ -12050,7 +12051,7 @@ div.cards-dashboard .card {
   line-height: 60px;
   border-radius: 50%;
   text-align: center;
-  color: #fff;
+  /*color: #fff;*/
   margin-right: 15px;
 }
 
@@ -12217,124 +12218,7 @@ table.ec-table .people {
 }
 
 /******************** end of tables style ********************/
-/******************** begin of GRID WeekDays ********************/
-div.ec-grid-weekday {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-areas: "header header header header header header header" "weekday weekday weekday weekday weekday weekday weekday" "time time time time time time time ";
-  overflow: auto;
-}
 
-div.grid-weekday {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-gap: 5px;
-}
-
-.header,
-.weekday-column,
-.time {
-  display: grid;
-  grid-column: 1/7;
-  grid-template-columns: repeat(7, minmax(80px, 1fr));
-  gap: 0.5em;
-}
-
-.header > div,
-.weekday-column > div,
-.time > div {
-  text-align: center;
-  padding: 20px 0;
-  font-size: 30px;
-}
-
-.header {
-  grid-area: header;
-}
-
-.weekday-column {
-  grid-area: weekday;
-}
-
-.time {
-  grid-area: time;
-}
-
-.wk-col-1 {
-  grid-column: 1;
-}
-
-.wk-col-2 {
-  grid-column: 2;
-}
-
-.wk-col-3 {
-  grid-column: 3;
-}
-
-.wk-col-4 {
-  grid-column: 4;
-}
-
-.wk-col-5 {
-  grid-column: 5;
-}
-
-.wk-col-6 {
-  grid-column: 6;
-}
-
-.wk-col-7 {
-  grid-column: 7;
-}
-
-.wk-col-all {
-  grid-column: 1/-1;
-}
-
-.time {
-  padding: 0;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 5px 0;
-  background-color: rgba(217, 217, 217, 0.62);
-}
-
-.time:hover {
-  background-color: #2196F3;
-  cursor: pointer;
-}
-
-.selected-time {
-  background-color: #2196F3;
-}
-
-.time input[type=checkbox],
-.weekday input[type=checkbox] {
-  display: none;
-}
-
-/* weekday **/
-.weekday {
-  background-color: #b5b5b5;
-  padding: 0.4em;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.weekday:hover {
-  background-color: #868686;
-  cursor: pointer;
-}
-
-.selected-weekday {
-  background-color: #868686;
-}
 
 /******************** end of GRID WeekDays ********************/
 input[type=time]::-webkit-calendar-picker-indicator {
