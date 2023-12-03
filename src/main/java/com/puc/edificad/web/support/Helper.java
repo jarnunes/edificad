@@ -3,13 +3,16 @@ package com.puc.edificad.web.support;
 
 import com.puc.edificad.commons.utils.DateTimeUtils;
 import com.puc.edificad.model.BaseEntity;
+import com.puc.edificad.model.edsuser.User;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -36,4 +39,16 @@ public class Helper {
         return DateTimeUtils.formatter(dateTime);
     }
 
+    public String authenticatedUserReduceFullName(){
+        return Optional.of(SecurityContextHolder.getContext()).map(SecurityContext::getAuthentication)
+                .map(Authentication::getPrincipal).map(it -> (User)it).map(User::getFullName)
+                .map(this::reduceFullName).orElse("NUL");
+    }
+
+    private String reduceFullName(String fullName){
+        String[] splitName = fullName.split("\\s+");
+
+        return String.join("", Arrays.stream(splitName).filter(StringUtils::isNotEmpty).map(it -> it.charAt(0))
+                     .map(String::valueOf).toList().subList(0, 2));
+    }
 }
