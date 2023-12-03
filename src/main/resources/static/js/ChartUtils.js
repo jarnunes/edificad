@@ -96,7 +96,8 @@ class ChartUtils {
                 },
                 datalabels: {
                     anchor: 'center',
-                    align: 'top'
+                    align: 'center',
+                    offset: 'center'
                 }
             }
         }
