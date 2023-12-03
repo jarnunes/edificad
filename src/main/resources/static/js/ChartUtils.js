@@ -104,6 +104,11 @@ class ChartUtils {
 
     static getLineChartOptions(displayTitle, title) {
         return {
+            layout: {
+                padding: {
+                    top: 30
+                }
+            },
             scales: {
                 y: {
                     display: false,
