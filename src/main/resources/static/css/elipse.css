@@ -11853,7 +11853,7 @@ body {
   display: flex;
   align-items: center;
   color: #fff;
-  padding: 0 0 0 30px;
+  padding: 10px;
 }
 
 #menu div.logo i {
@@ -11863,7 +11863,7 @@ body {
 }
 
 #menu div.items {
-  margin-top: 40px;
+  margin-top: 5px;
 }
 
 #menu .items li {
@@ -11972,8 +11972,9 @@ body {
   }
 
   #menu .items li a span,
-#menu .logo h2,
-#menu .logo .h2 {
+  #menu .logo h2,
+  #menu .logo .h2
+  {
     display: none;
     transition: 0s;
     opacity: 0;

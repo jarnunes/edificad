@@ -95,7 +95,7 @@ class ChartUtils {
                     position: 'bottom'
                 },
                 datalabels: {
-                    anchor: 'end',
+                    anchor: 'center',
                     align: 'top'
                 }
             }

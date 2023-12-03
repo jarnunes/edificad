@@ -1,10 +1,10 @@
-<div class="col" th:fragment="chartcestasentregues">
-    <div class="card d-flex align-items-center justify-content-center">
+<div class="col overflow-hidden" >
+    <div class="card d-flex align-items-center justify-content-center user-select-none">
         <div class="card-header col-12 bg-white text-center border-bottom-0">
-            <span class="col-12">CESTAS EM ESTOQUE</span>
+            <span class="col-12 text-secondary">CESTAS EM ESTOQUE</span>
         </div>
         <div class="card-body ">
-            <canvas id="resumoEstoquePorTipoCesta" height="250" width="250"></canvas>
+            <canvas id="resumoEstoquePorTipoCesta" height="250" width="250" ></canvas>
             <script th:inline="javascript">
 
                 let chartCestasEmEstoqueJSON = /*[(${chartCestasEmEstoque})]*/ [];
