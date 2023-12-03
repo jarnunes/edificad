@@ -16,3 +16,80 @@ spring:
       idle-timeout: 60000
       validation-timeout: 3000
       initialization-fail-timeout: 5000
+
+edificad:
+  web:
+    index:
+      path: index
+
+
+logging:
+  file:
+    name: 'logs/Edificad.log'
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: debug
+
+  logback:
+    rollingpolicy:
+      max-history: 60
+      max-file-size: 10MB
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: generate-db-scripts
+  datasource:
+    url: ${edificad.dburl}
+    username: ${edificad.dbusername}
+    password: ${edificad.dbpassword}
+
+  jpa:
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            database:
+              action: none
+            scripts:
+              action: create # values: create or drop
+              create-target: database/postgress/schema-create.sql
+              drop-target: database/postgress/schema-drop.sql
+---
+
+spring:
+  config:
+    activate:
+      on-profile: unit-test
+  datasource:
+    url: ${edificad.dburl}
+    username: ${edificad.dbusername}
+    password: ${edificad.dbpassword}
+
+logging:
+  level:
+    org.hibernate.SQL: fatal
+    org.hibernate.type: fatal
+    org.springframework: warn
+    org.springframework.security: warn
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    url: ${edificad.dburl}
+    username: ${edificad.dbusername}
+    password: ${edificad.dbpassword}
+
+logging:
+  level:
+    org.hibernate.SQL: fatal
+    org.hibernate.type: fatal
+    org.springframework: warn
+    org.springframework.security: warn

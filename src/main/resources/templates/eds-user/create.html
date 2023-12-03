@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+<body>
+
+<span layout:fragment="title" th:text="${entity.id == null ? 'Cadastro Colaborador' : 'Edição Colaborador'}"></span>
+<div layout:fragment="content">
+
+    <div class="card-container overflow-hidden">
+        <form id="entityForm" method="POST" th:action="@{/eds-user/save}" th:object="${entity}">
+            <input type="hidden" id="id" name="course" th:field="*{id}"/>
+            <div class="ec-table-toolbar">
+                <div class="ec-table-toolbar-actions">
+                    <a class="btn btn-secondary opacity-75" th:href="@{/eds-user}" role="button">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                    <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
+
+                    <span th:if="${entity.id != null}">
+                        <a class="btn btn-primary create-module" role="button" th:href="@{/eds-user/update-pwd(code=${id})}">
+                        <i class="bi bi-plus-lg"></i>
+                        <span class="btn-label">Redefinir Senha</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="ec-fields-container">
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <label for="fullName">Nome Completo</label>
+                        <input type="text" class="form-control" id="fullName" autofocus="autofocus"
+                               th:field="*{fullName} " required/>
+                    </div>
+                    <div class="col">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username"
+                               th:field="*{username} " required/>
+                    </div>
+                    <div class="col">
+                        <label for="email">E-mail</label>
+                        <input type="text" class="form-control" id="email"
+                               th:field="*{email}" required/>
+                    </div>
+                    <div class="col">
+                        <label for="cesta">Perfil</label>
+                        <div class="input-group mb-3">
+                            <select id="cesta" class="form-control" th:field="*{role}" required>
+                                <option value="">Selecione um item</option>
+                                <option th:each="role : ${roleList}" th:value="${role.name()}"
+                                        th:text="${role.value}"></option>
+                            </select>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                                    href="#novaCategoria">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="enabled"
+                                   th:field="*{enabled}" checked>
+                            <label class="form-check-label" for="enabled">Habilitado</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+
+</div>
+</body>

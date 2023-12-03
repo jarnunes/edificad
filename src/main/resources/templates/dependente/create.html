@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+<body>
+
+<span layout:fragment="title" th:text="${@helper.getOperation(entity)}"></span>
+<div layout:fragment="content">
+
+    <div class="card-container overflow-hidden">
+        <form id="entityForm" method="POST" th:action="@{/dependente/save}" th:object="${entity}">
+            <input type="hidden" id="id" name="course" th:field="*{id}"/>
+            <div class="ec-table-toolbar">
+                <div class="ec-table-toolbar-actions">
+                    <a class="btn btn-secondary opacity-75" th:href="@{/beneficiario/update/{id} (id=${entity.responsavel.id})}" role="button">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                    <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
+                </div>
+            </div>
+
+            <div class="ec-fields-container">
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <label for="responsavel">Responsável</label>
+                        <input type="hidden" name="idResponsavel" th:field="*{responsavel.id}"/>
+
+                        <input type="text" class="form-control" id="responsavel" readonly
+                               th:field="*{responsavel.nome} "/>
+                    </div>
+                    <div class="col">
+                        <label for="title">Nome</label>
+                        <input type="text" class="form-control" id="title" autofocus="autofocus"
+                               th:field="*{nome}" required/>
+                    </div>
+                    <div class="col">
+                        <label for="email">E-mail</label>
+                        <input type="text" class="form-control" id="email"
+                               th:field="*{email}" required/>
+                    </div>
+                    <div class="col">
+                        <label for="cpf">CPF</label>
+                        <input type="text" class="form-control cpf-mask" id="cpf" th:field="*{cpf}" maxlength="14"/>
+                    </div>
+                    <div class="col">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control phone-mask" id="telefone" th:field="*{telefone}" maxlength="15" />
+                    </div>
+                    <div class="col">
+                        <label for="dataNascimento">Data de nascimento</label>
+                        <input type="date" class="form-control" id="dataNascimento"
+                               th:field="*{dataNascimento}" required/>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+
+</div>
+</body>

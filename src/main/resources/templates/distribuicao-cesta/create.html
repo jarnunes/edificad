@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+<body>
+
+<span layout:fragment="title" th:text="${@helper.getOperation(entity)}"></span>
+<div layout:fragment="content">
+
+    <div class="card-container overflow-hidden">
+        <form id="entityForm" method="POST" th:action="@{/distribuicao-cesta/save}" th:object="${entity}">
+            <input type="hidden" id="id" name="course" th:field="*{id}"/>
+            <div class="ec-table-toolbar">
+                <div class="ec-table-toolbar-actions">
+                    <a class="btn btn-secondary opacity-75" th:href="@{/distribuicao-cesta}" role="button">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                    <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
+                </div>
+            </div>
+
+            <div class="ec-fields-container">
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <label for="beneficiario">Beneficiário</label>
+                        <div class="input-group mb-3">
+                            <select id="beneficiario" class="form-control" th:field="*{beneficiario}">
+                                <option value="">Select one item</option>
+                                <option th:each="beneficiario : ${beneficiarioList}" th:value="${beneficiario.id}"
+                                        th:text="${beneficiario.nome}"></option>
+                            </select>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                                    href="#novaCategoria">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="cesta">Cesta</label>
+                        <div class="input-group mb-3">
+                            <select id="cesta" class="form-control" th:field="*{cesta}">
+                                <option value="">Selecione um item</option>
+                                <option th:each="cesta : ${cestaList}" th:value="${cesta.id}"
+                                        th:text="${cesta.nome}"></option>
+                            </select>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                                    href="#novaCategoria">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="voluntario">Voluntário</label>
+                        <div class="input-group mb-3">
+                            <select id="voluntario" class="form-control" th:field="*{voluntario}">
+                                <option value="">Selecione um item</option>
+                                <option th:each="voluntario : ${voluntarioList}" th:value="${voluntario.id}"
+                                        th:text="${voluntario.nome}"></option>
+                            </select>
+                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
+                                    href="#novaCategoria">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label for="dataEntrega">Entrega</label>
+                        <input type="datetime-local" class="form-control" id="dataEntrega" th:field="*{dataHora}" required/>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+
+</div>
+</body>

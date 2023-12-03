@@ -1,0 +1,15 @@
+<div class="dropdown d-inline" th:fragment="importcsv">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Import File
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" th:href="${href}">CSV Template</a></li>
+        <li>
+            <span class="dropdown-item select-file" style="cursor: pointer">Import File</span>
+            <form th:action="${action}" method="post" enctype="multipart/form-data" class="d-inline">
+                <button class="submit-file d-none" type="submit"></button>
+                <input class="input-file d-none" type="file" name="file" accept=".csv">
+            </form>
+        </li>
+    </ul>
+</div>

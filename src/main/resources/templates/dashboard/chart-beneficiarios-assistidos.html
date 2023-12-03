@@ -1,0 +1,14 @@
+<div class="col" th:fragment="chartcestasentregues">
+    <div class="card">
+        <canvas id="resumoBeneficiariosAssistidos" width="400" height="400"></canvas>
+        <script th:inline="javascript">
+
+            let chartBeneficiariosAssistidosJSON = /*[(${chartBeneficiariosAssistidos})]*/ [];
+            new Chart(document.getElementById('resumoBeneficiariosAssistidos'), {
+                type: 'line',
+                data: ChartUtils.jsonToLineChartData(chartBeneficiariosAssistidosJSON),
+                options: ChartUtils.getLineChartOptions('BENEFICIÁRIOS ASSISTIDOS POR MÊS')
+            });
+        </script>
+    </div>
+</div>

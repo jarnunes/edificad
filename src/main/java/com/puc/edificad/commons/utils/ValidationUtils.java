@@ -1,0 +1,42 @@
+package com.puc.edificad.commons.utils;
+
+import com.puc.edificad.commons.exceptions.UsernamePasswordException;
+import com.puc.edificad.commons.exceptions.ValidationException;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+
+import java.util.Objects;
+import java.util.function.Supplier;
+
+public class ValidationUtils {
+    private ValidationUtils() {
+    }
+
+    public static void validate(boolean expectedCondition, String msgKey, Object... args) {
+        if (!expectedCondition)
+            throw new ValidationException(msgKey, args);
+    }
+
+    public static void validateNotBlank(Object value, String msgKey, Object... args) {
+        validate(StringUtils.isNotBlank(String.valueOf(value)), msgKey, args);
+    }
+
+    public static void validateNonNull(Object value, String msgKey, Object... args) {
+        validate(Objects.nonNull(value), msgKey, args);
+    }
+    public static void validateNonNull(Supplier<Object> value, String msgKey, Object... args) {
+        validate(Objects.nonNull(value.get()), msgKey, args);
+    }
+
+    public static void validateNull(Object value, String msgKey, Object... args) {
+        validate(Objects.isNull(value), msgKey, args);
+    }
+
+    public static void matches(String rawPassword, String encodedPassword){
+        final boolean match =
+            PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(rawPassword, encodedPassword);
+        if(!match){
+            throw  new UsernamePasswordException("eds.err.invalid.username.password");
+        }
+    }
+}

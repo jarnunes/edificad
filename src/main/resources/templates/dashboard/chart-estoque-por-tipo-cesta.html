@@ -1,0 +1,20 @@
+<div class="col" th:fragment="chartcestasentregues">
+    <div class="card">
+        <canvas id="resumoEstoquePorTipoCesta" width="400" height="400"></canvas>
+        <script th:inline="javascript">
+
+            let chartCestasEmEstoqueJSON = /*[(${chartCestasEmEstoque})]*/ [];
+            new Chart(document.getElementById('resumoEstoquePorTipoCesta'), {
+                type: 'pie',
+                data: ChartUtils.jsonToBarChartData(chartCestasEmEstoqueJSON),
+                options: ChartUtils.getPieChartOptions('ESTOQUE')
+
+            });
+
+
+
+
+
+        </script>
+    </div>
+</div>

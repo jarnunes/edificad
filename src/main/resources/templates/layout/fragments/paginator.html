@@ -1,0 +1,32 @@
+<div class="mt-5" th:fragment="paginator">
+    <ul class="pagination">
+        <li class="page-item">
+            <a class="page-link btn-paginator"
+               th:classappend=" ${currentPage == 0} ? 'disabled' : ''"
+               th:href="@{${path}(page=0, size=${size})}">&laquo;</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link btn-paginator"
+               th:classappend="${currentPage == 0} ? 'disabled' : ''"
+               th:href="@{${path}(page=${currentPage - 1}, size=${size})}">&lsaquo;</a>
+        </li>
+
+        <li th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}">
+            <a th:href="@{${path}(page=${pageNumber}, size=${size})}"
+               th:classappend="${pageNumber == currentPage} ? active"></a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link btn-paginator"
+               th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''"
+               th:href="@{${path}(page=${currentPage + 1}, size=${size})}">&rsaquo;</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link btn-paginator"
+               th:classappend="${currentPage == totalPages - 1} ? 'disabled' : ''"
+               th:href="@{${path}(page=${totalPages - 1}, size=${size})}">&raquo;</a>
+        </li>
+    </ul>
+</div>

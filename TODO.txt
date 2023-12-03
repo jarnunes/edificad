@@ -1,0 +1,6 @@
+- paginacao
+- pesquisa
+- logo principal na barra lateral
+- menu de configurações do usuário
+- permissões de menu
+- melhorias do JS.

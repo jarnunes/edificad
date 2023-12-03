@@ -1,0 +1,14 @@
+<div class="col" th:fragment="chartcestasentregues">
+    <div class="card">
+        <canvas id="cestasEntregues" width="400" height="400"></canvas>
+        <script th:inline="javascript">
+
+            let cestasEntreguesJSON = /*[(${chartCestasEntregues})]*/ [];
+            new Chart(document.getElementById('cestasEntregues'), {
+                type: 'bar',
+                data: ChartUtils.jsonToBarChartData(cestasEntreguesJSON),
+                options: ChartUtils.getBarChartOptions('DISTRIBUIÇÃO POR MÊS')
+            });
+        </script>
+    </div>
+</div>

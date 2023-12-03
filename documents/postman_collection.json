@@ -1,0 +1,1486 @@
+{
+	"info": {
+		"_postman_id": "dc47b98c-53b9-4219-9be2-7fa73916c042",
+		"name": "Edificad - Remote",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13919185",
+		"_collection_link": "https://galactic-shadow-390431.postman.co/workspace/New-Team-Workspace~bf67ad02-a1e1-45b9-81c2-f37a2ba9bca6/collection/13919185-dc47b98c-53b9-4219-9be2-7fa73916c042?action=share&source=collection_link&creator=13919185"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/auth/login",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDM1MzYyMTN9.vE4-eZoD4Yx4rDGSQFgH6L4PGVAlH2z0G-ZGnyayz_I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"full_name\": \"Edificad Testes\",\r\n\t\"username\": \"edificad\",\r\n\t\"email\": \"facke@gmail.com\",\r\n\t\"password\": \"3d1Fic@d2O2E\",\r\n\t\"enabled\": true,\r\n\t\"locked\": false,\r\n\t\"user_roles\": [\r\n\t\t{\r\n\t\t\t\"role\": \"ADMIN\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"role\": \"WEBSERVICES\"\r\n\t\t}\r\n\t]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/auth",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 1,\r\n    \"full_name\": \"System Admin\",\r\n\t\"username\": \"operator\",\r\n\t\"email\": \"operator@gmail.com\",\r\n\t\"password\": \"123456\",\r\n\t\"enabled\": true,\r\n\t\"locked\": false,\r\n\t\"user_roles\": [\r\n\t\t{\r\n\t\t\t\"role\": \"ADMIN\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"role\": \"WEBSERVICES\"\r\n\t\t}\r\n\t],\r\n\t\"credentials_non_expired\": true,\r\n\t\"account_non_expired\": true,\r\n\t\"account_non_locked\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/302",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"302"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"jardel123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/auth/reset-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDM1MzYyMTN9.vE4-eZoD4Yx4rDGSQFgH6L4PGVAlH2z0G-ZGnyayz_I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/auth",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-by-email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/auth/admin@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"admin@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listRoles",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDQyMjM4MjF9.8GC4AaNDsLr6DBvAGAOCQ4vv5yuSTR4sU1venxSOI6Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/auth/available-roles",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"auth",
+								"available-roles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "beneficiario",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDI0MDEwMzR9.I2IzDvAev7BHxrkzSHBaC_aTRnSd05LlBQ6_NOlZEtI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/beneficiario",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"beneficiario"
+							],
+							"query": [
+								{
+									"key": "nome",
+									"value": "João",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTk2MDU0MDV9.E8ZPuhyDuXFE6L8pX6GqUELU6t6I-0BrMJRlzE78EPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Bruna Esther Lívia Castro\",\r\n    \"email\": \"brunaesthercastro@patrezao.com.br\",\r\n    \"cpf\": \"906.529.656-52\",\r\n    \"telefone\": \"(31) 98750-3251\",\r\n    \"data_nascimento\": \"1993-01-24\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua São Zeferino\",\r\n        \"numero\": \"989\",\r\n        \"cep\": \"30532-130\",\r\n        \"bairro\": \"São Gabriel\",\r\n        \"cidade\": \"Belo Horizonte\",\r\n        \"estado\": \"MG\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/beneficiario",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"beneficiario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-from-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTkzMzA3NzJ9.HiV0MWBvRdVYhfqOMGsIdWOrMZT9gR8PhlBjrY9DW-E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"nome\": \"Melissa Patrícia Nunes\",\r\n        \"email\": \"melissa_nunes@bravura.com.br\",\r\n        \"cpf\": \"495.220.226-75\",\r\n        \"telefone\": \"(31) 99420-9297\",\r\n        \"data_nascimento\": \"1995-02-19\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Córrego Novo\",\r\n            \"numero\": \"806\",\r\n            \"cep\": \"31540-410\",\r\n            \"bairro\": \"Jardim Leblon\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        }\r\n    },\r\n    {\r\n        \"nome\": \"Isaac Manuel Eduardo Freitas\",\r\n        \"email\": \"isaacmanuelfreitas@agsolve.com.br\",\r\n        \"cpf\": \"683.800.926-94\",\r\n        \"telefone\": \"(31) 98957-8840\",\r\n        \"data_nascimento\": \"2001-08-12\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Pedra Turmalina\",\r\n            \"numero\": \"194\",\r\n            \"cep\": \"31652-095\",\r\n            \"bairro\": \"Jardim dos Comerciários\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        }\r\n    },\r\n    {\r\n        \"nome\": \"Gael Enrico Fábio Silveira\",\r\n        \"email\": \"gael-silveira99@escolajardim.com.br\",\r\n        \"cpf\": \"916.101.346-30\",\r\n        \"telefone\": \"(31) 99159-2472\",\r\n        \"data_nascimento\": \"2001-01-12\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Aida Souza Castro\",\r\n            \"numero\": \"1024\",\r\n            \"cep\": \"30532-130\",\r\n            \"bairro\": \"Vila Oeste\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        }\r\n    },\r\n    {\r\n        \"nome\": \"Alana Rayssa Aparício\",\r\n        \"email\": \"alana_rayssa_aparicio@ladder.com.br\",\r\n        \"cpf\": \"668.771.186-50\",\r\n        \"telefone\": \"(31) 2743-5339\",\r\n        \"data_nascimento\": \"1992-01-10\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Gilka Machado\",\r\n            \"numero\": \"123\",\r\n            \"cep\": \"30532-130\",\r\n            \"bairro\": \"Santa Maria\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        }\r\n    },\r\n    {\r\n        \"nome\": \"Bruna Esther Lívia Castro\",\r\n        \"email\": \"brunaesthercastro@patrezao.com.br\",\r\n        \"cpf\": \"906.529.656-52\",\r\n        \"telefone\": \"(31) 98750-3251\",\r\n        \"data_nascimento\": \"1993-01-24\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua São Zeferino\",\r\n            \"numero\": \"989\",\r\n            \"cep\": \"30532-130\",\r\n            \"bairro\": \"São Gabriel\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        }\r\n    },\r\n    {\r\n        \"nome\": \"Olivia Clarice Rosa das Neves\",\r\n        \"email\": \"oliviaclaricedasneves@jmmarcenaria.com.br\",\r\n        \"cpf\": \"282.674.716-93\",\r\n        \"telefone\": \"(31) 99621-8319\",\r\n        \"data_nascimento\": \"1993-08-24\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Ildefonso Alvim\",\r\n            \"numero\": \"234\",\r\n            \"cep\": \"31140-270\",\r\n            \"bairro\": \"Nova Floresta\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        }\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/beneficiario/create-from-list",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"beneficiario",
+								"create-from-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 403,\r\n    \"nome\": \"Santigo Mathias\",\r\n    \"email\": \"shantiado@gmail.com\",\r\n    \"cpf\": \"03021457845\",\r\n    \"telefone\": \"(31)992291034\",\r\n    \"data_nascimento\": \"1996-12-08\",\r\n    \"endereco\": {\r\n        \"id\": 11,\r\n        \"logradouro\": \"Rua Alvarenga Dia\",\r\n        \"numero\": \"952 Casa C\",\r\n        \"cep\": \"10000-678\",\r\n        \"bairro\": \"Bairro Alv\",\r\n        \"cidade\": \"Belo Horizonte\",\r\n        \"estado\": \"MG\"\r\n    },\r\n    \"dependentes\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/beneficiario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"beneficiario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"BENEFICIARIO_011\",\r\n    \"email\": \"beneficiario_011@gmail.com\",\r\n    \"cpf\": \"030.302.789-55\",\r\n    \"telefone\": \"(31) 99229-1350\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/beneficiario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"beneficiario",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "voluntario",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTk2MDU0MDV9.E8ZPuhyDuXFE6L8pX6GqUELU6t6I-0BrMJRlzE78EPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/voluntario",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"voluntario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDIzOTQ0Mzh9.Dc-otkRoFyVU2WRUzAa5YKNq6vmplVEK67VKJs-UY8Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n      \"nome\": \"Tamara Dias Ximenes\",\r\n        \"email\": \"tamaradiasx2z@yahoo.com\",\r\n        \"cpf\": \"502.174.940-12\",\r\n        \"telefone\": \"(31)95732-2941\",\r\n        \"endereco\": {\r\n \r\n            \"logradouro\": \"Praça Roseira\",\r\n            \"numero\": \"777\",\r\n            \"cep\": \"30692-340\",\r\n            \"bairro\": \"Jatobá\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        }\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/voluntario",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"voluntario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-from-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTkzMzA3NzJ9.HiV0MWBvRdVYhfqOMGsIdWOrMZT9gR8PhlBjrY9DW-E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"nome\": \"Kaique Babosa Dias\",\r\n        \"email\": \"kaique.dias@gmail.com\",\r\n        \"cpf\": \"03130289506\",\r\n        \"telefone\": \"(31)992291535\",\r\n        \"data_nascimento\": \"1996-12-08\",\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Alvarenga Dia\",\r\n            \"numero\": \"952 Casa C\",\r\n            \"cep\": \"00000-678\",\r\n            \"bairro\": \"Bairro Alv\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        },\r\n        \"numero_projetos_participados\": 5\r\n    },\r\n    {\r\n        \"nome\": \"Marcello Du Claro\",\r\n        \"email\": \"marcelo.duclaro@edificad.com\",\r\n        \"cpf\": \"000.000.000-00\",\r\n        \"telefone\": \"(99) 99999-9999\",\r\n        \"data_nascimento\": null,\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Alvarenga Dia\",\r\n            \"numero\": \"952 Casa C\",\r\n            \"cep\": \"00000-678\",\r\n            \"bairro\": \"Bairro Alv\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        },\r\n        \"numero_projetos_participados\": 0\r\n    },\r\n    {\r\n        \"nome\": \"Daniel Gomes\",\r\n        \"email\": \"dango@gmail.com\",\r\n        \"cpf\": \"553.986.150-76\",\r\n        \"telefone\": \"(31)98989-3434\",\r\n        \"data_nascimento\": null,\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua Sebastião Alves Faria\",\r\n            \"numero\": \"562\",\r\n            \"cep\": \"30692-580\",\r\n            \"bairro\": \"Itaipu\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        },\r\n        \"numero_projetos_participados\": 0\r\n    },\r\n    {\r\n        \"nome\": \"Fernanda Dandara Pereira\",\r\n        \"email\": \"ferdandara@hotmail.com\",\r\n        \"cpf\": \"129.398.470-10\",\r\n        \"telefone\": \"(31)96749-2354\",\r\n        \"data_nascimento\": null,\r\n        \"endereco\": {\r\n            \"logradouro\": \"Rua dos Americanos\",\r\n            \"numero\": \"920\",\r\n            \"cep\": \"30620-050\",\r\n            \"bairro\": \"Milionários\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        },\r\n        \"numero_projetos_participados\": 0\r\n    },\r\n    {\r\n        \"nome\": \"Tamara Dias Ximenes\",\r\n        \"email\": \"tamaradiasx@yahoo.com\",\r\n        \"cpf\": \"502.174.940-48\",\r\n        \"telefone\": \"(31)95733-8941\",\r\n        \"data_nascimento\": null,\r\n        \"endereco\": {\r\n            \"logradouro\": \"Praça Roseira\",\r\n            \"numero\": \"777\",\r\n            \"cep\": \"30692-340\",\r\n            \"bairro\": \"Jatobá\",\r\n            \"cidade\": \"Belo Horizonte\",\r\n            \"estado\": \"MG\"\r\n        },\r\n        \"numero_projetos_participados\": 0\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/voluntario/create-from-list",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"voluntario",
+								"create-from-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDI0MDA0MjR9.jiAJKgqdyqJYuucNibXRmqq6WBDrw_FaYNtjo8DR4p4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 9,\r\n    \"nome\": \"Daniel Gomes\",\r\n    \"email\": \"dango@gmail.com\",\r\n    \"cpf\": \"553.986.150-76\",\r\n    \"telefone\": \"(31)98989-3434\",\r\n    \"data_nascimento\": null,\r\n    \"endereco\": {\r\n        \"id\": 9,\r\n        \"logradouro\": \"Rua Sebastião Alves Faria\",\r\n        \"numero\": \"562\",\r\n        \"cep\": \"30692-580\",\r\n        \"bairro\": \"Itaipu\",\r\n        \"cidade\": \"Belo Horizonte\",\r\n        \"estado\": \"MG\"\r\n    },\r\n    \"numero_projetos_participados\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/voluntario",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"voluntario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc1MDc3OTd9.DK3RSzykNYYq6AgTY7O0NG21DAC-krc_IqD0ln_qr8c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"BENEFICIARIO_011\",\r\n    \"email\": \"beneficiario_011@gmail.com\",\r\n    \"cpf\": \"030.302.789-55\",\r\n    \"telefone\": \"(31) 99229-1350\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/voluntario/52",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"voluntario",
+								"52"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "cesta",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDI0MDEwMzR9.I2IzDvAev7BHxrkzSHBaC_aTRnSd05LlBQ6_NOlZEtI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/cesta",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"cesta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTk2MDU0MDV9.E8ZPuhyDuXFE6L8pX6GqUELU6t6I-0BrMJRlzE78EPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Cesta XG\",\r\n    \"descricao\": \"Cesta básica comum mas em versão maior\",\r\n    \"quantidade_estoque\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/cesta",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"cesta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-from-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTkzMzA3NzJ9.HiV0MWBvRdVYhfqOMGsIdWOrMZT9gR8PhlBjrY9DW-E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"nome\": \"Cesta básica\",\r\n        \"quantidade_estoque\": 50,\r\n        \"descricao\": \"Cesta de alimentos essenciais (Cesta básica comum)\"\r\n    },\r\n    {\r\n        \"nome\": \"Cesta junina\",\r\n        \"quantidade_estoque\": 12,\r\n        \"descricao\": \"Cesta com alimentos de época (Milho, amendoim, arroz doce, canjica, etc.)\"\r\n    },\r\n    {\r\n        \"nome\": \"Cesta natal\",\r\n        \"quantidade_estoque\": 25,\r\n        \"descricao\": \"Cesta de alimentos para o natal\"\r\n    },\r\n    {\r\n        \"nome\": \"Cesta XG\",\r\n        \"quantidade_estoque\": 5,\r\n        \"descricao\": \"Cesta básica comum mas em versão maior\"\r\n    },\r\n    {\r\n        \"nome\": \"Cesta AB\",\r\n        \"quantidade_estoque\": 20,\r\n        \"descricao\": \"Destinada a familias com 4 a 6 integrantes\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/cesta/create-from-list",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"cesta",
+								"create-from-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTg3NDkzNTJ9.WQ0LGOqnS0xE892SSy15HwcVy1E2iA8nGQAF-gMbezk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 1,\r\n    \"nome\": \"CESTA 01\",\r\n    \"quantidade_estoque\": 300,\r\n    \"descricao\": \"Descrição da cesta atualizada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/cesta",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"cesta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc1MDc3OTd9.DK3RSzykNYYq6AgTY7O0NG21DAC-krc_IqD0ln_qr8c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"BENEFICIARIO_011\",\r\n    \"email\": \"beneficiario_011@gmail.com\",\r\n    \"cpf\": \"030.302.789-55\",\r\n    \"telefone\": \"(31) 99229-1350\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/cesta/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"cesta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dependente",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTk2MDU0MDV9.E8ZPuhyDuXFE6L8pX6GqUELU6t6I-0BrMJRlzE78EPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/dependente",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"dependente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTk2MDU0MDV9.E8ZPuhyDuXFE6L8pX6GqUELU6t6I-0BrMJRlzE78EPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Renato Guilherme Nathan\",\r\n    \"data_nascimento\": \"2001-10-23\",\r\n    \"id_responsavel\": 205\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/dependente",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"dependente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-from-list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTkzMzA3NzJ9.HiV0MWBvRdVYhfqOMGsIdWOrMZT9gR8PhlBjrY9DW-E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n\t{\r\n\t\t\"nome\": \"Jardel2 Nunes\",\r\n\t\t\"email\": \"jarnunescde@gmail.com\",\r\n\t\t\"cpf\": \"03030289507\",\r\n\t\t\"telefone\": \"(31)992291035\",\r\n\t\t\"data_nascimento\": \"1996-12-08\",\r\n\t\t\"id_responsavel\": 1\r\n\t},\r\n\t{\r\n\t\t\"nome\": \"Benjamin Noah Assis\",\r\n\t\t\"email\": null,\r\n\t\t\"cpf\": null,\r\n\t\t\"telefone\": null,\r\n\t\t\"data_nascimento\": \"2010-12-08\",\r\n\t\t\"id_responsavel\": 1\r\n\t},\r\n\t{\r\n\t\t\"nome\": \"Clara Isadora Antonella Souza\",\r\n\t\t\"email\": null,\r\n\t\t\"cpf\": null,\r\n\t\t\"telefone\": null,\r\n\t\t\"data_nascimento\": \"2010-10-08\",\r\n\t\t\"id_responsavel\": 2\r\n\t},\r\n\t{\r\n\t\t\"nome\": \"Gael Bruno da Paz Antonella Souza\",\r\n\t\t\"email\": null,\r\n\t\t\"cpf\": null,\r\n\t\t\"telefone\": null,\r\n\t\t\"data_nascimento\": \"2005-10-08\",\r\n\t\t\"id_responsavel\": 2\r\n\t},\r\n\t{\r\n\t\t\"nome\": \"Mateus Tomás Antonella Souza\",\r\n\t\t\"email\": null,\r\n\t\t\"cpf\": null,\r\n\t\t\"telefone\": null,\r\n\t\t\"data_nascimento\": \"2001-10-23\",\r\n\t\t\"id_responsavel\": 2\r\n\t},\r\n\t{\r\n\t\t\"nome\": \"Renato Guilherme Nathan\",\r\n\t\t\"email\": null,\r\n\t\t\"cpf\": null,\r\n\t\t\"telefone\": null,\r\n\t\t\"data_nascimento\": \"2001-10-23\",\r\n\t\t\"id_responsavel\": 3\r\n\t}\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/dependente/create-from-list",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"dependente",
+								"create-from-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc1MDc3OTd9.DK3RSzykNYYq6AgTY7O0NG21DAC-krc_IqD0ln_qr8c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Jardel Nunes Cruz\",\r\n    \"email\": \"jarnunesc@gmail.com\",\r\n    \"cpf\": \"03030289509\",\r\n    \"telefone\": \"(31)992291035\",\r\n    \"data_nascimento\": \"1996-12-10\",\r\n    \"id_responsavel\" : 103\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/dependente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"dependente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc0ODE3ODJ9.Wo4YfR_2_V-0RWrsq5RM1_IgULm74khYbD1sD8jKOYQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"BENEFICIARIO_011\",\r\n    \"email\": \"beneficiario_011@gmail.com\",\r\n    \"cpf\": \"030.302.789-55\",\r\n    \"telefone\": \"(31) 99229-1350\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/dependente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"dependente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "config",
+			"item": [
+				{
+					"name": "listar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTk2MDU0MDV9.E8ZPuhyDuXFE6L8pX6GqUELU6t6I-0BrMJRlzE78EPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/config",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc0ODUwMzh9.KsoGC3YfelFLy90d1Tl3Go_1Fw4O9UzS5R3e1KXpmbA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token_secret_key\": \"secret-key1654dketkdisies-23943929s939393kdkgjti6989493920\",\r\n    \"token_expires_at\": 120\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/config",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTk2MDU0MDV9.E8ZPuhyDuXFE6L8pX6GqUELU6t6I-0BrMJRlzE78EPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"token_secret_key\": \"secret-key1654dketkdisies-23943929s939393kdkgjti6989493920\",\r\n    \"token_expires_at\": 50000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/config",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"config"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "distribuicaoCesta",
+			"item": [
+				{
+					"name": "listar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDI0MDEwMzR9.I2IzDvAev7BHxrkzSHBaC_aTRnSd05LlBQ6_NOlZEtI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/distribuicao-cesta",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"distribuicao-cesta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDMyNzAwMDB9.u1UKx8zVSRic3w7StbhuceMnymOd1bHsTErNqaJRXuc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cesta\": {\r\n        \"id\": 3\r\n    },\r\n    \"voluntario\": {\r\n        \"id\": 7\r\n    },\r\n    \"beneficiario\": {\r\n        \"id\": 5\r\n    },\r\n    \"data_hora\": \"2023-11-17T03:21:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/distribuicao-cesta",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"distribuicao-cesta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc4OTg3MzJ9.MXNLohr6x03xs_KRoOZFMxT0vBQFntyjVpMK83V_O8Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 2,\r\n    \"cesta\": {\r\n        \"id\": 3\r\n    },\r\n    \"voluntario\": {\r\n        \"id\": 7\r\n    },\r\n    \"beneficiario\": {\r\n        \"id\": 5\r\n    },\r\n    \"data_hora\": \"2023-11-17T03:21:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/distribuicao-cesta",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"distribuicao-cesta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc0ODE3ODJ9.Wo4YfR_2_V-0RWrsq5RM1_IgULm74khYbD1sD8jKOYQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"BENEFICIARIO_011\",\r\n    \"email\": \"beneficiario_011@gmail.com\",\r\n    \"cpf\": \"030.302.789-55\",\r\n    \"telefone\": \"(31) 99229-1350\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/distribuicao-cesta/1",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"distribuicao-cesta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "relatorios",
+			"item": [
+				{
+					"name": "resumo-distribuicao",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDMyODI2OTB9.38aEIuGhZAeqA3QF_GQrLtUsCUS2as0kLVoZrvTI3dk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/relatorios/resumo-distribuicao",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"relatorios",
+								"resumo-distribuicao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resumo-beneficiarios-assistidos-por-periodo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDQyMjM4MjF9.8GC4AaNDsLr6DBvAGAOCQ4vv5yuSTR4sU1venxSOI6Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/relatorios/resumo-beneficiarios-assistidos?anoReferencia=2023&mesReferencia=12&qtdMesesAnteriores=4",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"relatorios",
+								"resumo-beneficiarios-assistidos"
+							],
+							"query": [
+								{
+									"key": "anoReferencia",
+									"value": "2023"
+								},
+								{
+									"key": "mesReferencia",
+									"value": "12"
+								},
+								{
+									"key": "qtdMesesAnteriores",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resumo-cestas-distribuidas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE3MDQyMjM4MjF9.8GC4AaNDsLr6DBvAGAOCQ4vv5yuSTR4sU1venxSOI6Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://edificad-production.up.railway.app/api/relatorios/resumo-cestas-distribuidas?anoReferencia=2023&mesReferencia=12&qtdMesesAnteriores=4",
+							"protocol": "https",
+							"host": [
+								"edificad-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"relatorios",
+								"resumo-cestas-distribuidas"
+							],
+							"query": [
+								{
+									"key": "anoReferencia",
+									"value": "2023"
+								},
+								{
+									"key": "mesReferencia",
+									"value": "12"
+								},
+								{
+									"key": "qtdMesesAnteriores",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "BearerToken",
+			"value": "eyJzdWIiOiJhZG1pbiIsImlkIjowLCJleHAiOjE2OTc0ODE3ODJ9"
+		}
+	]
+}

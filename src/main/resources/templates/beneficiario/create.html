@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+<body>
+
+<span layout:fragment="title" th:text="${@helper.getOperation(entity)}"></span>
+<div layout:fragment="content">
+
+    <div class="card-container overflow-hidden">
+        <form id="entityForm" method="POST" th:action="@{/beneficiario/save}" th:object="${entity}">
+            <input type="hidden" id="id" name="course" th:field="*{id}"/>
+            <div class="ec-table-toolbar">
+                <div class="ec-table-toolbar-actions">
+                    <a class="btn btn-secondary opacity-75" th:href="@{/beneficiario}" role="button">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                    <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
+
+                    <span th:if="${entity.id != null}">
+                        <a class="btn btn-primary create-module" role="button" th:href="@{/dependente/create(beneficiario=${id})}">
+                        <i class="bi bi-plus-lg"></i>
+                        <span class="btn-label">Adicionar Dependente</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+
+            <div class="ec-fields-container">
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <label for="title">Nome</label>
+                        <input type="text" class="form-control" id="title" autofocus="autofocus"
+                               th:field="*{nome} " required/>
+                    </div>
+                    <div class="col">
+                        <label for="email">E-mail</label>
+                        <input type="text" class="form-control" id="email"
+                               th:field="*{email}" required/>
+                    </div>
+                    <div class="col">
+                        <label for="cpf">CPF</label>
+                        <input type="text" class="form-control cpf-mask" id="cpf" maxlength="14"
+                               th:field="*{cpf}" required/>
+                    </div>
+                    <div class="col">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control phone-mask" id="telefone" maxlength="15"
+                               th:field="*{telefone}" required/>
+                    </div>
+                    <div class="col">
+                        <label for="dataNascimento">Data de nascimento</label>
+                        <input type="date" class="form-control" id="dataNascimento"
+                               th:field="*{dataNascimento}" required/>
+                    </div>
+
+                </div>
+                <div class="col-12 w-100 mt-5">
+                    <h4 class="text-muted border-bottom px-2">Endereço</h4>
+                </div>
+
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <label for="rua">Rua</label>
+                        <input type="text" class="form-control" id="rua"
+                               th:field="*{endereco.logradouro}" required/>
+                    </div>
+                    <div class="col">
+                        <label for="numero">Número</label>
+                        <input type="text" class="form-control" id="numero"
+                               th:field="*{endereco.numero}" required/>
+                    </div>
+
+                    <div class="col">
+                        <label for="cep">Cep</label>
+                        <input type="text" class="form-control cep-mask" id="cep" maxlength="10"
+                               th:field="*{endereco.cep}" required/>
+                    </div>
+
+                    <div class="col">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" class="form-control" id="bairro"
+                               th:field="*{endereco.bairro}" required/>
+                    </div>
+
+                    <div class="col">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" class="form-control" id="cidade"
+                               th:field="*{endereco.cidade}" required/>
+                    </div>
+                </div>
+
+                <div class="col-12 w-100 mt-5">
+                    <h4 class="text-muted border-bottom px-2">Dependentes</h4>
+                </div>
+
+                <div class="ec-table-container">
+                    <table class="ec-table" aria-describedby="Dependentes List">
+                        <thead>
+                        <tr>
+                            <th class="column-actions">Actions</th>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Data Nascimento</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dependente : ${entity.getDependentes()}" data-th-id="${dependente.id}">
+                            <td class="ec-actions">
+                                <a class="action-button" th:href="@{/dependente/update/{id} (id=${dependente.id})}">
+                                    <i class="bi bi-pen-fill"></i>
+                                </a>
+                                <span class="action-button mini-button-delete"><i class="bi bi-trash3-fill"></i></span>
+                            </td>
+                            <td><h5 th:text="${dependente.id}"></h5></td>
+                            <td><h5 th:text="${dependente.nome}"></h5></td>
+                            <td><span th:text="${dependente.cpf}"></span></td>
+                            <td><span th:text="${dependente.dataNascimento}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+
+</div>
+</body>
