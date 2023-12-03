@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Year;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -115,7 +117,10 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
         final LocalDateTime inicioReferencia = DateTimeUtils.beginOfFirstDay(anoReferencia, primeiroMesReferencia);
         final LocalDateTime fimReferencia = DateTimeUtils.endOfLastDay(anoReferencia, mesReferencia);
 
-        return functionObterResultadoQuery.apply(inicioReferencia, fimReferencia);
+        List<QuantidadesPorAnoMes> resultado = functionObterResultadoQuery.apply(inicioReferencia, fimReferencia);
+
+        resultado.sort(Comparator.comparing(QuantidadesPorAnoMes::getAno).thenComparing(QuantidadesPorAnoMes::getMes));
+        return resultado;
     }
 
     @Override

@@ -84,13 +84,9 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
     @Override
     public UserDto save(UserDto dto) {
-        final String senha = UserUtils.gerarSenha();
-        dto.setPassword(senha);
         User entity = mapper.toEntity(dto);
         this.save(entity);
-        UserDto newDto =  mapper.toDto(entity);
-        newDto.setPassword(senha);
-        return newDto;
+        return mapper.toDto(entity);
     }
 
     @Override

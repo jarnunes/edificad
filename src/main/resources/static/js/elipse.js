@@ -130,8 +130,6 @@ function removeFetchHandler(paths, selectedIds, successFunction, errorFunction) 
     })
         .then(res => res.json())
         .then(res => {
-            console.log('exibindo a resposta')
-            console.log(res)
             if (res.status_code === 0) {
                 successFunction(paths, res.messages[0])
             } else {

@@ -1,4 +1,1 @@
-- menu de configurações do usuário
-- permissões de menu
 - melhorias do JS.
-- ordenar os valores  retornados para o gráfico por mes

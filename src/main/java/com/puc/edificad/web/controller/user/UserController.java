@@ -56,7 +56,7 @@ public class UserController extends CrudController<User> {
         if (result.hasErrors()) return "eds-user/create";
         final Long entityId = entity.getId();
 
-        UserDto dto =  service.save(entity);
+        UserDto dto = service.save(entity);
         if(entityId == null){
             addSuccess(attributes, message.get("eds.success.create", dto.getPassword()));
         }else{

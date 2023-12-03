@@ -56,8 +56,8 @@ public class DateTimeUtils {
         return LocalDateTime.of(localDate, time);
     }
 
-    public static String getShortName(@NonNull Month month){
-        String shortName =  month.getDisplayName(TextStyle.SHORT, new Locale("pt", "BR"));
+    public static String getShortName(@NonNull Month month) {
+        String shortName = month.getDisplayName(TextStyle.SHORT, new Locale("pt", "BR"));
         return shortName.toUpperCase().replace(".", "");
     }
 }
