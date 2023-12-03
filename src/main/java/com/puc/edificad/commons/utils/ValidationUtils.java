@@ -1,6 +1,6 @@
 package com.puc.edificad.commons.utils;
 
-import com.puc.edificad.commons.exceptions.UsernamePasswordException;
+import com.puc.edificad.commons.exceptions.UserAuthenticationException;
 import com.puc.edificad.commons.exceptions.ValidationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -36,7 +36,13 @@ public class ValidationUtils {
         final boolean match =
             PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(rawPassword, encodedPassword);
         if(!match){
-            throw  new UsernamePasswordException("eds.err.invalid.username.password");
+            throw  new UserAuthenticationException("eds.err.invalid.username.password");
+        }
+    }
+
+    public static void authValidate(boolean expectedCondition, String msgKey, Object... args){
+        if(!expectedCondition){
+            throw  new UserAuthenticationException(msgKey, args);
         }
     }
 }

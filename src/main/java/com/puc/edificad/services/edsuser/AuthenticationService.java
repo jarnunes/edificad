@@ -14,8 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.function.Supplier;
 
-import static com.puc.edificad.commons.utils.UserUtils.matches;
-
 @Component
 public class AuthenticationService implements AuthenticationProvider {
 
@@ -53,9 +51,9 @@ public class AuthenticationService implements AuthenticationProvider {
     }
 
     private void validateUserAccount(User user){
-        ValidationUtils.validate(user.isAccountNonExpired(), "eds.err.user.expired");
-        ValidationUtils.validate(user.isEnabled(), "eds.err.user.disabled");
-        ValidationUtils.validate(user.isAccountNonLocked(), "eds.err.user.locked");
+        ValidationUtils.authValidate(user.isAccountNonExpired(), "eds.err.user.expired");
+        ValidationUtils.authValidate(user.isEnabled(), "eds.err.user.disabled");
+        ValidationUtils.authValidate(user.isAccountNonLocked(), "eds.err.user.locked");
     }
 
     private User findByUsername(final String userName) throws UsernameNotFoundException {
