@@ -22,7 +22,6 @@
                 <thead>
                 <tr>
                     <th th:replace="~{layout/fragments/th-select-all}"></th>
-                    <th style="width: 20px">Id</th>
                     <th>Nome</th>
                     <th>Qtde. Estoque</th>
                     <th>Descrição</th>
@@ -38,7 +37,6 @@
                             </div>
                         </div>
                     </td>
-                    <td th:text="${row.id}"></td>
                     <td th:text="${row.nome}" ></td>
                     <td th:text="${row.quantidadeEstoque}" ></td>
                     <td th:text="${row.descricao}" ></td>

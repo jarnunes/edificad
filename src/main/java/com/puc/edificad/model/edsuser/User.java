@@ -45,10 +45,10 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private Boolean enabled = Boolean.TRUE;
+    private boolean enabled = Boolean.TRUE;
 
     @Column(nullable = false)
-    private Boolean locked = Boolean.TRUE;
+    private boolean locked = Boolean.FALSE;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<RoleUser> userRoles = new HashSet<>();
@@ -76,7 +76,7 @@ public class User extends BaseEntity implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
-        return this.locked;
+        return !isLocked();
     }
 
     @JsonIgnore

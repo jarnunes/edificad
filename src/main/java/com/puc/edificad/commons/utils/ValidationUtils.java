@@ -32,17 +32,17 @@ public class ValidationUtils {
         validate(Objects.isNull(value), msgKey, args);
     }
 
-    public static void matches(String rawPassword, String encodedPassword){
+    public static void matches(String rawPassword, String encodedPassword) {
         final boolean match =
-            PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(rawPassword, encodedPassword);
-        if(!match){
-            throw  new UserAuthenticationException("eds.err.invalid.username.password");
+                PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(rawPassword, encodedPassword);
+        if (!match) {
+            throw new UserAuthenticationException("eds.err.invalid.username.password");
         }
     }
 
-    public static void authValidate(boolean expectedCondition, String msgKey, Object... args){
-        if(!expectedCondition){
-            throw  new UserAuthenticationException(msgKey, args);
+    public static void authValidate(boolean expectedCondition, String msgKey, Object... args) {
+        if (!expectedCondition) {
+            throw new UserAuthenticationException(msgKey, args);
         }
     }
 }

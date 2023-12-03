@@ -5,27 +5,9 @@
 <ul class="dropdown-menu dropdown-menu-end text-small mt-2" aria-labelledby="dropdownUser1">
     <li><a class="dropdown-item" href="#">Perfil</a></li>
     <li><a class="dropdown-item" href="#">Configuração</a></li>
-    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#buildInfo">Versão</a></li>
+    <li><a class="dropdown-item" href="#" data-bs-toggle="modal"  data-bs-target="#buildInfo">Versão</a></li>
     <li>
         <hr class="dropdown-divider">
     </li>
     <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
 </ul>
-
-
-<!-- Build Info -->
-<div class="modal fade" id="buildInfo" tabindex="-1" aria-labelledby="buildInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="buildInfoLabel">Versão Atual</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body overflow-auto">
-                <div><strong>{{ version_key }}: </strong>{{ version }}</div>
-                <div class="text-nowrap"><strong>commit: </strong>{{ commit }}</div>
-                <div><strong>date: </strong>{{ date }}</div>
-            </div>
-        </div>
-    </div>
-</div>
