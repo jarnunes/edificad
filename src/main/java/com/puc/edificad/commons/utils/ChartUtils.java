@@ -50,6 +50,6 @@ public class ChartUtils {
         int g = Integer.parseInt(rgbValues[1].trim());
         int b = Integer.parseInt(rgbValues[2].trim());
 
-        return String.format("rgba(%d, %d, %d, %s)", r, g, b, "0.2");
+        return String.format("rgba(%d, %d, %d, %s)", r, g, b, "0.4");
     }
 }

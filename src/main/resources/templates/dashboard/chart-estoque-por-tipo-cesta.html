@@ -1,20 +1,19 @@
 <div class="col" th:fragment="chartcestasentregues">
-    <div class="card">
-        <canvas id="resumoEstoquePorTipoCesta" width="400" height="400"></canvas>
-        <script th:inline="javascript">
+    <div class="card d-flex align-items-center justify-content-center">
+        <div class="card-header col-12 bg-white text-center border-bottom-0">
+            <span class="col-12">CESTAS EM ESTOQUE</span>
+        </div>
+        <div class="card-body ">
+            <canvas id="resumoEstoquePorTipoCesta" height="250" width="250"></canvas>
+            <script th:inline="javascript">
 
-            let chartCestasEmEstoqueJSON = /*[(${chartCestasEmEstoque})]*/ [];
-            new Chart(document.getElementById('resumoEstoquePorTipoCesta'), {
-                type: 'pie',
-                data: ChartUtils.jsonToBarChartData(chartCestasEmEstoqueJSON),
-                options: ChartUtils.getPieChartOptions('ESTOQUE')
-
-            });
-
-
-
-
-
-        </script>
+                let chartCestasEmEstoqueJSON = /*[(${chartCestasEmEstoque})]*/ [];
+                new Chart(document.getElementById('resumoEstoquePorTipoCesta'), {
+                    type: 'pie',
+                    data: ChartUtils.jsonToPieChartData(chartCestasEmEstoqueJSON),
+                    options: ChartUtils.getPieChartOptions(false)
+                });
+            </script>
+        </div>
     </div>
 </div>

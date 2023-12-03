@@ -23,13 +23,30 @@ class ChartUtils {
                 data: json.data,
                 backgroundColor: json.background_colors,
                 borderColor: json.border_colors,
-                borderWidth: 1
+                borderWidth: 0
             }]
         };
     }
 
-    static getBarChartOptions(title) {
+    static jsonToPieChartData(json) {
         return {
+            labels: json.labels,
+            datasets: [{
+                data: json.data,
+                backgroundColor: json.background_colors,
+                borderColor: json.border_colors,
+                borderWidth: 0
+            }]
+        };
+    }
+
+    static getBarChartOptions(displayTitle, title) {
+        return {
+            layout: {
+                padding: {
+                    top: 30
+                }
+            },
             scales: {
                 y: {
                     display: false,
@@ -46,7 +63,7 @@ class ChartUtils {
             },
             plugins: {
                 title: {
-                    display: true,
+                    display: displayTitle,
                     text: title
                 },
                 subtitle: {
@@ -63,11 +80,11 @@ class ChartUtils {
         }
     }
 
-    static getPieChartOptions(title) {
+    static getPieChartOptions(displayTitle, title) {
         return {
             plugins: {
                 title: {
-                    display: true,
+                    display: displayTitle,
                     text: title
                 },
                 subtitle: {
@@ -85,7 +102,7 @@ class ChartUtils {
         }
     }
 
-    static getLineChartOptions(title) {
+    static getLineChartOptions(displayTitle, title) {
         return {
             scales: {
                 y: {
@@ -103,7 +120,7 @@ class ChartUtils {
             },
             plugins: {
                 title: {
-                    display: true,
+                    display: displayTitle,
                     text: title
                 },
                 subtitle: {
@@ -119,7 +136,6 @@ class ChartUtils {
             }
         }
     }
-
 
 
 }
