@@ -104,6 +104,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         user.setUsername(searchValue);
         user.setFullName(searchValue);
         user.setEmail(searchValue);
+        user.setEnabled(null);
+        user.setLocked(null);
         return Optional.of(user);
     }
 }

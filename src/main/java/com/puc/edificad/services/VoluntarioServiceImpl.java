@@ -29,6 +29,7 @@ public class VoluntarioServiceImpl extends BaseServiceImpl<Voluntario> implement
         Voluntario entitySearchExample = new Voluntario();
         entitySearchExample.setNome(searchValue);
         entitySearchExample.setCpf(searchValue);
+        entitySearchExample.setNumeroProjetosParticipados(null);
         return Optional.of(entitySearchExample);
     }
 }
