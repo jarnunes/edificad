@@ -9,10 +9,7 @@ import com.puc.edificad.services.CestaService;
 import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.services.VoluntarioService;
 import com.puc.edificad.web.controller.CrudController;
-import com.puc.edificad.web.support.AjaxResponse;
-import com.puc.edificad.web.support.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -82,27 +79,6 @@ public class DistribuicaoCestaController extends CrudController<DistribuicaoCest
         DistribuicaoCesta entity = service.findById(id).orElse(new DistribuicaoCesta());
         modelMap.addAttribute("entity", entity);
         return "distribuicao-cesta/create";
-    }
-
-
-    @PostMapping("/delete")
-    ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
-        int removedIds = 0;
-
-        AjaxResponse response = new AjaxResponse();
-        response.setStatusCode(StatusCode.SUCCESS);
-        for (Long id : ids) {
-            try {
-                service.deleteById(id);
-                removedIds++;
-            } catch (Exception e) {
-                response.setStatusCode(StatusCode.ERROR);
-                response.addMessage(getInternalError(e.getMessage()));
-                return ResponseEntity.ok(response);
-            }
-        }
-        response.addMessage(getSuccessDeleteMessage(removedIds));
-        return ResponseEntity.ok(response);
     }
 
     @ModelAttribute("beneficiarioList")

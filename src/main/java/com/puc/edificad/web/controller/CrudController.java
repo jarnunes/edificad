@@ -1,15 +1,22 @@
 package com.puc.edificad.web.controller;
 
 
+import com.puc.edificad.commons.utils.ExceptionUtils;
+import com.puc.edificad.commons.utils.JsonUtils;
 import com.puc.edificad.model.BaseEntity;
 import com.puc.edificad.services.BaseService;
+import com.puc.edificad.web.support.AjaxResponse;
+import com.puc.edificad.web.support.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,6 +78,27 @@ public abstract class CrudController<T extends BaseEntity> extends AbstractContr
     }
 
     protected abstract ModelAndView getModelAndViewListPage();
+
+
+    @PostMapping("/delete")
+    ResponseEntity<String> deleteAll(@RequestBody List<Long> ids) {
+        int removedIds = 0;
+
+        AjaxResponse response = new AjaxResponse();
+        response.setStatusCode(StatusCode.SUCCESS);
+        for (Long id : ids) {
+            try {
+                service.deleteById(id);
+                removedIds++;
+            } catch (Exception e) {
+                response.setStatusCode(StatusCode.ERROR);
+                response.addMessage(getInternalError(ExceptionUtils.getRootCause(e)));
+                return ResponseEntity.ok(JsonUtils.toJsonString(response));
+            }
+        }
+        response.addMessage(getSuccessDeleteMessage(removedIds));
+        return ResponseEntity.ok(JsonUtils.toJsonString(response));
+    }
 
 
 }

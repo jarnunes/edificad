@@ -5,10 +5,7 @@ import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.edsuser.UserService;
 import com.puc.edificad.services.edsuser.dto.UserDto;
 import com.puc.edificad.web.controller.CrudController;
-import com.puc.edificad.web.support.AjaxResponse;
-import com.puc.edificad.web.support.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -86,26 +83,6 @@ public class UserController extends CrudController<User> {
             addError(attributes, e.getMessage());
             return redirect("/eds-user/update", code);
         }
-    }
-
-    @PostMapping("/delete")
-    ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
-        int removedIds = 0;
-
-        AjaxResponse response = new AjaxResponse();
-        response.setStatusCode(StatusCode.SUCCESS);
-        for (Long id : ids) {
-            try {
-                service.deleteById(id);
-                removedIds++;
-            } catch (Exception e) {
-                response.setStatusCode(StatusCode.ERROR);
-                response.addMessage(getInternalError(e.getMessage()));
-                return ResponseEntity.ok(response);
-            }
-        }
-        response.addMessage(getSuccessDeleteMessage(removedIds));
-        return ResponseEntity.ok(response);
     }
 
     @ModelAttribute("roleList")

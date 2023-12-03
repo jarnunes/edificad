@@ -7,7 +7,7 @@
     })
 })();
 
-
+const CLASS_MODAL_DELETE = `.${modalDeleteConfirmation}`;
 const SAVE_ACTION = 'saveAction'
 const SAVE_NEW_ACTION = 'saveNewAction'
 const REMOVE_ACTION = 'removeAction'
@@ -130,6 +130,8 @@ function removeFetchHandler(paths, selectedIds, successFunction, errorFunction) 
     })
         .then(res => res.json())
         .then(res => {
+            console.log('exibindo a resposta')
+            console.log(res)
             if (res.status_code === 0) {
                 successFunction(paths, res.messages[0])
             } else {
@@ -235,20 +237,19 @@ ecTableContainer.on('click', ".mini-button-delete", function () {
 
     // add listener to confirm button
     $(`.${modalDeleteConfirm}`).click(function () {
-        modalDeleteModuleConfirmHandler(deleteConfirmation.entityId)
+        modalDeleteDependenteHandler(deleteConfirmation.entityId)
     })
 })
 
 
-function modalDeleteModuleConfirmHandler(elementId) {
+function modalDeleteDependenteHandler(elementId) {
     console.log('deletando dependente')
     console.log(elementId)
-    onModalDeleteFetchHandler('/dependente/delete/' + elementId, afterSuccessModuleDelete)
+    onModalDeleteFetchHandler('/dependente/delete/' + elementId, successDeleteHandler)
     reloadTableCurrentPath()
 }
 
-function afterSuccessModuleDelete() {
-    console.log('entrei aqui caralho')
+function successDeleteHandler() {
     jQueryUtils.toggleModal(`.${modalDeleteConfirmation}`)
     jQueryUtils.remove(`.${modalDeleteConfirmation}`)
     jQueryUtils.scrollToTop()
@@ -310,14 +311,14 @@ $('#removeAction').click(function () {
     let selectedIds = getSelectedIds();
     let deleteConfirmation = new DeleteConfirmation()
 
-    //TOdo: revisar e deixar os ids em constatntes.
+    //TOdo: revisar e deixar as classes css e ids em constantes.
     deleteConfirmation.entityName = `${selectedIds.length} records`
     jQueryUtils.append('.modal-container', HTMLUtils.getModalDeleteConfirm(deleteConfirmation))
-    jQueryUtils.showModal('.modal-confirm-delete')
+    jQueryUtils.showModal(CLASS_MODAL_DELETE)
 
     // add listener to cancel button
     $(`.${modalDeleteCancel}`).click(function () {
-        jQueryUtils.remove('.modal-confirm-delete')
+        jQueryUtils.remove(CLASS_MODAL_DELETE)
     })
 
     // add listener to confirm button
@@ -327,17 +328,20 @@ $('#removeAction').click(function () {
         paths.deletePathURI = PathURI.createDeletePath(JSUtils.getCurrentPathResource())
         paths.listPathURI = PathURI.createListPath(JSUtils.getCurrentPathResource())
         removeFetchHandler(paths, selectedIds, successFetch, errorFetch)
+        jQueryUtils.hideModal(CLASS_MODAL_DELETE)
     })
 })
 
 function successFetch(paths, respMessage) {
-    afterSuccessModuleDelete()
+    successDeleteHandler()
     jQueryUtils.addSuccessMessage(respMessage)
     $(".ec-table tbody").load(`${paths.listPathURI} .ec-table tbody`);
 }
 
 function errorFetch(respMessage) {
     jQueryUtils.addErrorMessage(respMessage)
+    jQueryUtils.hideModal(CLASS_MODAL_DELETE);
+    jQueryUtils.remove(CLASS_MODAL_DELETE)
 }
 
 // end crud delete confirmation

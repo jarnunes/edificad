@@ -48,9 +48,8 @@
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         -->
         <div class="login-img">
-            <img class="mb-4 w-75" th:src="@{/images/logo-black.svg}" alt="logo">
+            <img class="mb-4" th:src="@{/images/logo-black.png}" alt="logo" style="width: 20em">
         </div>
-        <h1 class="h3 mb-3 fw-normal">Faça login para acessar o sistema</h1>
 
         <div id="messages">
             <div th:if="${messages != null and messages.withSuccess}">

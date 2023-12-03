@@ -2,6 +2,7 @@ package com.puc.edificad.web.handlers;
 
 
 import com.puc.edificad.commons.exceptions.ValidationException;
+import com.puc.edificad.commons.utils.ExceptionUtils;
 import com.puc.edificad.web.support.MessagesAlert;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
@@ -25,10 +26,8 @@ public class GlobalExceptionControllerHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public String handleException(DataIntegrityViolationException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        String substring = Optional.of(e).map(NestedRuntimeException::getRootCause).map(String::valueOf)
-                .map(rc -> StringUtils.substringAfter(rc, "Detalhe: ")).orElse(StringUtils.EMPTY);
         MessagesAlert messagesAlert = new MessagesAlert();
-        messagesAlert.addError("Violação de constraint. " + substring);
+        messagesAlert.addError("Violação de constraint. " + ExceptionUtils.getRootCause(e));
         redirectAttributes.addFlashAttribute(MESSAGES_KEY,  messagesAlert);
         return getRedirect(request);
     }
