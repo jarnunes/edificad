@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+<head><title>Relatórios</title></head>
+<body>
+
+<span layout:fragment="title" th:text="#{relatorio.distribuicao.por.periodo}"></span>
+<div layout:fragment="content">
+
+    <div class="card-container overflow-hidden">
+        <form method="POST" th:action="@{/distribuicao-por-periodo/consultar}" th:object="${formConsulta}">
+            <div class="ec-table-toolbar">
+                <div class="ec-table-toolbar-actions">
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="bi bi-file-earmark-spreadsheet"></i>
+                        <span class="btn-label">Emitir XLSX</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="ec-fields-container">
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <label th:text="#{relatorio.distribuicao.por.periodo.inicio}" for="inicioPeriodo"></label>
+                        <input type="date" class="form-control" id="inicioPeriodo" th:field="*{inicio}" required/>
+                    </div>
+
+                    <div class="col">
+                        <label th:text="#{relatorio.distribuicao.por.periodo.fim}" for="fimPeriodo"></label>
+                        <input type="date" class="form-control" id="fimPeriodo" th:field="*{fim}" required/>
+                    </div>
+
+                    <div class="col">
+                        <label for="cesta" th:text="#{cesta}"></label>
+                        <div class="input-group mb-3">
+                            <select id="cesta" class="form-control" th:field="*{cesta}" >
+                                <option value="">Selecione uma opção...</option>
+                                <option th:each="cesta : ${cestaList}" th:value="${cesta.id}"
+                                        th:text="${cesta.nome}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label for="beneficiario" th:text="#{beneficiario}"></label>
+                        <div class="input-group mb-3">
+                            <select id="beneficiario" class="form-control" th:field="*{beneficiario}" >
+                                <option value="">Selecione uma opção...</option>
+                                <option th:each="beneficiario : ${beneficiarioList}" th:value="${beneficiario.id}"
+                                        th:text="${beneficiario.nome}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label for="voluntario" th:text="#{voluntario}"></label>
+                        <div class="input-group mb-3">
+                            <select id="voluntario" class="form-control" th:field="*{beneficiario}">
+                                <option value="">Selecione uma opção...</option>
+                                <option th:each="voluntario : ${voluntarioList}" th:value="${voluntario.id}"
+                                        th:text="${voluntario.nome}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+</div>
+
+</body>

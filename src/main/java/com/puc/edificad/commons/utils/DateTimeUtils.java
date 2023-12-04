@@ -68,4 +68,12 @@ public class DateTimeUtils {
         String shortName = month.getDisplayName(TextStyle.SHORT, new Locale("pt", "BR"));
         return shortName.toUpperCase().replace(".", "");
     }
+
+    public static LocalDateTime toStartOfDay(LocalDate localDate){
+        return Optional.ofNullable(localDate).map(LocalDate::atStartOfDay).orElse(null);
+    }
+
+    public static LocalDateTime toEndOfDay(LocalDate localDate){
+        return Optional.ofNullable(localDate).map(it -> it.atTime(LocalTime.MAX)).orElse(null);
+    }
 }

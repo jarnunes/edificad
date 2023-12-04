@@ -1,7 +1,11 @@
 package com.puc.edificad.services;
 
+import com.puc.edificad.model.Beneficiario;
+import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;
+import com.puc.edificad.model.Voluntario;
 import com.puc.edificad.model.dto.DistribuicaoCestaDto;
+import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
 import com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto;
 
@@ -29,5 +33,7 @@ public interface DistribuicaoCestaService extends BaseService<DistribuicaoCesta>
     List<QuantidadesPorAnoMes> obterQuantidadeCestasDistribuidasPorMesAno(Year anoReferencia,
         Month mesReferencia, Long qtdMesesAnteriores);
 
+    List<DistribuicaoCestaPorPeriodo> obterDistribuicaoPorPeriodo(LocalDate inicio, LocalDate fim,
+        Cesta cesta, Beneficiario beneficiario, Voluntario voluntario);
 
 }

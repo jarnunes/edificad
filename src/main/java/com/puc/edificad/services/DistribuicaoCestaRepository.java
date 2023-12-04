@@ -1,6 +1,10 @@
 package com.puc.edificad.services;
 
+import com.puc.edificad.model.Beneficiario;
+import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;
+import com.puc.edificad.model.Voluntario;
+import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -40,4 +44,19 @@ public interface DistribuicaoCestaRepository extends BaseRepository<Distribuicao
             + " group by 1, 2 " )
     List<QuantidadesPorAnoMes> obterQuantidadesCestasDistribuidasEmUmPeriodo(LocalDateTime dataInicioReferencia,
         LocalDateTime dataFimReferencia);
+
+    @Query("select new com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo("
+        + " dc.dataHora, ct.nome, bc.nome, bc.cpf, vl.nome, vl.cpf )"
+        + " from DistribuicaoCesta dc "
+        + "     join dc.cesta as ct "
+        + "     join dc.beneficiario bc "
+        + "     join dc.voluntario vl "
+        + " where dc.dataHora >= :inicio  "
+        + "   and dc.dataHora <= :fim "
+        + "   and (:cesta is null or ct = :cesta ) "
+        + "   and (:beneficiario is null or bc = :beneficiario ) "
+        + "   and (:voluntario is null or vl = :voluntario ) "
+        + " order by dc.dataHora ")
+    List<DistribuicaoCestaPorPeriodo> obterDistribuicaoPorPeriodo(LocalDateTime inicio, LocalDateTime fim, Cesta cesta,
+        Beneficiario beneficiario, Voluntario voluntario);
 }
