@@ -47,8 +47,9 @@ public class Helper {
 
     private String reduceFullName(String fullName){
         String[] splitName = fullName.split("\\s+");
+        List<String> values = Arrays.stream(splitName).filter(StringUtils::isNotEmpty).map(it -> it.charAt(0))
+                .map(String::valueOf).map(String::toUpperCase) .toList();
 
-        return String.join("", Arrays.stream(splitName).filter(StringUtils::isNotEmpty).map(it -> it.charAt(0))
-                     .map(String::valueOf).toList().subList(0, 2));
+        return values.size() > 1 ? String.join("", values.subList(0, 2)) : values.get(0);
     }
 }
