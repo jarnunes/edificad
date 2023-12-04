@@ -1,3 +1,7 @@
+$(CLASS_SAVE_NEW_BTN.dClass).click(function () {
+    $('#entityForm input[name="saveAndNew"]').val("true")
+})
+
 // begin edit crud
 $(CLASS_MINI_BTN_EDIT.dClass).click(function () {
     let selectedID = getSelectedIds().shift()

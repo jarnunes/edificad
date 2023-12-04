@@ -61,6 +61,25 @@ const SEARCH = {
 }
 
 const VIEW_ROW_INFO = {
-    className : 'view-more-info',
-    dClass : '.view-more-info'
+    className: 'view-more-info',
+    dClass: '.view-more-info'
+}
+
+const CLASS_SAVE_BTN = {
+    className: 'btn-save',
+    dClass: '.btn-save'
+}
+const CLASS_SAVE_NEW_BTN = {
+    className: 'btn-save-and-new',
+    dClass: '.btn-save-and-new'
+}
+
+const CLASS_FLAG_SAVE_AND_NEW = {
+    className: 'flag-save-and-new',
+    dClass: '.flag-save-and-new'
+}
+
+const CRUD_FORM = {
+    id: 'entityForm',
+    dId: '#entityForm'
 }
