@@ -1,15 +1,15 @@
 @import "elipse.css";
 
-th.column-actions {
+.column-actions {
     width: 20px;
 }
-td.ec-actions .action-button {
+.ec-actions .action-button {
     color: var(--ec-primary);
     opacity: 80%;
     padding: 0 0.4em;
 }
 
-td.ec-actions .action-button:hover{
+.ec-actions .action-button:hover{
     opacity: 100%;
     cursor: pointer;
 }

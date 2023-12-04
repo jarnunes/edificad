@@ -46,7 +46,13 @@
                     <td th:text="${row.email}" ></td>
                     <td th:text="${row.telefone}" ></td>
                     <td th:text="${@helper.dateFormat(row.dataNascimento)}" ></td>
-                    <td th:text="${row.dependentes.size()}" class="text-center"></td>
+                    <td class="d-flex align-items-center justify-content-evenly ec-actions">
+                        <span th:text="${row.dependentes.size()}"></span>
+
+                        <a class="action-button view-more-info" href="#" th:if="${row.dependentes.size() > 0}" >
+                            <i class="bi bi-eye-fill"></i>
+                        </a>
+                    </td>
                     <td th:text="${row.endereco == null ? '' : row.endereco.toString()}"></td>
                 </tr>
                 </tbody>

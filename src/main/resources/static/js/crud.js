@@ -12,12 +12,12 @@ $(CLASS_MINI_BTN_DELETE.dClass).click(function () {
     let deleteMessage = `Os registros selecionados serão removidos. Confirma a exclusão de ${selectedIds.length} registro(s) ?`
 
     jQueryUtils.append(CLASS_CONTAINER_TO_MODAL.dClass, HTMLUtils.getModalDeleteConfirm(deleteMessage))
-    jQueryUtils.showModal(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
+    jQueryUtils.showModal(CLASS_MODAL.dClass)
 
     // add listener to cancel button
     $(CLASS_BTN_CANCEL_MODAL.dClass).click(function () {
-        jQueryUtils.hideModal(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
-        jQueryUtils.removeWithTimeout(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
+        jQueryUtils.hideModal(CLASS_MODAL.dClass)
+        jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
     })
 
     // add listener to confirm button
@@ -30,14 +30,14 @@ $(CLASS_MINI_BTN_DELETE.dClass).click(function () {
 function successCrudDeleteHandler(json) {
     jQueryUtils.addSuccessMessage(json.messages)
     jQueryUtils.removeRows(json.data)
-    jQueryUtils.hideModal(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
-    jQueryUtils.removeWithTimeout(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
+    jQueryUtils.hideModal(CLASS_MODAL.dClass)
+    jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
 }
 
 function errorCrudDeleteHandler(json) {
     jQueryUtils.addErrorMessages(json.messages)
-    jQueryUtils.hideModal(CLASS_MODAL_DELETE_CONFIRMATION.dClass);
-    jQueryUtils.removeWithTimeout(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
+    jQueryUtils.hideModal(CLASS_MODAL.dClass);
+    jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
     jQueryUtils.removeRows(json.data)
 }
 
@@ -52,11 +52,11 @@ $(".ec-table-container").on('click', CLASS_MINI_BTN_DELETE_ROW.dClass, function 
     let entityName = row.find('td:nth-child(2)').text()
     let messageModal = `Confirmar exclusão do dependente "${entityName}"?`
     jQueryUtils.append(CLASS_CONTAINER_TO_MODAL.dClass, HTMLUtils.getModalDeleteConfirm(messageModal));
-    jQueryUtils.showModal(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
+    jQueryUtils.showModal(CLASS_MODAL.dClass)
 
     // add listener to cancel button
     $(CLASS_BTN_CANCEL_MODAL.dClass).click(function () {
-        jQueryUtils.removeWithTimeout(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
+        jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
     })
 
     // add listener to confirm button
@@ -76,8 +76,8 @@ function removeDeletedRow(elementId) {
 
 function successDependenteDeleteHandler(response) {
     jQueryUtils.addSuccessMessage(response.messages)
-    jQueryUtils.toggleModal(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
-    jQueryUtils.removeWithTimeout(CLASS_MODAL_DELETE_CONFIRMATION.dClass)
+    jQueryUtils.toggleModal(CLASS_MODAL.dClass)
+    jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
     jQueryUtils.scrollToTop()
 }
 

@@ -1,4 +1,4 @@
-const CLASS_MODAL_DELETE_CONFIRMATION = {
+const CLASS_MODAL = {
     className: 'modal-delete-confirmation',
     dClass: '.modal-delete-confirmation'
 };
@@ -60,3 +60,7 @@ const SEARCH = {
     key: 'search'
 }
 
+const VIEW_ROW_INFO = {
+    className : 'view-more-info',
+    dClass : '.view-more-info'
+}

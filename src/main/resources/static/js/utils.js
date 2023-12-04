@@ -274,10 +274,28 @@ class HTMLUtils {
         document.body.appendChild(divContainerModal)
     }
 
+    static getModalDependentes(tableHtml) {
+        return `
+        <div class="modal fade ${CLASS_MODAL.className}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="Delete Confirmation" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Dependentes</h5>
+                        </div>
+                        <div class="modal-body">
+                            ${tableHtml}
+                        </div>
+                </div>
+            </div>
+        </div>`
+    }
+
 
     static getModalDeleteConfirm(msg) {
         return `
-        <div class="modal fade ${CLASS_MODAL_DELETE_CONFIRMATION.className}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <div class="modal fade ${CLASS_MODAL.className}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="Delete Confirmation" aria-hidden="true">
 
             <div class="modal-dialog">
