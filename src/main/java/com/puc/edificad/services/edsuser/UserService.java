@@ -15,6 +15,6 @@ public interface UserService extends BaseService<User> {
     Optional<User> findByEmail(String email);
 
     UserDto save(UserDto dto);
-
+    UserDto update(UserDto dto);
     Optional<UserDto> findByIdDto(Long id);
 }

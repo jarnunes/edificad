@@ -56,14 +56,15 @@ public class UserController extends CrudController<User> {
         if (result.hasErrors()) return "eds-user/create";
         final Long entityId = entity.getId();
 
-        UserDto dto = service.save(entity);
         if(entityId == null){
+            UserDto dto = service.save(entity);
             addSuccess(attributes, message.get("eds.success.create", dto.getPassword()));
+            return saveAndNew ? redirect("/eds-user/create") : redirect("/eds-user/update", dto.getId());
         }else{
+            UserDto dto = service.update(entity);
             addSuccess(attributes, message.get("eds.success.update"));
+            return saveAndNew ? redirect("/eds-user/create") : redirect("/eds-user/update", dto.getId());
         }
-
-        return saveAndNew ? redirect("/eds-user/create") : redirect("/eds-user/update", dto.getId());
     }
 
     @GetMapping("/update/{id}")

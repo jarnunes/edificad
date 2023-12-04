@@ -108,4 +108,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         user.setLocked(null);
         return Optional.of(user);
     }
+
+    @Override
+    public UserDto update(UserDto dto) {
+        final User entity = mapper.toEntity(dto);
+        this.update(entity);
+        return mapper.toDto(entity);
+    }
 }
