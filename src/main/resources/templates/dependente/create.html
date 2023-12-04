@@ -36,8 +36,7 @@
                     </div>
                     <div class="col">
                         <label for="email">E-mail</label>
-                        <input type="text" class="form-control" id="email"
-                               th:field="*{email}" required/>
+                        <input type="email" class="form-control" id="email" th:field="*{email}"/>
                     </div>
                     <div class="col">
                         <label for="cpf">CPF</label>
@@ -45,11 +44,11 @@
                     </div>
                     <div class="col">
                         <label for="telefone">Telefone</label>
-                        <input type="text" class="form-control phone-mask" id="telefone" th:field="*{telefone}" maxlength="15" />
+                        <input type="tel" class="form-control phone-mask" id="telefone" th:field="*{telefone}" maxlength="15" />
                     </div>
                     <div class="col">
                         <label for="dataNascimento">Data de nascimento</label>
-                        <input type="date" class="form-control" id="dataNascimento"
+                        <input type="date" class="form-control" id="dataNascimento" maxlength="8"
                                th:field="*{dataNascimento}" required/>
                     </div>
                 </div>

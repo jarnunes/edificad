@@ -25,43 +25,35 @@
                     <div class="col">
                         <label for="beneficiario">Beneficiário</label>
                         <div class="input-group mb-3">
-                            <select id="beneficiario" class="form-control" th:field="*{beneficiario}">
+                            <select id="beneficiario" class="form-control" th:field="*{beneficiario}" required>
                                 <option value="">Select one item</option>
                                 <option th:each="beneficiario : ${beneficiarioList}" th:value="${beneficiario.id}"
                                         th:text="${beneficiario.nome}"></option>
                             </select>
-                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
-                                    href="#novaCategoria">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
+<!--                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"-->
+<!--                                    href="#novaCategoria">-->
+<!--                                <i class="bi bi-plus-lg"></i>-->
+<!--                            </button>-->
                         </div>
                     </div>
                     <div class="col">
                         <label for="cesta">Cesta</label>
                         <div class="input-group mb-3">
-                            <select id="cesta" class="form-control" th:field="*{cesta}">
+                            <select id="cesta" class="form-control" th:field="*{cesta}" required>
                                 <option value="">Selecione um item</option>
                                 <option th:each="cesta : ${cestaList}" th:value="${cesta.id}"
                                         th:text="${cesta.nome}"></option>
                             </select>
-                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
-                                    href="#novaCategoria">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
                         </div>
                     </div>
                     <div class="col">
                         <label for="voluntario">Voluntário</label>
-                        <div class="input-group mb-3">
-                            <select id="voluntario" class="form-control" th:field="*{voluntario}">
+                        <div class="input-group mb-3" >
+                            <select id="voluntario" class="form-control" th:field="*{voluntario}" required>
                                 <option value="">Selecione um item</option>
                                 <option th:each="voluntario : ${voluntarioList}" th:value="${voluntario.id}"
                                         th:text="${voluntario.nome}"></option>
                             </select>
-                            <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
-                                    href="#novaCategoria">
-                                <i class="bi bi-plus-lg"></i>
-                            </button>
                         </div>
                     </div>
 

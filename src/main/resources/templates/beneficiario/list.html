@@ -45,7 +45,7 @@
                     <td th:text="${row.cpf}" ></td>
                     <td th:text="${row.email}" ></td>
                     <td th:text="${row.telefone}" ></td>
-                    <td th:text="${row.dependentes.size()}"></td>
+                    <td th:text="${row.dependentes.size()}" class="text-center"></td>
                     <td th:text="${row.endereco == null ? '' : row.endereco.toString()}"></td>
                 </tr>
                 </tbody>

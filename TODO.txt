@@ -1,1 +1,2 @@
 - melhorias do JS.
+-- validar datas no cadatro. Maioria das datas não podem ser superior das datas atuais.
