@@ -53,7 +53,6 @@ public class UserMapper {
         entity.getUserRoles().clear();
         entity.getUserRoles().add(UserUtils.of(dto.getRole()));
         entity.setEnabled(dto.isEnabled());
-        entity.setPassword(dto.getPassword());
         return entity;
     }
 
