@@ -100,9 +100,9 @@
                         <thead>
                         <tr>
                             <th class="column-actions">Actions</th>
-                            <th>Nome</th>
-                            <th>CPF</th>
-                            <th>Data Nascimento</th>
+                            <th th:text="#{pessoa.nome}"></th>
+                            <th th:text="#{pessoa.cpf}"></th>
+                            <th th:text="#{pessoa.data.nascimento}"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -115,7 +115,7 @@
                             </td>
                             <td><h5 th:text="${dependente.nome}"></h5></td>
                             <td><span th:text="${dependente.cpf}"></span></td>
-                            <td><span th:text="${dependente.dataNascimento}"></span></td>
+                            <td><span th:text="${@helper.dateFormat(dependente.dataNascimento)}"></span></td>
                         </tr>
                         </tbody>
                     </table>

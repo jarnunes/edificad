@@ -23,10 +23,11 @@
                 <tr>
                     <th th:replace="~{layout/fragments/th-select-all}"></th>
                     <th class="d-none" style="width: 20px">Id</th>
-                    <th>Nome</th>
-                    <th>Username</th>
-                    <th>E-mail</th>
-                    <th>Perfil</th>
+                    <th th:text="#{pessoa.nome}"></th>
+                    <th th:text="#{eds.username}"></th>
+                    <th th:text="#{pessoa.email}"></th>
+                    <th th:text="#{eds.enabled}"></th>
+                    <th th:text="#{eds.perfil}"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,6 +43,7 @@
                     <td th:text="${row.fullName}" ></td>
                     <td th:text="${row.username}" ></td>
                     <td th:text="${row.email}" ></td>
+                    <td th:text="${@booleanConverter.convert(row.enabled)}"  ></td>
                     <td th:text="${row.getRoles()}" ></td>
                 </tr>
                 </tbody>

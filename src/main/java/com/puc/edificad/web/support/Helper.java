@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -37,6 +38,10 @@ public class Helper {
 
     public String dateTimeFormat(LocalDateTime dateTime){
         return DateTimeUtils.formatter(dateTime);
+    }
+
+    public String dateFormat(LocalDate date){
+        return DateTimeUtils.formatter(date);
     }
 
     public String authenticatedUserReduceFullName(){

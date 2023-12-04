@@ -12,6 +12,7 @@ import java.util.function.Function;
 public class DateTimeUtils {
 
     private static final String DATE_TIME_PATTERN = "yyyy-MM-dd'T'HH:mm:ss";
+    private static final String DATE_PATTERN_PT = "dd-MM-yyyy";
 
     private DateTimeUtils() {
     }
@@ -24,9 +25,16 @@ public class DateTimeUtils {
         if (localDateTime == null)
             return null;
 
-        ZonedDateTime saoPauloDateTime = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyy HH:mm");
-        return saoPauloDateTime.format(formatter);
+        return localDateTime.format(formatter);
+    }
+
+    public static String formatter(LocalDate localDate) {
+        if (localDate == null)
+            return null;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN_PT);
+        return localDate.format(formatter);
     }
 
     public static Year toYear(Integer year) {

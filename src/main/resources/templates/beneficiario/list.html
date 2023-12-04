@@ -22,13 +22,13 @@
                 <thead>
                 <tr>
                     <th th:replace="~{layout/fragments/th-select-all}"></th>
-
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>E-mail</th>
-                    <th>Telefone</th>
-                    <th>Dependentes</th>
-                    <th>Endereço</th>
+                    <th th:text="#{pessoa.nome}"></th>
+                    <th th:text="#{pessoa.cpf}"></th>
+                    <th th:text="#{pessoa.email}"></th>
+                    <th th:text="#{pessoa.phone}"></th>
+                    <th th:text="#{pessoa.data.nascimento}"></th>
+                    <th th:text="#{pessoa.dependentes}"></th>
+                    <th th:text="#{pessoa.endereco}"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,6 +45,7 @@
                     <td th:text="${row.cpf}" ></td>
                     <td th:text="${row.email}" ></td>
                     <td th:text="${row.telefone}" ></td>
+                    <td th:text="${@helper.dateFormat(row.dataNascimento)}" ></td>
                     <td th:text="${row.dependentes.size()}" class="text-center"></td>
                     <td th:text="${row.endereco == null ? '' : row.endereco.toString()}"></td>
                 </tr>
