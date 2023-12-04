@@ -1,12 +1,11 @@
 package com.puc.edificad.web.controller;
 
 
+import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.commons.utils.ExceptionUtils;
-import com.puc.edificad.commons.utils.JsonUtils;
 import com.puc.edificad.model.BaseEntity;
 import com.puc.edificad.services.BaseService;
 import com.puc.edificad.web.support.AjaxResponse;
-import com.puc.edificad.web.support.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.domain.Page;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -81,23 +81,33 @@ public abstract class CrudController<T extends BaseEntity> extends AbstractContr
 
 
     @PostMapping("/delete")
-    ResponseEntity<String> deleteAll(@RequestBody List<Long> ids) {
-        int removedIds = 0;
+    ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
+        int qtdeRegistrosRemovidos = 0;
+        List<Long> idsRemovidos = new ArrayList<>();
 
         AjaxResponse response = new AjaxResponse();
-        response.setStatusCode(StatusCode.SUCCESS);
         for (Long id : ids) {
             try {
-                service.deleteById(id);
-                removedIds++;
+                T entity = service.findById(id).orElseThrow(EntityNotFoundException::notFoundForId);
+                try {
+                    //service.deleteById(id);
+                    qtdeRegistrosRemovidos++;
+                    idsRemovidos.add(id);
+                } catch (Exception e) {
+                    response.setData(idsRemovidos);
+                    response.addMessage(getInternalError(entity.getId(), ExceptionUtils.getRootCause(e)));
+                    response.addMessage("Apenas " + qtdeRegistrosRemovidos + " registros foram removidos");
+                    return ResponseEntity.internalServerError().body(response);
+                }
             } catch (Exception e) {
-                response.setStatusCode(StatusCode.ERROR);
-                response.addMessage(getInternalError(ExceptionUtils.getRootCause(e)));
-                return ResponseEntity.ok(JsonUtils.toJsonString(response));
+                response.addMessage(e.getMessage());
+                return ResponseEntity.internalServerError().body(response);
             }
+
         }
-        response.addMessage(getSuccessDeleteMessage(removedIds));
-        return ResponseEntity.ok(JsonUtils.toJsonString(response));
+        response.addMessage(getSuccessDeleteMessage(qtdeRegistrosRemovidos));
+        response.setData(idsRemovidos);
+        return ResponseEntity.ok(response);
     }
 
 

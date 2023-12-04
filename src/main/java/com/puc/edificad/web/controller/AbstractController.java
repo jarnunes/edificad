@@ -102,7 +102,7 @@ public abstract class AbstractController<T extends BaseEntity> {
         return message.get("success.delete.entity.list", entityClass.getSimpleName(), recordsNumber);
     }
 
-    protected String getInternalError(String errorDetails) {
+    protected String getInternalError(Object ... errorDetails) {
         return message.get("err.delete.entity", errorDetails);
     }
 

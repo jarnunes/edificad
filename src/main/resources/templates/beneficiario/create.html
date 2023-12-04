@@ -100,7 +100,6 @@
                         <thead>
                         <tr>
                             <th class="column-actions">Actions</th>
-                            <th>Id</th>
                             <th>Nome</th>
                             <th>CPF</th>
                             <th>Data Nascimento</th>
@@ -112,9 +111,8 @@
                                 <a class="action-button" th:href="@{/dependente/update/{id} (id=${dependente.id})}">
                                     <i class="bi bi-pen-fill"></i>
                                 </a>
-                                <span class="action-button mini-button-delete"><i class="bi bi-trash3-fill"></i></span>
+                                <span class="action-button mini-btn-delete-row"><i class="bi bi-trash3-fill"></i></span>
                             </td>
-                            <td><h5 th:text="${dependente.id}"></h5></td>
                             <td><h5 th:text="${dependente.nome}"></h5></td>
                             <td><span th:text="${dependente.cpf}"></span></td>
                             <td><span th:text="${dependente.dataNascimento}"></span></td>

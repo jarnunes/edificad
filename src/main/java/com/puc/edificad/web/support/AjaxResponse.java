@@ -15,7 +15,7 @@ public class AjaxResponse {
     private int statusCode;
     private List<String> messages = new ArrayList<>();
 
-    private Object entity;
+    private Object data;
 
     public void addMessage(String message) {
         this.messages.add(message);

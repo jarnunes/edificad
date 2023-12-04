@@ -1,96 +1,7 @@
-class PathURI {
-    constructor() {
-        this._deletePathURI = null;
-        this._listPathURI = null;
-        this._editPathURI = null;
-        this._createPathURI = null;
-        this._updatePathURI = null;
-    }
-
-    get deletePathURI() {
-        return this._deletePathURI;
-    }
-
-    set deletePathURI(value) {
-        this._deletePathURI = value;
-    }
-
-
-    get listPathURI() {
-        return this._listPathURI;
-    }
-
-    set listPathURI(value) {
-        this._listPathURI = value;
-    }
-
-    get editPathURI() {
-        return this._editPathURI;
-    }
-
-    set editPathURI(value) {
-        this._editPathURI = value;
-    }
-
-    get createPathURI() {
-        return this._createPathURI;
-    }
-
-    set createPathURI(value) {
-        this._createPathURI = value;
-    }
-
-    get updatePathURI() {
-        return this._updatePathURI;
-    }
-
-    set updatePathURI(value) {
-        this._updatePathURI = value;
-    }
-
-    static createDeletePath(resource) {
-        return `/${resource}/delete`
-    }
-
-    static createListPath(resource) {
-        return `/${resource}`
-    }
-
-    static createUpdatePath(resource) {
-        return `/${resource}/update`
-    }
-
-    static createSavePath(resource) {
-        return `/${resource}/save`
-    }
-}
-
-class DeleteConfirmation {
-    constructor() {
-        this._entityId = null;
-        this._entityName = null;
-    }
-
-
-    get entityId() {
-        return this._entityId;
-    }
-
-    set entityId(value) {
-        this._entityId = value;
-    }
-
-    get entityName() {
-        return this._entityName;
-    }
-
-    set entityName(value) {
-        this._entityName = value;
-    }
-}
-
-
 class JSUtils {
+    static redirect(path){
+        window.location.href = window.location.origin + path
+    }
     static nonEmpty(value, func) {
         if (value != null)
             func(value)
@@ -152,29 +63,29 @@ class JSUtils {
 
     static getQueryParameterByName(paramName) {
         return new Map(Array.from(this.getQueryParameters())
-                .filter(([key]) => key === paramName)
-                .map(([key, value]) =>[ key, value]))
+            .filter(([key]) => key === paramName)
+            .map(([key, value]) => [key, value]))
     }
 
-    static addQueryParameters(parameter, value){
+    static addQueryParameters(parameter, value) {
         let url = new URL(window.location.href);
         url.searchParams.set(parameter, value)
         this.replaceUrl(url)
     }
 
-    static addQueryParametersList(list){
+    static addQueryParametersList(list) {
         let url = new URL(window.location.href);
-        list.forEach(function(param) {
+        list.forEach(function (param) {
             url.searchParams.set(param.name, param.value);
         });
         this.replaceUrl(url)
     }
 
-    static replaceUrl(newURL){
+    static replaceUrl(newURL) {
         window.history.replaceState({}, '', newURL.toString());
     }
 
-    static reloadPage(){
+    static reloadPage() {
         location.reload()
     }
 
@@ -279,8 +190,16 @@ class JSUtils {
 }
 
 class jQueryUtils {
-    static addErrorMessage(message) {
-        $('#messages').html(HTMLUtils.getErrorMessage(message))
+    static removeRows(ids) {
+        Array.from(ids).forEach(id => jQueryUtils.removeRow(id))
+    }
+
+    static removeRow(id) {
+        $(`#row_${id}`).remove();
+    }
+
+    static addErrorMessages(messages) {
+        $('#messages').html(HTMLUtils.getErrorMessage(messages.join('.</br>')))
     }
 
     static addErrorMessageOnModal(message) {
@@ -307,14 +226,13 @@ class jQueryUtils {
         $(idOrClass).modal('toggle')
     }
 
-    static remove(idOrClass) {
+    static removeWithTimeout(idOrClass) {
         setTimeout(function () {
             $(idOrClass).remove()
         }, 300)
     }
 
     static append(idOrClassContainer, html) {
-
         $(idOrClassContainer).append(html)
     }
 
@@ -357,9 +275,9 @@ class HTMLUtils {
     }
 
 
-    static getModalDeleteConfirm(deleteConfirmation) {
+    static getModalDeleteConfirm(msg) {
         return `
-        <div class="modal fade ${modalDeleteConfirmation}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <div class="modal fade ${CLASS_MODAL_DELETE_CONFIRMATION.className}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
              aria-labelledby="Delete Confirmation" aria-hidden="true">
 
             <div class="modal-dialog">
@@ -368,18 +286,16 @@ class HTMLUtils {
                             <h5 class="modal-title">Confirmar Exclusão</h5>
                         </div>
                         <div class="modal-body">
-                            <div class="${modalMessagesContainer}"></div>
-                            <div>
-                                Confirma a exclusão do '${deleteConfirmation._entityName}' ?
-                            </div>
+                            <div class="${CLASS_CONTAINER_TO_MODAL_MSG.className}"></div>
+                            <div>${msg}</div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary ${modalDeleteCancel}" data-bs-dismiss="modal">
-                                <span class="d-none d-md-block">Cancel</span>
+                            <button type="button" class="btn btn-secondary ${CLASS_BTN_CANCEL_MODAL.className}" data-bs-dismiss="modal">
+                                <span class="d-none d-md-block">Cancelar</span>
                                 <i class="bi bi-x-lg d-block d-md-none"></i>
                             </button>
-                            <button type="button" class="btn btn-primary ${modalDeleteConfirm}">
-                                Confirm
+                            <button type="button" class="btn btn-primary ${CLASS_BTN_CONFIRM_MODAL.className}">
+                                Confirmar
                             </button>
                         </div>
                 </div>

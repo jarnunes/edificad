@@ -78,18 +78,15 @@ public class DependenteController extends CrudController<Dependente> {
         int removedIds = 0;
 
         AjaxResponse response = new AjaxResponse();
-        response.setStatusCode(StatusCode.SUCCESS);
             try {
                 service.deleteById(id);
                 removedIds++;
             } catch (Exception e) {
-                response.setStatusCode(StatusCode.ERROR);
                 response.addMessage(getInternalError(e.getMessage()));
-                return ResponseEntity.ok(response);
+                return ResponseEntity.internalServerError().body(response);
             }
         response.addMessage(getSuccessDeleteMessage(removedIds));
         return ResponseEntity.ok(response);
     }
-
 
 }

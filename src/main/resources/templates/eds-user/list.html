@@ -30,7 +30,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="row : ${entities}">
+                <tr th:each="row : ${entities}" data-th-id="${'row_' + row.id}">
                     <td>
                         <div class="actions">
                             <div class="form-check">
