@@ -2,9 +2,12 @@ package com.puc.edificad.commons.utils;
 
 import com.puc.edificad.commons.exceptions.UserAuthenticationException;
 import com.puc.edificad.commons.exceptions.ValidationException;
+import lombok.NonNull;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -44,5 +47,15 @@ public class ValidationUtils {
         if (!expectedCondition) {
             throw new UserAuthenticationException(msgKey, args);
         }
+    }
+
+    public static void validateDateTimeAfterNow(LocalDateTime localDateTime){
+        validate(localDateTime == null || localDateTime.isBefore(LocalDateTime.now()),
+                "datetime.after.now", DateTimeUtils.formatter(localDateTime));
+    }
+
+    public static void validateDateTimeAfterNow(LocalDate localDateTime){
+        validate(localDateTime == null || localDateTime.isBefore(LocalDate.now()),
+                "datetime.after.now", DateTimeUtils.formatter(localDateTime));
     }
 }

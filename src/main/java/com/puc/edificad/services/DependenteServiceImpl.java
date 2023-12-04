@@ -1,5 +1,6 @@
 package com.puc.edificad.services;
 
+import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.mapper.DependenteMapper;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.dto.DependenteDto;
@@ -28,6 +29,7 @@ public class DependenteServiceImpl extends BaseServiceImpl<Dependente> implement
     @Override
     public DependenteDto save(DependenteDto dto) {
         Dependente entity = dependenteMapper.toEntity(dto);
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
         super.save(entity);
         return dependenteMapper.toDto(entity);
     }
@@ -35,6 +37,7 @@ public class DependenteServiceImpl extends BaseServiceImpl<Dependente> implement
     @Override
     public DependenteDto update(DependenteDto dto) {
         Dependente entity = dependenteMapper.toEntity(dto);
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
         super.update(entity);
         return dependenteMapper.toDto(entity);
     }

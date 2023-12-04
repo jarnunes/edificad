@@ -1,5 +1,6 @@
 package com.puc.edificad.services;
 
+import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,18 @@ public class VoluntarioServiceImpl extends BaseServiceImpl<Voluntario> implement
     @Override
     public List<Voluntario> findByIdNomeCpf(Long id, String cpf, String nome) {
         return repository.findByIdNomeCpf(id, nome, cpf);
+    }
+
+    @Override
+    public Voluntario save(Voluntario entity) {
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
+        return super.save(entity);
+    }
+
+    @Override
+    public Voluntario update(Voluntario entity) {
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
+        return super.update(entity);
     }
 
     @Override

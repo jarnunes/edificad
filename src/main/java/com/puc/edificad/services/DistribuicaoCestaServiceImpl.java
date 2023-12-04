@@ -1,6 +1,7 @@
 package com.puc.edificad.services;
 
 import com.puc.edificad.commons.utils.DateTimeUtils;
+import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.mapper.DistribuicaoCestaMapper;
 import com.puc.edificad.model.DistribuicaoCesta;
 import com.puc.edificad.model.dto.DistribuicaoCestaDto;
@@ -66,12 +67,15 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
     @Override
     public DistribuicaoCesta save(DistribuicaoCesta entity) {
         cestaService.darBaixaDistribuicaoCesta(entity.getCesta().getId(), 1);
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataHora());
+
         return super.save(entity);
     }
 
     @Override
     public void update(DistribuicaoCestaDto dto) {
         DistribuicaoCesta entity = distribuicaoCestaMapper.toEntity(dto);
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataHora());
         super.update(entity);
     }
 

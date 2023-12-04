@@ -1,5 +1,6 @@
 package com.puc.edificad.services;
 
+import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.mapper.BeneficiarioMapper;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.dto.BeneficiarioDto;
@@ -33,8 +34,15 @@ public class BeneficiarioServiceImpl extends BaseServiceImpl<Beneficiario> imple
     }
 
     @Override
+    public Beneficiario save(Beneficiario entity) {
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
+        return super.save(entity);
+    }
+
+    @Override
     public Beneficiario update(BeneficiarioDto dto) {
         Beneficiario entity = beneficiarioMapper.toEntity(dto);
+        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
         return super.update(entity);
     }
 
