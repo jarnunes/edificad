@@ -41,19 +41,55 @@
                             </div>
                         </div>
                     </td>
-                    <td th:text="${row.nome}" ></td>
-                    <td th:text="${row.cpf}" ></td>
-                    <td th:text="${row.email}" ></td>
-                    <td th:text="${row.telefone}" ></td>
-                    <td th:text="${@helper.dateFormat(row.dataNascimento)}" ></td>
+                    <td th:text="${row.nome}"></td>
+                    <td th:text="${row.cpf}"></td>
+                    <td th:text="${row.email}"></td>
+                    <td th:text="${row.telefone}"></td>
+                    <td th:text="${@helper.dateFormat(row.dataNascimento)}"></td>
                     <td class="d-flex align-items-center justify-content-evenly ec-actions">
                         <span th:text="${row.dependentes.size()}"></span>
 
-                        <a class="action-button view-more-info" href="#" th:if="${row.dependentes.size() > 0}" >
+                        <a class="action-button view-more-info" href="#" th:if="${row.dependentes.size() > 0}"
+                           data-bs-toggle="modal" th:data-bs-target="${'#dependente_' + row.id}">
                             <i class="bi bi-eye-fill"></i>
                         </a>
+
+                        <!-- Dependentes -->
+                        <div class="modal modal-lg fade" th:id="${'dependente_' + row.id}" data-bs-backdrop="static" tabindex="-1"
+                             aria-labelledby="dependentesModal" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Dependentes</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="ec-table-container">
+                                            <table class="ec-table" aria-describedby="Dependentes List">
+                                                <thead>
+                                                <tr>
+                                                    <th th:text="#{pessoa.nome}"></th>
+                                                    <th th:text="#{pessoa.cpf}"></th>
+                                                    <th th:text="#{pessoa.data.nascimento}"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="dependente : ${row.dependentes}" data-th-id="${dependente.id}">
+                                                    <td><h5 th:text="${dependente.nome}"></h5></td>
+                                                    <td><span th:text="${dependente.cpf}"></span></td>
+                                                    <td><span th:text="${@helper.dateFormat(dependente.dataNascimento)}"></span></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     <td th:text="${row.endereco == null ? '' : row.endereco.toString()}"></td>
+
+
                 </tr>
                 </tbody>
             </table>
