@@ -98,7 +98,9 @@ public abstract class CrudController<T extends BaseEntity> extends AbstractContr
             } catch (Exception e){
                 response.setData(idsRemovidos);
                 response.addMessage(getInternalError(id, ExceptionUtils.getRootCause(e)));
-                response.addMessage(MessageUtils.get("err.delete.entities", qtdeRegistrosRemovidos));
+                if(qtdeRegistrosRemovidos > 0)
+                    response.addMessage(MessageUtils.get("err.delete.entities", qtdeRegistrosRemovidos));
+
                 return ResponseEntity.internalServerError().body(response);
             }
         }
