@@ -24,9 +24,8 @@
                     <th th:replace="~{layout/fragments/th-select-all}"></th>
                     <th th:text="#{pessoa.nome}"></th>
                     <th th:text="#{pessoa.cpf}"></th>
-                    <th th:text="#{pessoa.email}"></th>
-                    <th th:text="#{pessoa.phone}"></th>
                     <th th:text="#{pessoa.data.nascimento}"></th>
+                    <th th:text="#{voluntario.qtde.projetos}"></th>
                     <th th:text="#{pessoa.endereco}"></th>
                 </tr>
                 </thead>
@@ -40,12 +39,26 @@
                             </div>
                         </div>
                     </td>
-                    <td th:text="${row.nome}" ></td>
+                    <td>
+                        <h5 th:text="${row.nome}" ></h5>
+                        <div class="mb-1 text-muted" th:if="${row.telefone != null}">
+                            <i class="bi bi-telephone-fill me-1"></i>
+                            <span th:text="${row.telefone}"></span>
+                        </div>
+
+                        <div class="text-muted" th:if="${row.email != null}">
+                            <i class="bi bi-envelope-at-fill me-1"></i>
+                            <span th:text="${row.email}"></span>
+                        </div>
+                    </td>
                     <td th:text="${row.cpf}" ></td>
-                    <td th:text="${row.email}" ></td>
-                    <td th:text="${row.telefone}" ></td>
                     <td th:text="${@helper.dateFormat(row.dataNascimento)}" ></td>
-                    <td th:text="${row.endereco.toString()}"></td>
+                    <td th:text="${row.numeroProjetosParticipados}" ></td>
+                    <td>
+                        <span class="d-block" th:text="${row.endereco.logradouro + ', ' + row.endereco.numero}"></span>
+                        <span class="d-block" th:text="${row.endereco.cep + ' - ' + row.endereco.bairro}"></span>
+                        <span class="d-block" th:text="${row.endereco.cidade + '/' + row.endereco.estado}"></span>
+                    </td>
                 </tr>
                 </tbody>
             </table>

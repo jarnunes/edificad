@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -58,7 +59,9 @@ public class DistribuicaoCestaController extends CrudController<DistribuicaoCest
 
     @GetMapping("/create")
     String create(Model model) {
-        model.addAttribute("entity", new DistribuicaoCesta());
+        DistribuicaoCesta entity = new DistribuicaoCesta();
+        entity.setDataHora(LocalDateTime.now());
+        model.addAttribute("entity", entity);
         return "distribuicao-cesta/create";
     }
 

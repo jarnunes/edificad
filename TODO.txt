@@ -1,2 +1,0 @@
--- cadastro de voluntários: pendente o número de projetos participados.
--- iniciar campo de data no cadastro da distribuição de cesta com data hora atual

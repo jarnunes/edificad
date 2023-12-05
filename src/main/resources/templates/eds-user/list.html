@@ -44,7 +44,11 @@
                     <td th:text="${row.username}" ></td>
                     <td th:text="${row.email}" ></td>
                     <td th:text="${@booleanConverter.convert(row.enabled)}"  ></td>
-                    <td th:text="${row.getRoles()}" ></td>
+                    <td>
+                        <span th:each="role : ${row.userRoles}">
+                            <span th:text="${role.role.value}"></span>
+                        </span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
