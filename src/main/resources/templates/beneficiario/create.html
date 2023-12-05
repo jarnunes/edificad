@@ -19,7 +19,7 @@
                     <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
 
                     <span th:if="${entity.id != null}">
-                        <a class="btn btn-primary create-module" role="button" th:href="@{/dependente/create(beneficiario=${id})}">
+                        <a class="btn btn-secondary" role="button" th:href="@{/dependente/create(beneficiario=${id})}">
                         <i class="bi bi-plus-lg"></i>
                         <span class="btn-label">Adicionar Dependente</span>
                         </a>
