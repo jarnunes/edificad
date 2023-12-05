@@ -83,3 +83,9 @@ const CRUD_FORM = {
     id: 'entityForm',
     dId: '#entityForm'
 }
+
+const ROWS_PER_APAGE = {
+    className: 'rows-per-page',
+    dClass : '.rows-per-page',
+    storeKey : 'selectedRowsPerPageNumber'
+}

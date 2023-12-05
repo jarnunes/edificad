@@ -187,6 +187,14 @@ class JSUtils {
     static executeFunction(functionName) {
         this.nonEmpty(functionName, nonEmptyFunction => nonEmptyFunction())
     }
+
+    static getStoredItem(key){
+        return localStorage.getItem(key);
+    }
+
+    static storeItem(key, value){
+        localStorage.setItem(key, value);
+    }
 }
 
 class jQueryUtils {
