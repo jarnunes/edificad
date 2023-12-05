@@ -7,7 +7,6 @@ import com.puc.edificad.services.BeneficiarioService;
 import com.puc.edificad.services.DependenteService;
 import com.puc.edificad.web.controller.CrudController;
 import com.puc.edificad.web.support.AjaxResponse;
-import com.puc.edificad.web.support.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

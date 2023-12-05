@@ -21,28 +21,9 @@ public class AjaxResponse {
         this.messages.add(message);
     }
 
-    public void setStatusCode(StatusCode statusCodeIn){
-        this.statusCode = statusCodeIn.ordinal();
-    }
 
     public static AjaxResponse of() {
         return new AjaxResponse();
     }
-
-    public AjaxResponse success() {
-        setStatusCode(StatusCode.SUCCESS);
-        return this;
-    }
-
-    public AjaxResponse error() {
-        setStatusCode(StatusCode.ERROR);
-        return this;
-    }
-
-    public AjaxResponse newMessage(String message) {
-        this.addMessage(message);
-        return this;
-    }
-
 
 }

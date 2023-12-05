@@ -4,9 +4,7 @@ package com.puc.edificad.web.controller;
 import com.puc.edificad.commons.config.Message;
 import com.puc.edificad.model.BaseEntity;
 import com.puc.edificad.web.config.Properties;
-import com.puc.edificad.web.support.AjaxResponse;
 import com.puc.edificad.web.support.MessagesAlert;
-import com.puc.edificad.web.support.StatusCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import static java.util.Objects.nonNull;
 @Controller
 public abstract class AbstractController<T extends BaseEntity> {
 
-    protected static final String ENTITY = "entity";
 
     @Autowired
     @Lazy
@@ -57,21 +54,8 @@ public abstract class AbstractController<T extends BaseEntity> {
         return message.get("success.update.entity", entityClass.getSimpleName());
     }
 
-    protected String getSuccessDeleteMessage() {
-        return message.get("success.delete.entity", entityClass.getSimpleName());
-    }
-
     protected String getUpdateOrCreateSuccessMessage(Long entityId) {
         return nonNull(entityId) ? getSuccessUpdateMessage() : getSuccessSaveMessage();
-    }
-
-    protected void addSuccess(AjaxResponse ajaxResponse, Long entityId) {
-        ajaxResponse.addMessage(getUpdateOrCreateSuccessMessage(entityId));
-    }
-
-    protected void addSuccess(ModelMap model, final String message) {
-        alert.addSuccess(message);
-        addMessageAlert(model);
     }
 
     protected void addSuccess(RedirectAttributes model, final String message) {
@@ -79,24 +63,10 @@ public abstract class AbstractController<T extends BaseEntity> {
         addMessageAlert(model);
     }
 
-    protected void addSuccessKey(RedirectAttributes model, final String msgKey, Object... args) {
-        alert.addSuccess(message.get(msgKey, args));
-        addMessageAlert(model);
-    }
-
     protected void addSuccess(RedirectAttributes attributes, Long entityId) {
         addSuccess(attributes, getUpdateOrCreateSuccessMessage(entityId));
     }
 
-    protected void addErrorMessage(AjaxResponse ajaxResponse, Exception e) {
-        ajaxResponse.setStatusCode(StatusCode.ERROR);
-        ajaxResponse.addMessage(e.getMessage());
-    }
-
-    protected void addSuccessDeleteMessage(AjaxResponse ajaxResponse) {
-        ajaxResponse.setStatusCode(StatusCode.SUCCESS);
-        ajaxResponse.addMessage(getSuccessDeleteMessage());
-    }
 
     protected String getSuccessDeleteMessage(int recordsNumber) {
         return message.get("success.delete.entity.list", entityClass.getSimpleName(), recordsNumber);
@@ -106,34 +76,11 @@ public abstract class AbstractController<T extends BaseEntity> {
         return message.get("err.delete.entity", errorDetails);
     }
 
-    protected String getInternalError(Throwable throwable) {
-        return message.get("err.delete.entity", throwable.getMessage());
-    }
-
-    protected void addError(ModelMap model, final String message) {
-        alert.addError(message);
-        addMessageAlert(model);
-    }
-
     protected void addError(RedirectAttributes model, final String message) {
         alert.addError(message);
         addMessageAlert(model);
     }
 
-    protected void addErrorKey(RedirectAttributes model, final String msgKey, Object... args) {
-        alert.addError(message.get(msgKey, args));
-        addMessageAlert(model);
-    }
-
-    protected void addWarning(ModelMap model, final String message) {
-        alert.addWarning(message);
-        addMessageAlert(model);
-    }
-
-    protected void addWarning(RedirectAttributes model, final String message) {
-        alert.addWarning(message);
-        addMessageAlert(model);
-    }
 
     private void addMessageAlert(ModelMap model) {
         model.addAttribute("messages", alert);
@@ -149,10 +96,6 @@ public abstract class AbstractController<T extends BaseEntity> {
 
     protected String redirect(String path, Object parameter) {
         return "redirect:" + path + "/" + parameter;
-    }
-
-    protected void addEntityToModelMap(ModelMap modelMap, T entity) {
-        modelMap.addAttribute(ENTITY, entity);
     }
 
 }
