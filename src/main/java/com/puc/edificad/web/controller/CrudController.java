@@ -3,6 +3,7 @@ package com.puc.edificad.web.controller;
 
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.commons.utils.ExceptionUtils;
+import com.puc.edificad.commons.utils.MessageUtils;
 import com.puc.edificad.model.BaseEntity;
 import com.puc.edificad.services.BaseService;
 import com.puc.edificad.web.support.AjaxResponse;
@@ -84,26 +85,22 @@ public abstract class CrudController<T extends BaseEntity> extends AbstractContr
     ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
         int qtdeRegistrosRemovidos = 0;
         List<Long> idsRemovidos = new ArrayList<>();
-
         AjaxResponse response = new AjaxResponse();
+
         for (Long id : ids) {
             try {
-                T entity = service.findById(id).orElseThrow(EntityNotFoundException::notFoundForId);
-                try {
-                    //service.deleteById(id);
-                    qtdeRegistrosRemovidos++;
-                    idsRemovidos.add(id);
-                } catch (Exception e) {
-                    response.setData(idsRemovidos);
-                    response.addMessage(getInternalError(entity.getId(), ExceptionUtils.getRootCause(e)));
-                    response.addMessage("Apenas " + qtdeRegistrosRemovidos + " registros foram removidos");
-                    return ResponseEntity.internalServerError().body(response);
-                }
-            } catch (Exception e) {
+                service.deleteById(id);
+                qtdeRegistrosRemovidos++;
+                idsRemovidos.add(id);
+            } catch (EntityNotFoundException e) {
                 response.addMessage(e.getMessage());
                 return ResponseEntity.internalServerError().body(response);
+            } catch (Exception e){
+                response.setData(idsRemovidos);
+                response.addMessage(getInternalError(id, ExceptionUtils.getRootCause(e)));
+                response.addMessage(MessageUtils.get("err.delete.entities", qtdeRegistrosRemovidos));
+                return ResponseEntity.internalServerError().body(response);
             }
-
         }
         response.addMessage(getSuccessDeleteMessage(qtdeRegistrosRemovidos));
         response.setData(idsRemovidos);
