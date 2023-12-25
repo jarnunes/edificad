@@ -1,5 +1,6 @@
 package com.puc.edificad.web.controller.user;
 
+import com.puc.edificad.commons.datatypes.TipoBoolean;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.commons.utils.ServletUtils;
 import com.puc.edificad.model.edsuser.Role;
@@ -149,5 +150,10 @@ public class UserController extends CrudController<User> {
     @ModelAttribute("roleList")
     List<Role> cestaList() {
         return Arrays.stream(Role.values()).toList();
+    }
+
+    @ModelAttribute("situacoesUsuarioList")
+    List<TipoBoolean> situacoesUsuarioList() {
+        return Arrays.stream(TipoBoolean.values()).toList();
     }
 }

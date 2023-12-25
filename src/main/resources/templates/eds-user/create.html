@@ -58,11 +58,15 @@
                             </button>
                         </div>
                     </div>
+
                     <div class="col">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" id="enabled"
-                                   th:field="*{enabled}" checked>
-                            <label class="form-check-label" for="enabled">Habilitado</label>
+                        <label for="situacao">Habilitado</label>
+                        <div class="input-group mb-3" >
+                            <select id="situacao" class="form-control" th:field="*{enabled}" required>
+                                <option th:text="#{select.one.item}" th:value="false" ></option>
+                                <option th:each="sit : ${situacoesUsuarioList}" th:value="${sit.value}"
+                                        th:text="${sit.label}"></option>
+                            </select>
                         </div>
                     </div>
                 </div>
