@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@SequenceGenerator(name = "seq_user", sequenceName = "seq_user", allocationSize = 1)
+@SequenceGenerator(name = "seq_password_reset_token", sequenceName = "seq_password_reset_token", allocationSize = 1)
 @Table(name = "eds_password_reset_token")
 public class PasswordResetToken extends BaseEntity {
 

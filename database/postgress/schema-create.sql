@@ -5,6 +5,7 @@ create sequence seq_endereco start with 1 increment by 1;
 create sequence seq_pessoa start with 1 increment by 1;
 create sequence seq_role_user start with 1 increment by 1;
 create sequence seq_user start with 1 increment by 1;
+create sequence seq_password_reset_token start with 1 increment by 1;
 
 create table beneficiario (id bigint not null, primary key (id));
 create table cesta (quantidade_estoque integer not null, create_date timestamp(6), id bigint not null, last_modified_date timestamp(6), nome varchar(50) not null unique, create_user varchar(255), last_modified_user varchar(255), descricao oid, primary key (id));
