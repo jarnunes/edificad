@@ -35,3 +35,9 @@ $('.select-file').click(function () {
         $('.submit-file').click()
     })
 })
+
+
+// redirect on click logo
+$('.logo').click(function (){
+    JSUtils.redirect("/")
+})
