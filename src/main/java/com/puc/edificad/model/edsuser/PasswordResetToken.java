@@ -14,17 +14,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@SequenceGenerator(name = "seq_password_reset_token", sequenceName = "seq_password_reset_token", allocationSize = 1)
+@SequenceGenerator(name = "seq_generator", sequenceName = "seq_password_reset_token", allocationSize = 1)
 @Table(name = "eds_password_reset_token")
 public class PasswordResetToken extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = -4884341597353398215L;
     private static final long EXPIRATION = 60L * 24L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generator")
-    private Long id;
 
     @Column(nullable = false, unique = true)
     private String token;

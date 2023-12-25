@@ -22,15 +22,12 @@ import java.util.function.UnaryOperator;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true, exclude = {"userRoles"})
-@SequenceGenerator(name = "seq_user", sequenceName = "seq_user", allocationSize = 1)
+@SequenceGenerator(name = "seq_generator", sequenceName = "seq_user", allocationSize = 1)
 @Table(name = "eds_user")
 public class User extends BaseEntity implements UserDetails {
 
     @Serial
     private static final long serialVersionUID = 2053508908322293256L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_generator")
-    private Long id;
 
     @Column(nullable = false)
     private String fullName;
