@@ -46,10 +46,10 @@
                     </div>
                     <div class="col">
                         <label for="cesta">Perfil</label>
-                        <div class="input-group mb-3">
-                            <select id="cesta" class="form-control" th:field="*{role}" required>
-                                <option value="">Selecione um item</option>
-                                <option th:each="role : ${roleList}" th:value="${role.name()}"
+                        <div class="input-group">
+                            <select id="cesta" class="form-select" th:field="*{role}" required>
+                                <option value="" th:text="#{autocomplete.select}"></option>
+                                <option th:each="role : ${roleList}" th:value="${role.name}"
                                         th:text="${role.value}"></option>
                             </select>
                             <button class="btn btn-secondary" type="button" data-bs-toggle="modal"
@@ -61,9 +61,9 @@
 
                     <div class="col">
                         <label for="situacao">Habilitado</label>
-                        <div class="input-group mb-3" >
-                            <select id="situacao" class="form-control" th:field="*{enabled}" required>
-                                <option th:text="#{select.one.item}" th:value="false" ></option>
+                        <div class="input-group" >
+                            <select id="situacao" class="form-select" th:field="*{enabled}" required>
+                                <option th:text="#{autocomplete.select}" th:value="false" ></option>
                                 <option th:each="sit : ${situacoesUsuarioList}" th:value="${sit.value}"
                                         th:text="${sit.label}"></option>
                             </select>

@@ -25,8 +25,8 @@
                     <div class="col">
                         <label for="beneficiario">Beneficiário</label>
                         <div class="input-group mb-3">
-                            <select id="beneficiario" class="form-control" th:field="*{beneficiario}" required>
-                                <option value="" th:text="#{select.one.item}"></option>
+                            <select id="beneficiario" class="form-select" th:field="*{beneficiario}" required>
+                                <option value="" th:text="#{autocomplete.select}"></option>
                                 <option th:each="beneficiario : ${beneficiarioList}" th:value="${beneficiario.id}"
                                         th:text="${beneficiario.nome}"></option>
                             </select>
@@ -35,8 +35,8 @@
                     <div class="col">
                         <label for="cesta">Cesta</label>
                         <div class="input-group mb-3">
-                            <select id="cesta" class="form-control" th:field="*{cesta}" required>
-                                <option value="" th:text="#{select.one.item}"></option>
+                            <select id="cesta" class="form-select" th:field="*{cesta}" required>
+                                <option value="" th:text="#{autocomplete.select}"></option>
                                 <option th:each="cesta : ${cestaList}" th:value="${cesta.id}"
                                         th:text="${cesta.nome}"></option>
                             </select>
@@ -45,8 +45,8 @@
                     <div class="col">
                         <label for="voluntario">Voluntário</label>
                         <div class="input-group mb-3" >
-                            <select id="voluntario" class="form-control" th:field="*{voluntario}" required>
-                                <option value="" th:text="#{select.one.item}"></option>
+                            <select id="voluntario" class="form-select" th:field="*{voluntario}" required>
+                                <option value="" th:text="#{autocomplete.select}"></option>
                                 <option th:each="voluntario : ${voluntarioList}" th:value="${voluntario.id}"
                                         th:text="${voluntario.nome}"></option>
                             </select>
