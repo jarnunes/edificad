@@ -3,6 +3,8 @@ server:
   max-http-request-header-size: 102400
 
 spring:
+  application:
+    name: 'Edificad'
   datasource:
     url: jdbc:postgresql://edificad.com:5432/java?currentSchema=edificad
     username: sa
@@ -16,6 +18,18 @@ spring:
       idle-timeout: 60000
       validation-timeout: 3000
       initialization-fail-timeout: 5000
+  mail:
+    host: ${edificad.mail.host}
+    # port: 465
+    username: ${edificad.mail.username}
+    password: ${edificad.mail.password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true
+
 
 edificad:
   web:

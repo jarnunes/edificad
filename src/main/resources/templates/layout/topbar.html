@@ -1,7 +1,7 @@
 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
    aria-expanded="false">
 
-        <span th:text="${@helper.authenticatedUserReduceFullName()}"
+        <span th:text="${@userHelper.currentUserReduceFullName()}"
               class="rounded-circle p-3"  style="background: #559fcc; font-weight: 800"></span>
 </a>
 <ul class="dropdown-menu dropdown-menu-end text-small mt-2" aria-labelledby="dropdownUser1">

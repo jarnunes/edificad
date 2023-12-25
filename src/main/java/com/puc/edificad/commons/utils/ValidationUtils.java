@@ -3,6 +3,7 @@ package com.puc.edificad.commons.utils;
 import com.puc.edificad.commons.exceptions.UserAuthenticationException;
 import com.puc.edificad.commons.exceptions.ValidationException;
 import lombok.NonNull;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 
@@ -27,6 +28,7 @@ public class ValidationUtils {
     public static void validateNonNull(Object value, String msgKey, Object... args) {
         validate(Objects.nonNull(value), msgKey, args);
     }
+
     public static void validateNonNull(Supplier<Object> value, String msgKey, Object... args) {
         validate(Objects.nonNull(value.get()), msgKey, args);
     }
@@ -49,13 +51,21 @@ public class ValidationUtils {
         }
     }
 
-    public static void validateDateTimeAfterNow(LocalDateTime localDateTime){
+    public static void validateDateTimeAfterNow(LocalDateTime localDateTime) {
         validate(localDateTime == null || localDateTime.isBefore(LocalDateTime.now()),
                 "datetime.after.now", DateTimeUtils.formatter(localDateTime));
     }
 
-    public static void validateDateTimeAfterNow(LocalDate localDateTime){
+    public static void validateDateTimeAfterNow(LocalDate localDateTime) {
         validate(localDateTime == null || localDateTime.isBefore(LocalDate.now()),
                 "datetime.after.now", DateTimeUtils.formatter(localDateTime));
+    }
+
+    public static void validateIsAfterNow(LocalDateTime localDate, String msgKey, Object... args) {
+        validate(localDate == null || localDate.isAfter(LocalDateTime.now()), msgKey, args);
+    }
+
+    public static <T> void validateEquals(T valueA, T valueB, String msgKey, Object... args){
+        validate(!ObjectUtils.notEqual(valueA, valueB), msgKey, args);
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 @ControllerAdvice
 public class GlobalExceptionControllerHandler {
 
@@ -55,6 +57,7 @@ public class GlobalExceptionControllerHandler {
     }
 
     private String getRedirect(HttpServletRequest request){
-        return "redirect:" + request.getHeader("Referer");
+        String referer = Optional.ofNullable(request.getHeader("Referer")).orElse("/error");
+        return "redirect:" + referer;
     }
 }

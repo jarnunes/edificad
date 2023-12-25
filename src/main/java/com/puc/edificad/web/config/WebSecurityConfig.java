@@ -46,17 +46,18 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(requests ->
-                        requests.requestMatchers("/",
-                                        "/css/**",
-                                        "/js/**",
-                                        "/images/**",
-                                        "/webjars/**",
-                                        "/api/**")
-                                .permitAll()
-                                .anyRequest().authenticated())
+        http.csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(requests ->
+                requests.requestMatchers("/",
+                        "/eds-user/change-password",
+                        "/eds-user/save-password",
+                        "/error",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/webjars/**")
+                    .permitAll()
+                    .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .loginPage("/eds-user/login")
                         .loginProcessingUrl("/login")
@@ -79,17 +80,17 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                    .requestMatchers(OPTIONS, API_PATTERN).permitAll()
-                    .requestMatchers(POST, "/api/auth/login").permitAll()
-                    .requestMatchers(POST, "/api/auth/create").hasRole(Role.RL_ADMIN)
-                    .requestMatchers(POST, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
-                    .requestMatchers(GET, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
-                    .requestMatchers(PUT, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
-                    .requestMatchers(GET, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
-                    .requestMatchers(POST, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
-                    .requestMatchers(PUT, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
-                    .requestMatchers(DELETE, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
-                    .anyRequest().authenticated())
+                        .requestMatchers(OPTIONS, API_PATTERN).permitAll()
+                        .requestMatchers(POST, "/api/auth/login").permitAll()
+                        .requestMatchers(POST, "/api/auth/create").hasRole(Role.RL_ADMIN)
+                        .requestMatchers(POST, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
+                        .requestMatchers(GET, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
+                        .requestMatchers(PUT, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
+                        .requestMatchers(GET, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
+                        .requestMatchers(POST, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
+                        .requestMatchers(PUT, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
+                        .requestMatchers(DELETE, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
+                        .anyRequest().authenticated())
                 .addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(handler -> handler.authenticationEntryPoint(new ApiAuthenticationEntryPoint()))
                 .exceptionHandling(handler -> handler.accessDeniedHandler(new CustomAccessDeniedHandler()))
@@ -102,8 +103,8 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    String[] webServiceOperatorRoles(){
-        return  new String[]{Role.RL_WEBSERVICES, Role.RL_OPERATOR};
+    String[] webServiceOperatorRoles() {
+        return new String[]{Role.RL_WEBSERVICES, Role.RL_OPERATOR};
     }
 
 

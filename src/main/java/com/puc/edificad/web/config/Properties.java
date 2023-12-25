@@ -4,10 +4,17 @@ import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
 @Getter
+@Component
 public class Properties {
 
     @Value("${edificad.web.index.path}")
     private String indexPath;
+
+    @Value("${spring.mail.username}")
+    private String emailOrigin;
+
+    @Value("${spring.application.name}")
+    private String applicationName;
+
 }
