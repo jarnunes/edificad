@@ -1,11 +1,11 @@
 package com.puc.edificad.services.edsuser;
 
-import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.commons.utils.UserUtils;
+import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.mapper.UserMapper;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.BaseServiceImpl;
-import com.puc.edificad.services.edsuser.dto.Login;
+import com.puc.edificad.services.edsuser.dto.ResetPasswordToken;
 import com.puc.edificad.services.edsuser.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,17 +18,16 @@ import static com.puc.edificad.commons.utils.UserUtils.encode;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
 
-    private UserRepository repository;
-    private UserMapper mapper;
+    private final UserRepository repository;
+    private final UserMapper mapper;
+
+    private final PasswordResetTokenService resetTokenService;
 
     @Autowired
-    public void setRepository(UserRepository repositoryIn) {
+    public UserServiceImpl(UserRepository repositoryIn, UserMapper userMapperIn, PasswordResetTokenService resetTokenServiceIn){
         this.repository = repositoryIn;
-    }
-
-    @Autowired
-    public void setMapper(UserMapper mapperIn) {
-        this.mapper = mapperIn;
+        this.mapper = userMapperIn;
+        this.resetTokenService = resetTokenServiceIn;
     }
 
     @Override
@@ -49,7 +48,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Override
     public User update(User entity) {
         entity.getUserRoles().forEach(it -> it.setUser(entity));
-        repository.findById(entity.getId()).map(User::getPassword).ifPresent(entity::setPassword);
         return super.update(entity);
     }
 
@@ -64,22 +62,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     }
 
     @Override
-    public void resetPassword(Login login) {
-        Optional.of(login).map(Login::username).flatMap(repository::findUserByUsername)
-                .ifPresent(user -> setNewPasswordUpdateUser(login, user));
-    }
-
-    private void setNewPasswordUpdateUser(Login login, User user) {
-        user.setPassword(encode(login.password()));
-        super.update(user);
-    }
-
-    @Override
-    public String resetPassword(Long id) {
-        User user =  this.findById(id).orElseThrow(EntityNotFoundException::notFoundForId);
-        String password = UserUtils.gerarSenha();
-        resetPassword(new Login(user.getUsername(), password));
-        return password;
+    public void resetPassword(String username, String password, String passwordConfirmation) {
+        ValidationUtils.validateEquals(password, passwordConfirmation, "eds.err.password.does.not.matches");
+        User user = repository.findUserByUsername(username).orElseThrow();
+        user.setPassword(encode(password));
+        update(user);
     }
 
     @Override
@@ -114,5 +101,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         final User entity = mapper.toEntity(dto);
         this.update(entity);
         return mapper.toDto(entity);
+    }
+
+    @Override
+    public void resetPasswordToken(ResetPasswordToken resetPassword) {
+        User user = resetTokenService.findByToken(resetPassword.getToken()).orElseThrow().getUser();
+        this.resetPassword(user.getUsername(), resetPassword.getNewPassword(), resetPassword.getNewPasswordConfirmation());
     }
 }

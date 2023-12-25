@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="author" content="Jardel Nunes"/>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Edificad</title>
+
+    <link rel="icon" th:href="@{/images/favicon.svg}"/>
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/elipse.css}" rel="stylesheet"/>
+    <link th:href="@{/css/custom.css}" rel="stylesheet"/>
+</head>
+<style>
+    body {
+        height: 100vh;
+    }
+
+    .login-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-img img {
+        width: 70px;
+    }
+
+    main.form-signin {
+        min-width: 25vw;
+    }
+
+
+</style>
+<body>
+<main class="form-signin m-auto">
+    <div th:replace="~{layout/fragments/messages}"></div>
+    <div th:if="${param.error}">
+        <div class="alert text-start alert-danger alert-dismissible fade show" role="alert">
+            <span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
+        </div>
+    </div>
+
+    <div class="container" layout:fragment="content"></div>
+</main>
+<footer th:replace="~{layout/fragments/footer::footer}"></footer>
+
+</body>
+</html>

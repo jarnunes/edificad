@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -79,11 +80,6 @@ public abstract class AbstractController<T extends BaseEntity> {
     protected void addError(RedirectAttributes model, final String message) {
         alert.addError(message);
         addMessageAlert(model);
-    }
-
-
-    private void addMessageAlert(ModelMap model) {
-        model.addAttribute("messages", alert);
     }
 
     private void addMessageAlert(RedirectAttributes model) {

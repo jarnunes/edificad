@@ -50,21 +50,13 @@
         <div class="login-img">
             <img class="mb-4" th:src="@{/images/logo-black.png}" alt="logo" style="width: 20em">
         </div>
-
-        <div id="messages">
-            <div th:if="${messages != null and messages.withSuccess}">
-                <div class="alert text-start alert-success alert-dismissible fade show" role="alert">
-                    <div th:each="msg : ${messages.success}">
-                        <span th:text="${msg}"></span>
-                    </div>
-                </div>
-            </div>
+            <div th:replace="~{layout/fragments/messages}"></div>
             <div th:if="${param.error}">
                 <div class="alert text-start alert-danger alert-dismissible fade show" role="alert">
                     <span th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"></span>
                 </div>
             </div>
-        </div>
+
         <div class="form-floating">
             <input type="text" id="username" th:name="username" class="form-control" placeholder="Usuário">
             <label for="username">Usuário</label>
@@ -79,7 +71,6 @@
 </main>
 
 <footer th:fragment="footer">
-    <!--    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.min.js"></script>-->
     <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
     <script src="/webjars/jquery/3.6.4/jquery.min.js"></script>
     <script src="/js/utils.js"></script>

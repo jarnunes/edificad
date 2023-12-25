@@ -85,7 +85,7 @@ public class AuthController extends BaseController {
 
     @PostMapping("/reset-password")
     String resetPassword(@RequestBody Login login) {
-        userService.resetPassword(login);
+        userService.resetPassword(login.username(), login.password(), login.password());
         return msg.get("eds.success.updated.password");
     }
 
