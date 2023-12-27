@@ -109,7 +109,7 @@ public class UserController extends CrudController<User> {
         context.setVariable("url", createRestorePasswordUrl(request, token));
 
         try {
-            emailService.sendEmailWithHtmlTemplate(user.getEmail(), "Edificad - Reset Password",
+            emailService.sendEmailWithHtmlTemplate(user.getEmail(), "Reset Password",
                     "email/template-reset-password", context);
 
             addSuccess(attributes, message.get("eds.success.send.email.update.pass"));

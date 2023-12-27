@@ -52,20 +52,22 @@ public class EmailServiceImpl implements EmailService {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
 
-        try {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    helper.setFrom(new InternetAddress(properties.getEmailOrigin(), properties.getApplicationName()));
+                    helper.setSubject(subject);
+                    helper.setTo(to);
+                    String htmlContext = templateEngine.process(templateName, context);
+                    helper.setText(htmlContext, true);
+                    javaMailSender.send(mimeMessage);
 
-            helper.setFrom(new InternetAddress(properties.getEmailOrigin(), properties.getApplicationName()));
-            helper.setSubject(subject);
-            helper.setTo(to);
-            String htmlContext = templateEngine.process(templateName, context);
-            helper.setText(htmlContext, true);
-            javaMailSender.send(mimeMessage);
-
-        } catch (MessagingException e) {
-            throw new EmailException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+                } catch (MessagingException | UnsupportedEncodingException e) {
+                    throw new EmailException(e);
+                }
+            }
+        }).start();
     }
 
 
