@@ -1,7 +1,7 @@
 package com.puc.edificad.services;
 
-import com.puc.edificad.commons.utils.DateTimeUtils;
-import com.puc.edificad.commons.utils.ValidationUtils;
+import com.jnunes.core.commons.utils.DateTimeUtils;
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.mapper.DistribuicaoCestaMapper;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;

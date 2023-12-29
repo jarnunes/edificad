@@ -1,6 +1,6 @@
 package com.puc.edificad.web.api;
 
-import com.puc.edificad.commons.utils.DateTimeUtils;
+import com.jnunes.core.commons.utils.DateTimeUtils;
 import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
 import com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto;

@@ -3,8 +3,8 @@ package com.puc.edificad.web.controller;
 
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.commons.utils.ExceptionUtils;
-import com.puc.edificad.commons.utils.MessageUtils;
-import com.puc.edificad.model.BaseEntity;
+import com.jnunes.core.commons.utils.MessageUtils;
+import com.jnunes.core.model.BaseEntity;
 import com.puc.edificad.services.BaseService;
 import com.puc.edificad.web.support.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;

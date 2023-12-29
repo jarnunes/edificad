@@ -1,7 +1,7 @@
 package com.puc.edificad.commons.exceptions;
 
 
-import com.puc.edificad.commons.utils.MessageUtils;
+import com.jnunes.core.commons.utils.MessageUtils;
 
 import java.io.Serial;
 

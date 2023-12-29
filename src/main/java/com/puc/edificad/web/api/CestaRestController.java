@@ -1,7 +1,7 @@
 package com.puc.edificad.web.api;
 
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
-import com.puc.edificad.commons.utils.ValidationUtils;
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.services.CestaService;
 import org.springframework.beans.factory.annotation.Autowired;

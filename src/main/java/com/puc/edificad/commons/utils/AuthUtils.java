@@ -1,5 +1,6 @@
 package com.puc.edificad.commons.utils;
 
+import com.puc.edificad.commons.exceptions.UserAuthenticationException;
 import com.puc.edificad.model.edsuser.Role;
 import com.puc.edificad.model.edsuser.RoleUser;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -9,10 +10,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserUtils {
+public class AuthUtils {
     private static final String CARACTERES_PERMITIDOS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
 
-    private UserUtils() {
+    private AuthUtils() {
     }
 
     public static String encode(String rawPassword) {
@@ -60,5 +61,19 @@ public class UserUtils {
         }
 
         return password.toString();
+    }
+
+    public static void validateMatches(String rawPassword, String encodedPassword) {
+        final boolean match =
+                PasswordEncoderFactories.createDelegatingPasswordEncoder().matches(rawPassword, encodedPassword);
+        if (!match) {
+            throw new UserAuthenticationException("eds.err.invalid.username.password");
+        }
+    }
+
+    public static void authValidate(boolean expectedCondition, String msgKey, Object... args) {
+        if (!expectedCondition) {
+            throw new UserAuthenticationException(msgKey, args);
+        }
     }
 }

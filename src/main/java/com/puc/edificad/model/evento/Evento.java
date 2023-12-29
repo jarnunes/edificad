@@ -1,6 +1,6 @@
 package com.puc.edificad.model.evento;
 
-import com.puc.edificad.model.BaseEntity;
+import com.jnunes.core.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -1,6 +1,6 @@
 package com.puc.edificad.services;
 
-import com.puc.edificad.model.BaseEntity;
+import com.jnunes.core.model.BaseEntity;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

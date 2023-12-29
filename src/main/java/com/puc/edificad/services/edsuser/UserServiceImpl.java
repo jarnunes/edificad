@@ -1,7 +1,7 @@
 package com.puc.edificad.services.edsuser;
 
-import com.puc.edificad.commons.utils.UserUtils;
-import com.puc.edificad.commons.utils.ValidationUtils;
+import com.puc.edificad.commons.utils.AuthUtils;
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.mapper.UserMapper;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.BaseServiceImpl;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.puc.edificad.commons.utils.UserUtils.encode;
+import static com.puc.edificad.commons.utils.AuthUtils.encode;
 
 
 @Service
@@ -72,7 +72,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
     @Override
     public UserDto save(UserDto dto) {
         final User entity = mapper.toEntity(dto);
-        final String newPassword = UserUtils.gerarSenha();
+        final String newPassword = AuthUtils.gerarSenha();
         entity.setPassword(newPassword);
         this.save(entity);
         UserDto newUserDto = mapper.toDto(entity);

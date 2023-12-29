@@ -4,7 +4,7 @@ import com.puc.edificad.TestUtils;
 import com.puc.edificad.commons.object_mother.ObjMotherBeneficiario;
 import com.puc.edificad.commons.object_mother.ObjMotherDependente;
 import com.puc.edificad.commons.utils.JsonUtils;
-import com.puc.edificad.commons.utils.MessageUtils;
+import com.jnunes.core.commons.utils.MessageUtils;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.dto.DependenteDto;
 import com.puc.edificad.services.BeneficiarioService;

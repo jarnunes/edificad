@@ -69,6 +69,4 @@ public class EmailServiceImpl implements EmailService {
             }
         }).start();
     }
-
-
 }

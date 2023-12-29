@@ -1,7 +1,7 @@
 package com.puc.edificad.web.handlers;
 
+import com.jnunes.core.commons.exceptions.ValidationException;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
-import com.puc.edificad.commons.exceptions.ValidationException;
 import com.puc.edificad.web.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.apachecommons.CommonsLog;
@@ -27,6 +27,7 @@ public class GlobalExceptionRestControllerHandler {
     public ResponseEntity<Object> handleException(ValidationException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         return createErrorMessage422(e, null, request);
     }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleException(EntityNotFoundException e, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         return createResponseEntity(e, "Entity not found.", request, HttpStatus.NOT_FOUND);
@@ -65,7 +66,6 @@ public class GlobalExceptionRestControllerHandler {
 
     private ResponseEntity<Object> createResponseEntity(Throwable e, String cause, HttpServletRequest request,
         HttpStatus status){
-        log.error(e);
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setCause(cause);
         errorResponse.setMessageError(e.getMessage());

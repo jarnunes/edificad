@@ -1,7 +1,9 @@
 package com.puc.edificad.services.edsuser;
 
-import com.puc.edificad.commons.config.Message;
-import com.puc.edificad.commons.utils.ValidationUtils;
+import com.jnunes.core.commons.config.Message;
+import com.jnunes.core.commons.utils.MessageUtils;
+import com.jnunes.core.commons.utils.ValidationUtils;
+import com.puc.edificad.commons.utils.AuthUtils;
 import com.puc.edificad.model.edsuser.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,8 @@ import java.util.function.Supplier;
 @Component
 public class AuthenticationService implements AuthenticationProvider {
 
-    private Message msg;
     private UserRepository userRepository;
     private TokenService tokenService;
-
-    @Autowired
-    public void setMsg(Message msgIn){
-        this.msg = msgIn;
-    }
 
     @Autowired
     public void setTokenService(TokenService tokenServiceIn){
@@ -51,20 +47,20 @@ public class AuthenticationService implements AuthenticationProvider {
     }
 
     private void validateUserAccount(User user){
-        ValidationUtils.authValidate(user.isAccountNonExpired(), "eds.err.user.expired");
-        ValidationUtils.authValidate(user.isEnabled(), "eds.err.user.disabled");
-        ValidationUtils.authValidate(user.isAccountNonLocked(), "eds.err.user.locked");
+        AuthUtils.authValidate(user.isAccountNonExpired(), "eds.err.user.expired");
+        AuthUtils.authValidate(user.isEnabled(), "eds.err.user.disabled");
+        AuthUtils.authValidate(user.isAccountNonLocked(), "eds.err.user.locked");
     }
 
     private User findByUsername(final String userName) throws UsernameNotFoundException {
         Supplier<UsernameNotFoundException> usernameNotFound =
-            () -> new UsernameNotFoundException(msg.get("eds.err.user.not.found", userName));
+            () -> new UsernameNotFoundException(MessageUtils.get("eds.err.user.not.found", userName));
 
         return userRepository.findUserByUsername(userName).orElseThrow(usernameNotFound);
     }
 
     private Authentication getAuthenticationToken(User user, final Authentication authentication){
-        ValidationUtils.matches(String.valueOf(authentication.getCredentials()), user.getPassword());
+        AuthUtils.validateMatches(String.valueOf(authentication.getCredentials()), user.getPassword());
         return new UsernamePasswordAuthenticationToken(user, authentication.getCredentials(), user.getAuthorities());
     }
 

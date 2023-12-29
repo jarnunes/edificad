@@ -2,7 +2,7 @@ package com.puc.edificad.model.edsuser;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.puc.edificad.model.BaseEntity;
+import com.jnunes.core.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
