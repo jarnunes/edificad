@@ -114,14 +114,14 @@
         <repository>
             <id>jnunes</id>
             <name>Junes Repository</name>
-            <url>http://repository.jnunesc.com.br:8081/artifactory/libs-release-local</url>
+            <url>https://repository.jnunesc.com.br/artifactory/libs-release-local</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>jnunes</id>
             <name>Jnunes Repository</name>
-            <url>http://repository.jnunesc.com.br:8081/artifactory/libs-release-local</url>
+            <url>https://repository.jnunesc.com.br/artifactory/libs-release-local</url>
         </pluginRepository>
     </pluginRepositories>
 
