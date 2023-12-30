@@ -114,14 +114,14 @@
         <repository>
             <id>jnunes</id>
             <name>Junes Repository</name>
-            <url>http://ec2-15-229-77-24.sa-east-1.compute.amazonaws.com:8081/artifactory/libs-release-local</url>
+            <url>http://repository.jnunesc.com.br:8081/artifactory/libs-release-local</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>jnunes</id>
             <name>Jnunes Repository</name>
-            <url>http://ec2-15-229-77-24.sa-east-1.compute.amazonaws.com:8081/artifactory/libs-release-local</url>
+            <url>http://repository.jnunesc.com.br:8081/artifactory/libs-release-local</url>
         </pluginRepository>
     </pluginRepositories>
 
