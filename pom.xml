@@ -75,7 +75,6 @@
             <artifactId>spg-core</artifactId>
             <version>1.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.jnunes</groupId>
             <artifactId>spg-auth</artifactId>
