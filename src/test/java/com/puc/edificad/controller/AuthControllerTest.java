@@ -3,7 +3,7 @@ package com.puc.edificad.controller;
 import com.puc.edificad.TestUtils;
 import com.puc.edificad.commons.object_mother.ObjMotherUser;
 import com.puc.edificad.commons.utils.JsonUtils;
-import com.jnunes.core.commons.utils.MessageUtils;
+import com.jnunes.spgcore.commons.utils.MessageUtils;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.DatabaseService;
 import com.puc.edificad.services.edsuser.dto.Login;

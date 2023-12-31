@@ -23,12 +23,6 @@
     </properties>
 
     <dependencies>
-        <!-- oauth -->
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-            <version>4.4.0</version>
-        </dependency>
 
         <!-- web tier -->
         <dependency>

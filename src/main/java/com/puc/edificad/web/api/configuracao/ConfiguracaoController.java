@@ -1,7 +1,7 @@
 package com.puc.edificad.web.api.configuracao;
 
 
-import com.jnunes.core.commons.utils.ValidationUtils;
+import com.jnunes.spgcore.commons.utils.ValidationUtils;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.model.Configuracao;
 import com.puc.edificad.services.ConfiguracaoService;

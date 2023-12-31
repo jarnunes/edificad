@@ -1,7 +1,7 @@
 package com.puc.edificad.services.evento;
 
+import com.jnunes.spgcore.service.BaseServiceImpl;
 import com.puc.edificad.model.evento.ExecucaoEvento;
-import com.puc.edificad.services.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

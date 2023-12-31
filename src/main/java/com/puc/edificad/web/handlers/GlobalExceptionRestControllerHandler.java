@@ -1,6 +1,6 @@
 package com.puc.edificad.web.handlers;
 
-import com.jnunes.core.commons.exceptions.ValidationException;
+import com.jnunes.spgcore.commons.exceptions.ValidationException;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.web.response.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;

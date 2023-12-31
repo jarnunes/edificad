@@ -1,6 +1,6 @@
 package com.puc.edificad.commons.exceptions;
 
-import com.jnunes.core.commons.utils.MessageUtils;
+import com.jnunes.spgcore.commons.utils.MessageUtils;
 import org.springframework.security.core.AuthenticationException;
 
 import java.io.Serial;

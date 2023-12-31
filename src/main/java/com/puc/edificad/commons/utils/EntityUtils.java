@@ -1,6 +1,6 @@
 package com.puc.edificad.commons.utils;
 
-import com.jnunes.core.model.BaseEntity;
+import com.jnunes.spgcore.model.BaseEntity;
 
 import java.util.HashSet;
 import java.util.Optional;

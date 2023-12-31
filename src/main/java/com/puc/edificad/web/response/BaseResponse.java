@@ -1,7 +1,7 @@
 package com.puc.edificad.web.response;
 
-import com.jnunes.core.commons.utils.MessageUtils;
-import com.jnunes.core.model.BaseEntity;
+import com.jnunes.spgcore.commons.utils.MessageUtils;
+import com.jnunes.spgcore.model.BaseEntity;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.http.HttpStatusCode;

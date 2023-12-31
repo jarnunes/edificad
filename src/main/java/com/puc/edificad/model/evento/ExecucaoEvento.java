@@ -1,6 +1,6 @@
 package com.puc.edificad.model.evento;
 
-import com.jnunes.core.model.BaseEntity;
+import com.jnunes.spgcore.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;

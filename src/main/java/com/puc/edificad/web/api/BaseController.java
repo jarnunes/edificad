@@ -1,6 +1,6 @@
 package com.puc.edificad.web.api;
 
-import com.jnunes.core.commons.config.Message;
+import com.jnunes.spgcore.commons.config.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.RestController;

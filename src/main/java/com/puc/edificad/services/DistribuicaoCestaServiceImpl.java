@@ -1,7 +1,8 @@
 package com.puc.edificad.services;
 
-import com.jnunes.core.commons.utils.DateTimeUtils;
-import com.jnunes.core.commons.utils.ValidationUtils;
+import com.jnunes.spgcore.commons.utils.DateTimeUtils;
+import com.jnunes.spgcore.commons.utils.ValidationUtils;
+import com.jnunes.spgcore.service.BaseServiceImpl;
 import com.puc.edificad.mapper.DistribuicaoCestaMapper;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
@@ -136,7 +137,7 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
         DistribuicaoCesta entitySearch = new DistribuicaoCesta();
         beneficiarioService.getEntityWithSearchAttrs(searchValue).ifPresent(entitySearch::setBeneficiario);
         cestaService.getEntityWithSearchAttrs(searchValue).ifPresent(entitySearch::setCesta);
-        voluntarioService.getEntityWithSearchAttrs(searchValue).ifPresent(entitySearch::setVoluntario);
+//        voluntarioService.getEntityWithSearchAttrs(searchValue).ifPresent(entitySearch::setVoluntario);
 
         return Optional.of(entitySearch);
     }

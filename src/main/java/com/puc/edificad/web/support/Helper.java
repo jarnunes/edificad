@@ -1,8 +1,8 @@
 package com.puc.edificad.web.support;
 
 
-import com.jnunes.core.commons.utils.DateTimeUtils;
-import com.jnunes.core.model.BaseEntity;
+import com.jnunes.spgcore.commons.utils.DateTimeUtils;
+import com.jnunes.spgcore.model.BaseEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
