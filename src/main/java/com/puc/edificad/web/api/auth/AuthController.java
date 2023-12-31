@@ -2,7 +2,7 @@ package com.puc.edificad.web.api.auth;
 
 
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
-import com.puc.edificad.commons.utils.UserUtils;
+import com.puc.edificad.commons.utils.AuthUtils;
 import com.puc.edificad.model.edsuser.Role;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.edsuser.AuthenticationService;
@@ -70,7 +70,7 @@ public class AuthController extends BaseController {
     @PostMapping
     User create(@RequestBody User user) {
         // qualquer usuário criado via API tem a role webservices.
-        user.getUserRoles().add(UserUtils.of(Role.WEBSERVICES));
+        user.getUserRoles().add(AuthUtils.of(Role.WEBSERVICES));
         return userService.save(user);
     }
 

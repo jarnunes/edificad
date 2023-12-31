@@ -1,6 +1,6 @@
 package com.puc.edificad.mapper;
 
-import com.puc.edificad.commons.utils.UserUtils;
+import com.puc.edificad.commons.utils.AuthUtils;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.edsuser.RoleUserRepository;
 import com.puc.edificad.services.edsuser.UserRepository;
@@ -35,7 +35,7 @@ public class UserMapper {
         dto.setFullName(entity.getFullName());
         // usuários que usam a app-web possuem apenas um perfil. Revisar e melhorar lógica
         // usando dessa forma devido a limitação do thymeleaf em adicioar valores do option em uma lista ao selecionar na tela
-        dto.setRole(UserUtils.firstRole(entity.getUserRoles()));
+        dto.setRole(AuthUtils.firstRole(entity.getUserRoles()));
         dto.setEnabled(entity.isEnabled());
         return dto;
     }
@@ -51,7 +51,7 @@ public class UserMapper {
         entity.setUsername(dto.getUsername());
         roleUserRepository.deleteAll(entity.getUserRoles());
         entity.getUserRoles().clear();
-        entity.getUserRoles().add(UserUtils.of(dto.getRole()));
+        entity.getUserRoles().add(AuthUtils.of(dto.getRole()));
         entity.setEnabled(dto.isEnabled());
         return entity;
     }

@@ -1,5 +1,6 @@
 package com.puc.edificad.model;
 
+import com.jnunes.core.model.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

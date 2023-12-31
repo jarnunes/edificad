@@ -1,7 +1,7 @@
 package com.puc.edificad.services;
 
-import com.puc.edificad.commons.utils.ValidationUtils;
-import com.puc.edificad.model.BaseEntity;
+import com.jnunes.core.commons.utils.ValidationUtils;
+import com.jnunes.core.model.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;

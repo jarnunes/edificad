@@ -1,6 +1,6 @@
 package com.puc.edificad.services.support.mail;
 
-import com.puc.edificad.commons.utils.MessageUtils;
+import com.jnunes.core.commons.utils.MessageUtils;
 
 public class EmailException extends RuntimeException {
 

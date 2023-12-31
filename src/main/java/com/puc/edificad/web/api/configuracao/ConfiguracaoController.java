@@ -1,8 +1,8 @@
 package com.puc.edificad.web.api.configuracao;
 
 
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
-import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.Configuracao;
 import com.puc.edificad.services.ConfiguracaoService;
 import org.springframework.beans.factory.annotation.Autowired;

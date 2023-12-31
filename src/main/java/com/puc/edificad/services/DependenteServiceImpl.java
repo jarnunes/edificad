@@ -1,6 +1,6 @@
 package com.puc.edificad.services;
 
-import com.puc.edificad.commons.utils.ValidationUtils;
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.mapper.DependenteMapper;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.dto.DependenteDto;

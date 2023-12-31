@@ -1,7 +1,7 @@
 package com.puc.edificad.services.edsuser;
 
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
-import com.puc.edificad.commons.utils.ValidationUtils;
 import com.puc.edificad.model.edsuser.PasswordResetToken;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.BaseServiceImpl;

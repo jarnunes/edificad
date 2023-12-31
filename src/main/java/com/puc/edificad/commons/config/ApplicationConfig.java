@@ -1,5 +1,6 @@
 package com.puc.edificad.commons.config;
 
+import com.jnunes.core.commons.config.Message;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,4 +17,10 @@ public class ApplicationConfig {
         messageSource.setCacheSeconds(5);
         return messageSource;
     }
+
+    @Bean
+    public Message message() {
+        return new Message();
+    }
+
 }

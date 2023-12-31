@@ -3,7 +3,7 @@ package com.puc.edificad.controller;
 import com.puc.edificad.TestUtils;
 import com.puc.edificad.commons.object_mother.ObjMotherCesta;
 import com.puc.edificad.commons.utils.JsonUtils;
-import com.puc.edificad.commons.utils.MessageUtils;
+import com.jnunes.core.commons.utils.MessageUtils;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.services.DatabaseService;
 import org.hamcrest.Matchers;

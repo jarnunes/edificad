@@ -1,6 +1,6 @@
 package com.puc.edificad.services;
 
-import com.puc.edificad.commons.utils.ValidationUtils;
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.model.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

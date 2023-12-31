@@ -1,6 +1,7 @@
 package com.puc.edificad.web.controller.crud;
 
-import com.puc.edificad.commons.exceptions.ValidationException;
+import com.jnunes.core.commons.exceptions.ValidationException;
+import com.jnunes.core.commons.utils.ValidationUtils;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.services.BeneficiarioService;

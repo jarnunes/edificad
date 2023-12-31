@@ -1,13 +1,12 @@
 package com.puc.edificad.model.edsuser;
 
-import com.puc.edificad.model.BaseEntity;
+import com.jnunes.core.model.BaseEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serial;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity

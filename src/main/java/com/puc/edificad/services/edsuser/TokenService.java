@@ -2,7 +2,7 @@ package com.puc.edificad.services.edsuser;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.puc.edificad.commons.utils.DateTimeUtils;
+import com.jnunes.core.commons.utils.DateTimeUtils;
 import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.ConfiguracaoService;
 import com.puc.edificad.services.edsuser.dto.AccessToken;
