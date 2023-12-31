@@ -1,8 +1,8 @@
 package com.puc.edificad.web.controller.crud;
 
+import com.jnunes.spgcore.web.CrudController;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.services.BeneficiarioService;
-import com.puc.edificad.web.controller.CrudController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

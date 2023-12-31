@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Properties {
 
-    @Value("${edificad.web.index.path}")
-    private String indexPath;
+
 
     @Value("${spring.mail.username}")
     private String emailOrigin;

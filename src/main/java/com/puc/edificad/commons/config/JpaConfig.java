@@ -1,5 +1,6 @@
 package com.puc.edificad.commons.config;
 
+import com.jnunes.spgauth.commons.config.AuditorAwareImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

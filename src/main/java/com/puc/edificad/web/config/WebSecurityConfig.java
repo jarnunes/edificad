@@ -1,6 +1,7 @@
 package com.puc.edificad.web.config;
 
-import com.puc.edificad.model.edsuser.Role;
+import com.jnunes.spgauth.web.AuthWebSecurityConst;
+import com.jnunes.spgauth.model.Role;
 import com.puc.edificad.web.handlers.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,14 +44,13 @@ public class WebSecurityConfig {
         return authenticationManagerBuilder.build();
     }
 
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(requests ->
                 requests.requestMatchers("/",
-                        "/eds-user/change-password",
-                        "/eds-user/save-password",
+                        AuthWebSecurityConst.REQUEST_PERMIT_CHANGE_PWD,
+                        AuthWebSecurityConst.REQUEST_PERMIT_SAVE_PWD,
                         "/error",
                         "/css/**",
                         "/js/**",
@@ -59,13 +59,13 @@ public class WebSecurityConfig {
                     .permitAll()
                     .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/eds-user/login")
+                        .loginPage(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/dashboard")
                         .permitAll())
                 .logout(formLogout -> formLogout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("/eds-user/login")
+                        .logoutSuccessUrl(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
                         .deleteCookies("JSESSIONID")
                         .permitAll());
 

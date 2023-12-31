@@ -30,8 +30,7 @@ spring:
         starttls:
           enable: true
 
-
-edificad:
+spg:
   web:
     index:
       path: index

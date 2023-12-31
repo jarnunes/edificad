@@ -1,8 +1,8 @@
 package com.puc.edificad.web.controller.dashboard;
 
-import com.jnunes.core.commons.utils.JsonUtils;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.puc.edificad.commons.utils.ChartUtils;
-import com.jnunes.core.commons.utils.DateTimeUtils;
+import com.jnunes.spgcore.commons.utils.DateTimeUtils;
 
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.services.CestaService;

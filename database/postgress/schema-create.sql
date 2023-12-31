@@ -30,4 +30,3 @@ alter table if exists eds_password_reset_token add constraint FKf7bfu7bbxn7grlsn
 alter table if exists pessoa add constraint FKg2aal0p0ich7gudkwm6vomdke foreign key (endereco_fk) references endereco;
 alter table if exists voluntario add constraint FK2ag8fj8brxi11f01mur9klmw foreign key (id) references pessoa;
 
-

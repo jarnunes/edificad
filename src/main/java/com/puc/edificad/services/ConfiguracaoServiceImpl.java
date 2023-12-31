@@ -1,5 +1,6 @@
 package com.puc.edificad.services;
 
+import com.jnunes.spgcore.service.BaseServiceImpl;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.model.Configuracao;
 import org.springframework.beans.factory.annotation.Autowired;
