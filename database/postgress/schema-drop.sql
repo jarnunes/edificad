@@ -4,7 +4,6 @@ alter table if exists dependente drop constraint if exists FK6xy74durf67qwoe11j3
 alter table if exists distribuicao_cesta drop constraint if exists FKn6ghikh9qjr73tqmx7dtxwei5;
 alter table if exists distribuicao_cesta drop constraint if exists FKihhjsmi1k3367by7wb556mtfl;
 alter table if exists distribuicao_cesta drop constraint if exists FKclrnnaphrrbf973bkngc1nx5i;
-alter table if exists eds_role_user drop constraint if exists FK28p1hnn0s0jeylasl1gvm2s4v;
 alter table if exists pessoa drop constraint if exists FKg2aal0p0ich7gudkwm6vomdke;
 alter table if exists voluntario drop constraint if exists FK2ag8fj8brxi11f01mur9klmw;
 drop table if exists beneficiario cascade;
@@ -12,8 +11,6 @@ drop table if exists cesta cascade;
 drop table if exists configuracao cascade;
 drop table if exists dependente cascade;
 drop table if exists distribuicao_cesta cascade;
-drop table if exists eds_role_user cascade;
-drop table if exists eds_user cascade;
 drop table if exists endereco cascade;
 drop table if exists pessoa cascade;
 drop table if exists voluntario cascade;
@@ -22,4 +19,4 @@ drop sequence if exists seq_configuracao;
 drop sequence if exists seq_dist_cesta;
 drop sequence if exists seq_endereco;
 drop sequence if exists seq_generator;
-drop sequence if exists seq_role_user;
+
