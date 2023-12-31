@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.jnunes</groupId>
         <artifactId>spg-parent</artifactId>
-        <version>0.0.2</version>
+        <version>1.0</version>
         <relativePath/>
     </parent>
 
@@ -23,13 +23,10 @@
     </properties>
 
     <dependencies>
-
-        <!-- web tier -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
@@ -76,13 +73,13 @@
         <dependency>
             <groupId>com.jnunes</groupId>
             <artifactId>spg-core</artifactId>
-            <version>0.0.2</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.jnunes</groupId>
             <artifactId>spg-auth</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 
