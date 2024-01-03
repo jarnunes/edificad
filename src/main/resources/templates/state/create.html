@@ -1,87 +1,43 @@
-<!DOCTYPE HTML>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Spring Boot Thymeleaf Application - Bootstrap Autocomplete</title>
-
-    <link rel="stylesheet" href="/assets/select2-develop/dist/css/select2.css">
-    <link rel="stylesheet" href="/assets/select2-bootstrap4-theme-master/dist/select2-bootstrap4.css">
-    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
-</head>
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-    <div class="container">
-        <a class="navbar-brand" href="/">Thymeleaf - Bootstrap Autocomplete</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
+<span layout:fragment="title" >State</span>
+<div layout:fragment="content">
+
+    <div class="card-container overflow-hidden">
+        <form id="entityForm" method="POST" th:action="@{/state/save}" th:object="${birthplace}">
+            <div class="ec-table-toolbar">
+                <div class="ec-table-toolbar-actions">
+                    <a class="btn btn-secondary opacity-75" th:href="@{/state}" role="button">
+                        <i class="bi bi-arrow-left"></i>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
-
-    <div class="row">
-        <div class="col-md-4 mt-5">
-            <form method="post" th:object="${birthplace}" th:action="@{/state/save}">
-
-                <div class="form-group">
-                    <label for="birthplace">Place of birth</label>
-                    <select id="birthplace" class="form-control select2-single" th:field="*{state}">
-                        <option value="">Search state</option>
-                    </select>
+                    <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
                 </div>
+            </div>
 
-                <button class="btn btn-primary" type="submit">Submit form</button>
-            </form>
-        </div>
+            <div class="ec-fields-container">
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="birthplace">Place of birth</label>
+                            <select id="birthplace" class="form-control select2-single" th:field="*{state}">
+                                <option value="">Search state</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
     </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
 
 </div>
-
-
-<!-- Scripts -->
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-<script src="/assets/select2-develop/dist/js/select2.full.js"></script>
-
-<script>
-    $("#birthplace").select2({
-        theme: 'bootstrap-5',
-        ajax: {
-            url: '/api/states',
-            dataType: 'json',
-            delay: 250,
-            processResults: function (response) {
-                return {
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
-</script>
-
 </body>
-</html>

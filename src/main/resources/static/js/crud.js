@@ -92,7 +92,7 @@ function errorDependenteDeleteHandler(response) {
 // end delete dependentes
 
 $("#birthplace").select2({
-    theme: "bootstrap4",
+    theme: "bootstrap-5",
     ajax: {
         url: '/api/states',
         dataType: 'json',
