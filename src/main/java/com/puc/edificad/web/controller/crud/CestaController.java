@@ -1,9 +1,8 @@
 package com.puc.edificad.web.controller.crud;
 
-import com.puc.edificad.model.Birthplace;
+import com.jnunes.spgcore.web.CrudController;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.services.CestaService;
-import com.jnunes.spgcore.web.CrudController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,6 @@ public class CestaController extends CrudController<Cesta> {
 
     @GetMapping("/create")
     String create(Model model) {
-        model.addAttribute("birthplace", new Birthplace());
         model.addAttribute("entity", new Cesta());
         return "cesta/create";
     }
