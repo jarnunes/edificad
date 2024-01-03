@@ -46,8 +46,8 @@
             <form method="post" th:object="${birthplace}" th:action="@{/state/save}">
 
                 <div class="form-group">
-                    <label for="birthplace">Place of birth</label>
-                    <select id="birthplace" class="form-control select2-single" th:field="*{state}">
+                    <label for="birthplace2">Place of birth</label>
+                    <select id="birthplace2" class="form-control select2-single" th:field="*{state}">
                         <option value="">Search state</option>
                     </select>
                 </div>
@@ -67,20 +67,20 @@
 <script src="/assets/select2-develop/dist/js/select2.full.js"></script>
 
 <script>
-    $("#birthplace").select2({
-        theme: 'bootstrap-5',
-        ajax: {
-            url: '/api/states',
-            dataType: 'json',
-            delay: 250,
-            processResults: function (response) {
-                return {
-                    results: response
-                };
-            },
-            cache: true
-        }
-    });
+    // $("#birthplace").select2({
+    //     theme: 'bootstrap-5',
+    //     ajax: {
+    //         url: '/api/states',
+    //         dataType: 'json',
+    //         delay: 250,
+    //         processResults: function (response) {
+    //             return {
+    //                 results: response
+    //             };
+    //         },
+    //         cache: true
+    //     }
+    // });
 </script>
 
 </body>

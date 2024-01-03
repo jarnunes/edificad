@@ -1,13 +1,17 @@
 package com.puc.edificad.commons.config;
 
 import com.jnunes.spgcore.commons.config.Message;
+import com.puc.edificad.web.support.BeneficiarioConverter;
+import com.puc.edificad.web.support.FornecedorConverter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class ApplicationConfig {
+public class ApplicationConfig implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
@@ -21,6 +25,13 @@ public class ApplicationConfig {
     @Bean
     public Message message() {
         return new Message();
+    }
+
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new BeneficiarioConverter());
+        registry.addConverter(new FornecedorConverter());
     }
 
 }

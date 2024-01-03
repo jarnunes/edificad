@@ -1,9 +1,6 @@
 package com.puc.edificad.web.controller.distribuicao_cesta;
 
-import com.puc.edificad.model.Beneficiario;
-import com.puc.edificad.model.Cesta;
-import com.puc.edificad.model.DistribuicaoCesta;
-import com.puc.edificad.model.Voluntario;
+import com.puc.edificad.model.*;
 import com.puc.edificad.services.BeneficiarioService;
 import com.puc.edificad.services.CestaService;
 import com.puc.edificad.services.DistribuicaoCestaService;
@@ -62,6 +59,7 @@ public class DistribuicaoCestaController extends CrudController<DistribuicaoCest
         DistribuicaoCesta entity = new DistribuicaoCesta();
         entity.setDataHora(LocalDateTime.now());
         model.addAttribute("entity", entity);
+        model.addAttribute("birthplace", new Birthplace());
         return "distribuicao-cesta/create";
     }
 
