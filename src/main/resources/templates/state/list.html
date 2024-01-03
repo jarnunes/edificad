@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+<head><title>Cestas</title></head>
+<body>
+
+<span layout:fragment="title">State</span>
+<div layout:fragment="content">
+
+    <div class="card-container">
+        <div class="ec-table-toolbar">
+            <div class="ec-table-toolbar-actions">
+                <div th:replace="~{layout/fragments/crud/crud-actions::crudactions(href=@{/state/create})}"></div>
+            </div>
+            <div th:replace="~{layout/fragments/crud/toolbar-search::toolbar-search(path='/state')}"></div>
+        </div>
+
+        <div class="ec-table-container">
+
+        </div>
+    </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+</div>
+
+</body>

@@ -90,3 +90,18 @@ function errorDependenteDeleteHandler(response) {
 }
 
 // end delete dependentes
+
+$("#birthplace").select2({
+    theme: "bootstrap4",
+    ajax: {
+        url: '/api/states',
+        dataType: 'json',
+        delay: 250,
+        processResults: function (response) {
+            return {
+                results: response
+            };
+        },
+        cache: true
+    }
+});
