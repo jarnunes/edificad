@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface CestaRepository extends BaseRepository<Cesta> {
 
-    @Query("from Cesta  c where "
-            + " (:id is null or c.id = :id)"
-            + " and (:nome is null or upper(c.nome) like concat('%', upper(:nome), '%'))" )
-    List<Cesta> findByIdNome(Long id, String nome);
+    @Query("from Cesta c where (:nome is null or c.nome ilike concat('%', cast(:nome as string) , '%'))")
+    List<Cesta> findByNome(String nome);
 }

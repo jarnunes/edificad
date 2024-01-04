@@ -36,4 +36,8 @@ public class AutocompleteRestController {
         return pesquisaService.obterVoluntarios(query);
     }
 
+    @GetMapping("/roles")
+    List<AutocompleteDto> completeRoles(@RequestParam(value = "q", required = false) String query){
+        return pesquisaService.obterUserRoles(query);
+    }
 }

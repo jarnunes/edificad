@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public interface PesquisaService {
 
-    default <T extends BaseEntity> List<AutocompleteDto> criarDe(List<T> entities, Function<T, String> getIdentify) {
+    default <T extends BaseEntity> List<AutocompleteDto> createFrom(List<T> entities, Function<T, String> getIdentify) {
         final List<AutocompleteDto> dtoList = new ArrayList<>();
 
         for (T entity : entities) {
@@ -27,4 +27,6 @@ public interface PesquisaService {
     List<AutocompleteDto> obterCestas(String searchValue);
 
     List<AutocompleteDto> obterVoluntarios(String searchValue);
+
+    List<AutocompleteDto> obterUserRoles(String search);
 }

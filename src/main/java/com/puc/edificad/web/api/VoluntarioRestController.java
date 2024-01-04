@@ -24,7 +24,7 @@ public class VoluntarioRestController extends BaseController {
     @GetMapping
     public List<Voluntario> list(@RequestParam(required = false) Long id, @RequestParam(required = false) String cpf,
         @RequestParam(required = false) String nome) {
-        return service.findByIdNomeCpf(id, cpf, nome);
+        return service.findByNome(nome);
     }
 
     @GetMapping("/{id}")

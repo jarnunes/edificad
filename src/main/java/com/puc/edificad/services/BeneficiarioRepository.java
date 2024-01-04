@@ -11,8 +11,7 @@ import java.util.List;
 public interface BeneficiarioRepository extends BaseRepository<Beneficiario> {
 
     @Query("from Beneficiario b where "
-            +" (:id is null or b.id = :id)"
-            +" and (:nome is null or upper(b.nome) like concat('%', upper(:nome), '%'))"
-            +" and (:cpf is null or b.cpf = :cpf)")
-    List<Beneficiario> findByIdNomeCpf(Long id, String nome, String cpf);
+            + "     (:nome is null or b.nome ilike concat('%', cast(:nome as string), '%'))"
+            + " and (:cpf is null or b.cpf = :cpf)")
+    List<Beneficiario> findByNomeCpf(String nome, String cpf);
 }

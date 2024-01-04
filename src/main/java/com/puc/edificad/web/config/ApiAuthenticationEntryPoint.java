@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.io.OutputStream;
 
-//@Component
+@Component
 public class ApiAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
 

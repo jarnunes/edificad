@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface CestaService extends BaseService<Cesta> {
-    List<Cesta> findByIdNome(Long id, String nome);
+    List<Cesta> findByNome(String nome);
 
     void darBaixaDistribuicaoCesta(Long idCesta, Integer quantidade);
 }
