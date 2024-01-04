@@ -1,11 +1,12 @@
 package com.puc.edificad.web.config;
 
-import com.jnunes.spgauth.web.AuthWebSecurityConst;
 import com.jnunes.spgauth.model.Role;
+import com.jnunes.spgauth.web.AuthWebSecurityConst;
 import com.puc.edificad.web.handlers.CustomAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
@@ -47,17 +48,17 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-            .authorizeHttpRequests(requests ->
-                requests.requestMatchers("/",
-                        AuthWebSecurityConst.REQUEST_PERMIT_CHANGE_PWD,
-                        AuthWebSecurityConst.REQUEST_PERMIT_SAVE_PWD,
-                        "/error",
-                        "/css/**",
-                        "/js/**",
-                        "/images/**",
-                        "/webjars/**")
-                    .permitAll()
-                    .anyRequest().authenticated())
+                .authorizeHttpRequests(requests ->
+                        requests.requestMatchers("/",
+                                        AuthWebSecurityConst.REQUEST_PERMIT_CHANGE_PWD,
+                                        AuthWebSecurityConst.REQUEST_PERMIT_SAVE_PWD,
+                                        "/error",
+                                        "/css/**",
+                                        "/js/**",
+                                        "/images/**",
+                                        "/webjars/**")
+                                .permitAll()
+                                .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
                         .loginPage(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
                         .loginProcessingUrl("/login")
@@ -67,25 +68,28 @@ public class WebSecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
                         .deleteCookies("JSESSIONID")
-                        .permitAll());
+                        .permitAll())
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
 
     @Bean
+    @Order(2)
     public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .securityMatcher(API_PATTERN)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(OPTIONS, API_PATTERN).permitAll()
                         .requestMatchers(POST, "/api/auth/login").permitAll()
-                        .requestMatchers(POST, "/api/auth/create").hasRole(Role.RL_ADMIN)
-                        .requestMatchers(POST, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
-                        .requestMatchers(GET, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
-                        .requestMatchers(PUT, API_CONFIG_PATTERN).hasRole(Role.RL_ADMIN)
+                        .requestMatchers(GET, "/api/autocomplete/**").permitAll()
+                        .requestMatchers(POST, "/api/auth/create").hasAnyRole(webServicesAdminRoles())
+                        .requestMatchers(POST, API_CONFIG_PATTERN).hasAnyRole(webServicesAdminRoles())
+                        .requestMatchers(GET, API_CONFIG_PATTERN).hasAnyRole(webServicesAdminRoles())
+                        .requestMatchers(PUT, API_CONFIG_PATTERN).hasAnyRole(webServicesAdminRoles())
                         .requestMatchers(GET, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
                         .requestMatchers(POST, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
                         .requestMatchers(PUT, API_PATTERN).hasAnyRole(webServiceOperatorRoles())
@@ -94,6 +98,7 @@ public class WebSecurityConfig {
                 .addFilterBefore(getTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(handler -> handler.authenticationEntryPoint(new ApiAuthenticationEntryPoint()))
                 .exceptionHandling(handler -> handler.accessDeniedHandler(new CustomAccessDeniedHandler()))
+                .httpBasic(Customizer.withDefaults())
                 .build();
     }
 
@@ -105,6 +110,11 @@ public class WebSecurityConfig {
     @Bean
     String[] webServiceOperatorRoles() {
         return new String[]{Role.RL_WEBSERVICES, Role.RL_OPERATOR};
+    }
+
+    @Bean
+    String[] webServicesAdminRoles(){
+        return new String[]{Role.RL_WEBSERVICES, Role.RL_ADMIN};
     }
 
 

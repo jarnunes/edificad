@@ -22,8 +22,8 @@ public class VoluntarioServiceImpl extends BaseServiceImpl<Voluntario> implement
     }
 
     @Override
-    public List<Voluntario> findByIdNomeCpf(Long id, String cpf, String nome) {
-        return repository.findByIdNomeCpf(id, nome, cpf);
+    public List<Voluntario> findByNome(String nome) {
+        return repository.findByNome(nome);
     }
 
     @Override

@@ -10,10 +10,8 @@ import java.util.List;
 @Repository
 public interface VoluntarioRepository extends BaseRepository<Voluntario> {
 
-    @Query("from Voluntario  v where"
-        + " (:id is null or v.id = :id ) "
-        + " and (:nome is null or upper(v.nome) like concat('%', upper(:nome), '%')) "
-        + " and (:cpf is null or v.cpf = :cpf)")
-    List<Voluntario> findByIdNomeCpf(Long id, String nome, String cpf);
+    @Query("from Voluntario vo where "
+            + " (:nomeVoluntario is null or vo.nome ilike concat('%', cast(:nomeVoluntario as string) , '%') ) ")
+    List<Voluntario> findByNome(String nomeVoluntario);
 
 }

@@ -88,5 +88,3 @@ function successDependenteDeleteHandler(response) {
 function errorDependenteDeleteHandler(response) {
     jQueryUtils.addErrorMessageOnModal(response.messages)
 }
-
-// end delete dependentes

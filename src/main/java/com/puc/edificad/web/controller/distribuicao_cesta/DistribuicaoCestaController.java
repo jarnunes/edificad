@@ -1,5 +1,6 @@
 package com.puc.edificad.web.controller.distribuicao_cesta;
 
+import com.jnunes.spgcore.web.CrudController;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;
@@ -8,7 +9,6 @@ import com.puc.edificad.services.BeneficiarioService;
 import com.puc.edificad.services.CestaService;
 import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.services.VoluntarioService;
-import com.jnunes.spgcore.web.CrudController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

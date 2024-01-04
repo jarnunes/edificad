@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface BeneficiarioService extends BaseService<Beneficiario> {
 
-    List<Beneficiario> findByIdNomeCpf(Long id, String nome, String cpf);
+    List<Beneficiario> findByNomeCpf(String nome, String cpf);
 
     Beneficiario update(BeneficiarioDto dto);
 }

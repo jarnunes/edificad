@@ -22,8 +22,8 @@ public class CestaServiceImpl extends BaseServiceImpl<Cesta> implements CestaSer
     }
 
     @Override
-    public List<Cesta> findByIdNome(Long id, String nome) {
-        return repository.findByIdNome(id, nome);
+    public List<Cesta> findByNome(String nome) {
+        return repository.findByNome(nome);
     }
 
     @Override

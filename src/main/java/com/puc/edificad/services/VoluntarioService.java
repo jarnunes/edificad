@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface VoluntarioService extends BaseService<Voluntario> {
 
-    List<Voluntario> findByIdNomeCpf(Long id, String cpf, String nome);
+    List<Voluntario> findByNome(String nome);
+
 }

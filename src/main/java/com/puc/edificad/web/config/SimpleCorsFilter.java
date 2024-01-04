@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-//@Component
+@Component
 public class SimpleCorsFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {

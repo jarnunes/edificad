@@ -1,7 +1,7 @@
 package com.puc.edificad.web.api;
 
-import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.jnunes.spgcore.commons.utils.ValidationUtils;
+import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.services.CestaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +23,27 @@ public class CestaRestController extends BaseController {
 
     @GetMapping
     public List<Cesta> list(@RequestParam(required = false) Long id, @RequestParam(required = false) String nome) {
-        return service.findByIdNome(id, nome);
+        return service.findByNome(nome);
     }
 
     @GetMapping("/{id}")
-    public Cesta findById(@PathVariable Long id){
+    public Cesta findById(@PathVariable Long id) {
         return service.findById(id).orElseThrow(EntityNotFoundException::notFoundForId);
     }
 
     @PostMapping
-    public Cesta create(@RequestBody Cesta cesta){
+    public Cesta create(@RequestBody Cesta cesta) {
         return service.save(cesta);
     }
 
     @PostMapping("/create-from-list")
-    public List<Cesta> create(@RequestBody List<Cesta> cestas){
+    public List<Cesta> create(@RequestBody List<Cesta> cestas) {
         cestas.forEach(service::save);
         return cestas;
     }
 
     @PutMapping
-    public Cesta update(@RequestBody Cesta entity){
+    public Cesta update(@RequestBody Cesta entity) {
         ValidationUtils.validateNonNull(entity::getId, "entity.id.not.null");
         return service.update(entity);
     }

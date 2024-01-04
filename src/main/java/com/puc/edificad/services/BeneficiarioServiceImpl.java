@@ -30,8 +30,8 @@ public class BeneficiarioServiceImpl extends BaseServiceImpl<Beneficiario> imple
         this.beneficiarioMapper = mapperIn;
     }
     @Override
-    public List<Beneficiario> findByIdNomeCpf(Long id, String nome, String cpf) {
-        return repository.findByIdNomeCpf(id, nome, cpf);
+    public List<Beneficiario> findByNomeCpf(String nome, String cpf) {
+        return repository.findByNomeCpf( nome, cpf);
     }
 
     @Override

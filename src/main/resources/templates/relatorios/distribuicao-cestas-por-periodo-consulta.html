@@ -33,9 +33,9 @@
                     </div>
 
                     <div class="col">
-                        <label for="cesta" th:text="#{cesta}"></label>
-                        <div class="input-group mb-3">
-                            <select id="cesta" class="form-select" th:field="*{cesta}" >
+                        <label for="completeCesta" th:text="#{cesta}"></label>
+                        <div class="input-group">
+                            <select id="completeCesta" class="form-select select2-single" th:field="*{cesta}">
                                 <option value="" th:text="#{autocomplete.select}"></option>
                                 <option th:each="cesta : ${cestaList}" th:value="${cesta.id}"
                                         th:text="${cesta.nome}"></option>
@@ -44,9 +44,10 @@
                     </div>
 
                     <div class="col">
-                        <label for="beneficiario" th:text="#{beneficiario}"></label>
-                        <div class="input-group mb-3">
-                            <select id="beneficiario" class="form-select" th:field="*{beneficiario}" >
+                        <label for="completeBeneficiario" th:text="#{beneficiario}"></label>
+                        <div class="input-group">
+                            <select id="completeBeneficiario" class="form-select select2-single"
+                                    th:field="*{beneficiario}">
                                 <option value="" th:text="#{autocomplete.select}"></option>
                                 <option th:each="beneficiario : ${beneficiarioList}" th:value="${beneficiario.id}"
                                         th:text="${beneficiario.nome}"></option>
@@ -55,15 +56,16 @@
                     </div>
 
                     <div class="col">
-                        <label for="voluntario" th:text="#{voluntario}"></label>
-                        <div class="input-group mb-3">
-                            <select id="voluntario" class="form-select" th:field="*{beneficiario}">
+                        <label for="completeVoluntario" th:text="#{voluntario}"></label>
+                        <div class="input-group">
+                            <select id="completeVoluntario" class="form-select select2-single" th:field="*{voluntario}">
                                 <option value="" th:text="#{autocomplete.select}"></option>
                                 <option th:each="voluntario : ${voluntarioList}" th:value="${voluntario.id}"
                                         th:text="${voluntario.nome}"></option>
                             </select>
                         </div>
                     </div>
+
                 </div>
             </div>
         </form>
