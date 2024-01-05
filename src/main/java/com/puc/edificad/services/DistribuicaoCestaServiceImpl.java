@@ -122,9 +122,8 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
     private List<QuantidadesPorAnoMes> processarObterQuantidadesPorMesAno(Year anoReferencia,
         Month mesReferencia, Long qtdMesesAnteriores,
         BiFunction<LocalDateTime, LocalDateTime, List<QuantidadesPorAnoMes>> functionObterResultadoQuery){
-        final Month primeiroMesReferencia = mesReferencia.minus(qtdMesesAnteriores);
-        final LocalDateTime inicioReferencia = DateTimeUtils.beginOfFirstDay(anoReferencia, primeiroMesReferencia);
         final LocalDateTime fimReferencia = DateTimeUtils.endOfLastDay(anoReferencia, mesReferencia);
+        final LocalDateTime inicioReferencia = fimReferencia.minusMonths(qtdMesesAnteriores);
 
         List<QuantidadesPorAnoMes> resultado = functionObterResultadoQuery.apply(inicioReferencia, fimReferencia);
 
