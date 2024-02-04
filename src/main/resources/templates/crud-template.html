@@ -5,14 +5,16 @@
       layout:decorate="~{primary-template}">
 
 <th:block layout:fragment="custom-styles">
-    <link rel="stylesheet" href="">
-</th:block>
-<body>
-<span layout:fragment="title"></span>
-<div layout:fragment="content"></div>
-
-<th:block layout:fragment="custom-scripts">
-    <script th:src="@{/js/crud.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script th:src="@{/js/ChartUtils.js}"></script>
 </th:block>
+
+<body>
+    <span layout:fragment="title"></span>
+    <div layout:fragment="content"></div>
+
+    <th:block layout:fragment="custom-scripts">
+        <script th:src="@{/js/crud.js}"></script>
+    </th:block>
 </body>
