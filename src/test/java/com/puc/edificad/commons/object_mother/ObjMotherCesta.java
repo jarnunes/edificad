@@ -1,7 +1,8 @@
 package com.puc.edificad.commons.object_mother;
 
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.puc.edificad.commons.builder.CestaBuilder;
-import com.puc.edificad.commons.utils.JsonUtils;
+
 import com.puc.edificad.model.Cesta;
 
 import java.util.ArrayList;

@@ -1,12 +1,12 @@
 package com.puc.edificad.controller;
 
+import com.jnunes.spgauth.model.User;
+import com.jnunes.spgauth.model.dto.Login;
 import com.puc.edificad.TestUtils;
 import com.puc.edificad.commons.object_mother.ObjMotherUser;
-import com.puc.edificad.commons.utils.JsonUtils;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.jnunes.spgcore.commons.utils.MessageUtils;
-import com.puc.edificad.model.edsuser.User;
 import com.puc.edificad.services.DatabaseService;
-import com.puc.edificad.services.edsuser.dto.Login;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

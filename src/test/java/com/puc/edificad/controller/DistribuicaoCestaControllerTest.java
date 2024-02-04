@@ -6,7 +6,7 @@ import com.puc.edificad.commons.object_mother.ObjMotherCesta;
 import com.puc.edificad.commons.object_mother.ObjMotherDistribuicaoCesta;
 import com.puc.edificad.commons.object_mother.ObjMotherVoluntario;
 import com.jnunes.spgcore.commons.utils.DateTimeUtils;
-import com.puc.edificad.commons.utils.JsonUtils;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.Voluntario;

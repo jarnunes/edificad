@@ -1,9 +1,9 @@
 package com.puc.edificad.commons.object_mother;
 
+import com.jnunes.spgauth.model.User;
 import com.puc.edificad.commons.builder.UserBuilder;
-import com.puc.edificad.commons.utils.JsonUtils;
-import com.puc.edificad.model.edsuser.Role;
-import com.puc.edificad.model.edsuser.User;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,7 +36,7 @@ public class ObjMotherUser extends ObjMotherBase {
                 .comPassword("userunittest")
                 .isEnabled(true)
                 .isLocked(false)
-                .comUserRoles(Stream.of(Role.ADMIN, Role.WEBSERVICES).collect(Collectors.toSet()))
+                //.comUserRoles(Stream.of(Role.ADMIN, Role.WEBSERVICES).collect(Collectors.toSet()))
                 .build();
     }
 

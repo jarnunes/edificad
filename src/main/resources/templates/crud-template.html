@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+
+<th:block layout:fragment="custom-styles">
+    <link rel="stylesheet" href="">
+</th:block>
+<body>
+<span layout:fragment="title"></span>
+<div layout:fragment="content"></div>
+
+<th:block layout:fragment="custom-scripts">
+    <script th:src="@{/js/crud.js}"></script>
+    <script th:src="@{/js/ChartUtils.js}"></script>
+</th:block>
+</body>

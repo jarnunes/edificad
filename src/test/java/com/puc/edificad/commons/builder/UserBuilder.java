@@ -1,8 +1,6 @@
 package com.puc.edificad.commons.builder;
 
-import com.puc.edificad.model.edsuser.Role;
-import com.puc.edificad.model.edsuser.RoleUser;
-import com.puc.edificad.model.edsuser.User;
+import com.jnunes.spgauth.model.User;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,16 +43,16 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder comUserRoles(Set<Role> roles) {
-        user.setUserRoles(roles.stream().map(this::criarRoleUser).collect(Collectors.toSet()));
-        return this;
-    }
-
-    private RoleUser criarRoleUser(Role role) {
-        RoleUser roleUser = new RoleUser();
-        roleUser.setRole(role);
-        return roleUser;
-    }
+//    public UserBuilder comUserRoles(Set<Role> roles) {
+//        user.setUserRoles(roles.stream().map(this::criarRoleUser).collect(Collectors.toSet()));
+//        return this;
+//    }
+//
+//    private RoleUser criarRoleUser(Role role) {
+//        RoleUser roleUser = new RoleUser();
+//        roleUser.setRole(role);
+//        return roleUser;
+//    }
 
     public User build() {
         return user;

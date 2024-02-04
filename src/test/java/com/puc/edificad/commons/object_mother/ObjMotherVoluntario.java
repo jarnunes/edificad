@@ -1,7 +1,7 @@
 package com.puc.edificad.commons.object_mother;
 
 import com.puc.edificad.commons.builder.VoluntarioBuilder;
-import com.puc.edificad.commons.utils.JsonUtils;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.puc.edificad.model.Voluntario;
 
 import java.time.LocalDate;

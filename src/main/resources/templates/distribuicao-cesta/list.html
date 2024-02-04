@@ -12,47 +12,13 @@
     <div class="card-container">
         <div class="ec-table-toolbar">
             <div class="ec-table-toolbar-actions">
-                <div th:replace="~{layout/fragments/crud/crud-actions::crudactions(href=@{/distribuicao-cesta/create})}"></div>
+                <th:block th:insert="~{distribuicao-cesta/list-actions::crudactions}" ></th:block>
             </div>
             <div th:replace="~{layout/fragments/crud/toolbar-search::toolbar-search(path='/distribuicao-cesta')}"></div>
         </div>
 
         <div class="ec-table-container">
-            <table class="ec-table" aria-describedby="distribuicao-cesta List">
-                <thead>
-                <tr>
-                    <th th:replace="~{layout/fragments/th-select-all}"></th>
-                    <th style="width: 20px">Id</th>
-                    <th th:text="#{distribuicao.beneficiado}"></th>
-                    <th th:text="#{distribuicao.cesta}"></th>
-                    <th th:text="#{distribuicao.voluntario}"></th>
-                    <th th:text="#{distribuicao.entrega}"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="row : ${entities}" data-th-id="${'row_' + row.id}">
-                    <td>
-                        <div class="actions">
-                            <div class="form-check">
-                                <input name="selectRow" class="form-check-input" type="checkbox" data-th-id="${row.id}"
-                                       aria-label="selectRow">
-                            </div>
-                        </div>
-                    </td>
-                    <td th:text="${row.id}"></td>
-                    <td>
-                        <h5 th:text="${row.beneficiario.nome}" ></h5>
-                        <p th:text="'CPF: ' + ${row.beneficiario.cpf}" ></p>
-                    </td>
-                    <td th:text="${row.cesta.nome}" ></td>
-                    <td>
-                        <h5 th:text="${row.voluntario.nome}" ></h5>
-                        <p th:text="'CPF: ' + ${row.voluntario.cpf}" ></p>
-                    </td>
-                    <td th:text="${@helper.dateTimeFormat(row.dataHora)}" ></td>
-                </tr>
-                </tbody>
-            </table>
+           <th:block th:insert="~{distribuicao-cesta/list-datatable::datatable}" ></th:block>
 
             <div th:replace="~{layout/fragments/paginator::paginator(path='/distribuicao-cesta')}"></div>
         </div>

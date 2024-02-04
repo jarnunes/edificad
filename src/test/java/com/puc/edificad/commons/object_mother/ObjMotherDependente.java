@@ -1,7 +1,7 @@
 package com.puc.edificad.commons.object_mother;
 
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.puc.edificad.commons.builder.DependenteBuilder;
-import com.puc.edificad.commons.utils.JsonUtils;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.dto.DependenteDto;
 

@@ -4,7 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.puc</groupId>
     <artifactId>edificad</artifactId>
-    <version>0.0.2</version>
+
+    <version>1.0-SNAPSHOT</version>
     <name>edificad</name>
     <packaging>jar</packaging>
     <description>Edificad Application</description>
@@ -12,7 +13,7 @@
     <parent>
         <groupId>com.jnunes</groupId>
         <artifactId>spg-parent</artifactId>
-        <version>1.0</version>
+        <version>1.2-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
@@ -44,16 +45,7 @@
             <artifactId>bootstrap</artifactId>
             <version>5.2.3</version>
         </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>bootstrap</artifactId>
-            <version>4.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>webjars-locator</artifactId>
-            <version>0.30</version>
-        </dependency>
+
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>popper.js</artifactId>
@@ -83,12 +75,12 @@
         <dependency>
             <groupId>com.jnunes</groupId>
             <artifactId>spg-core</artifactId>
-            <version>1.1</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.jnunes</groupId>
             <artifactId>spg-auth</artifactId>
-            <version>1.1</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

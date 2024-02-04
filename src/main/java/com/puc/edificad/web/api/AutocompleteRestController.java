@@ -1,7 +1,7 @@
 package com.puc.edificad.web.api;
 
+import com.jnunes.spgcore.service.dto.AutocompleteDto;
 import com.puc.edificad.services.PesquisaService;
-import com.puc.edificad.services.dto.AutocompleteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +36,4 @@ public class AutocompleteRestController {
         return pesquisaService.obterVoluntarios(query);
     }
 
-    @GetMapping("/roles")
-    List<AutocompleteDto> completeRoles(@RequestParam(value = "q", required = false) String query){
-        return pesquisaService.obterUserRoles(query);
-    }
 }

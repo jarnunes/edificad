@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,6 +28,7 @@ import static org.springframework.http.HttpMethod.*;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true, jsr250Enabled = true, proxyTargetClass = true)
 public class WebSecurityConfig {
 
     private static final String API_PATTERN = "/api/**";
@@ -49,26 +51,27 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests ->
-                        requests.requestMatchers("/",
-                                        AuthWebSecurityConst.REQUEST_PERMIT_CHANGE_PWD,
-                                        AuthWebSecurityConst.REQUEST_PERMIT_SAVE_PWD,
-                                        "/error",
-                                        "/css/**",
-                                        "/js/**",
-                                        "/images/**",
-                                        "/webjars/**")
-                                .permitAll()
-                                .anyRequest().authenticated())
+                    requests.requestMatchers("/",
+                            AuthWebSecurityConst.REQUEST_AUTHORIZE_CHANGE_PWD,
+                            AuthWebSecurityConst.REQUEST_AUTHORIZE_SAVE_PWD,
+                            "/error",
+                            "/css/**",
+                            "/assets/**",
+                            "/js/**",
+                            "/images/**",
+                            "/webjars/**")
+                    .permitAll()
+                    .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin
-                        .loginPage(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
-                        .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/dashboard")
-                        .permitAll())
+                    .loginPage(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/dashboard")
+                    .permitAll())
                 .logout(formLogout -> formLogout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll())
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl(AuthWebSecurityConst.REQUEST_LOGIN_PAGE)
+                    .deleteCookies("JSESSIONID")
+                    .permitAll())
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
@@ -86,6 +89,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(POST, "/api/auth/login").permitAll()
                         .requestMatchers(GET, "/api/autocomplete/**").permitAll()
+                        .requestMatchers(GET, AuthWebSecurityConst.REQUEST_AUTHORIZE_AUTOCOMPLETE).permitAll()
                         .requestMatchers(POST, "/api/auth/create").hasAnyRole(webServicesAdminRoles())
                         .requestMatchers(POST, API_CONFIG_PATTERN).hasAnyRole(webServicesAdminRoles())
                         .requestMatchers(GET, API_CONFIG_PATTERN).hasAnyRole(webServicesAdminRoles())
@@ -109,14 +113,13 @@ public class WebSecurityConfig {
 
     @Bean
     String[] webServiceOperatorRoles() {
-        return new String[]{Role.RL_WEBSERVICES, Role.RL_OPERATOR};
+        return new String[]{Role.RL_USER};
     }
 
     @Bean
     String[] webServicesAdminRoles(){
-        return new String[]{Role.RL_WEBSERVICES, Role.RL_ADMIN};
+        return new String[]{Role.RL_ADMIN};
     }
-
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
