@@ -30,10 +30,10 @@ public abstract class Pessoa extends BaseEntity {
     @Column(unique = true, length = 100)
     private String email;
 
-    @Column(unique = true, length = 14)
+    @Column(unique = true, length = 15)
     private String cpf;
 
-    @Column(unique = true, length = 16)
+    @Column(unique = true, length = 15)
     private String telefone;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")

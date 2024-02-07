@@ -4,7 +4,7 @@
 
 <th:block th:fragment="crudactions">
     <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CREATE', 'ROLE_CREATE_DISTRIBUICAO')"
-       th:href="@{/voluntario/create}" class="btn btn-primary" role="button">
+       th:href="@{/distribuicao-cesta/create}" class="btn btn-primary" role="button">
         <i class="bi bi-plus-lg"></i>
         <span class="btn-label">Novo</span>
     </a>

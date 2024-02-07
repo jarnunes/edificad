@@ -22,7 +22,7 @@ public class Endereco extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String numero;
 
-    @Column(length = 14)
+    @Column(length = 10)
     private String cep;
 
     @Column(length = 100)
