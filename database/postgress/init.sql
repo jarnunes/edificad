@@ -1,5 +1,18 @@
 /**
   Scripts de banco nos mo
  */
-insert into configuracao (id, create_date, create_user, last_modified_date, last_modified_user, token_expires_at, token_secret_key)
-values (1, current_timestamp, 'system', null, null, 60, 'secret-key1654dketkdisies-23943929s939393kdkgjti6989493920');
+
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_DASHBOARD');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Distribuição de Cestas Resources', 'VIEW_DISTRIBUICAO_CESTA');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_BENEFICIARIO');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_VOLUNTARIO');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_CESTA');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_RELATORIOS');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_CONFIGURACAO');

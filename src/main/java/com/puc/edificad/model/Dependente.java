@@ -12,7 +12,6 @@ import java.io.Serial;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true, exclude = "responsavel")
-//@SequenceGenerator(name = "seq_generator", sequenceName = "seq_dependente", allocationSize = 1)
 public class Dependente extends Pessoa {
     @Serial
     private static final long serialVersionUID = 3822745828763545687L;

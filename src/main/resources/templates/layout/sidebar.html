@@ -6,37 +6,37 @@
     <li sec:authorize="hasAnyRole('ROLE_DASHBOARD')">
         <a th:href="@{/dashboard}"><i class="bi bi-pie-chart-fill"></i><span th:text="#{menu.dashboard}"></span></a>
     </li>
-    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DISTRIBUICAO_CESTA')">
+    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_DISTRIBUICAO_CESTA')">
         <a th:href="@{/distribuicao-cesta}">
             <i class="bi bi-person-fill-check"></i>
             <span th:text="#{menu.distribuicao.cesta}"></span>
         </a>
     </li>
-    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_BENEFICIARIO')">
+    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_BENEFICIARIO')">
         <a th:href="@{/beneficiario}">
             <i class="bi bi-people-fill"></i>
             <span th:text="#{menu.beneficiarios}"></span>
         </a>
     </li>
-    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VOLUNTARIO')">
+    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_VOLUNTARIO')">
         <a th:href="@{/voluntario}">
             <i class="bi bi-person-video3"></i>
             <span th:text="#{menu.voluntarios}"></span>
         </a>
     </li>
-    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CESTA')">
+    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_CESTA')">
         <a th:href="@{/cesta}">
             <i class="bi bi-basket2"></i>
             <span th:text="#{menu.cestas}"></span>
         </a>
     </li>
-    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_RELATORIOS')">
+    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_RELATORIOS')">
         <a th:href="@{/distribuicao-por-periodo}">
             <i class="bi bi-newspaper"></i>
             <span th:text="#{menu.relatorios}"></span>
         </a>
     </li>
-    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CONFIGURACAO')">
+    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_CONFIGURACAO')">
         <a th:href="@{/settings}">
             <i class="bi bi-gear-fill"></i>
             <span th:text="#{menu.configuracao}"></span>

@@ -15,7 +15,6 @@ import java.util.Set;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true, exclude = {"dependentes", "cestas"})
-//@SequenceGenerator(name = "seq_generator", sequenceName = "seq_beneficiario", allocationSize = 1)
 public class Beneficiario extends Pessoa {
 
     @Serial
