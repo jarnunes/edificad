@@ -3,7 +3,7 @@ package com.puc.edificad.controller;
 import com.puc.edificad.TestUtils;
 import com.puc.edificad.commons.object_mother.ObjMotherBeneficiario;
 import com.puc.edificad.commons.object_mother.ObjMotherDependente;
-import com.puc.edificad.commons.utils.JsonUtils;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.jnunes.spgcore.commons.utils.MessageUtils;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.dto.DependenteDto;

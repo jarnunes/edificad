@@ -1,7 +1,7 @@
 package com.puc.edificad;
 
-import com.puc.edificad.commons.utils.JsonUtils;
-import com.puc.edificad.services.edsuser.dto.Login;
+import com.jnunes.spgauth.model.dto.Login;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import org.json.JSONObject;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{primary-template}">
+<head><title>Configuração</title></head>
+<body>
+
+<span layout:fragment="title">Configuração</span>
+<div layout:fragment="content">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 cards-dashboard">
+        <div th:replace="~{cards/auth-cards}"></div>
+
+    </div>
+
+</div>
+
+</body>

@@ -12,7 +12,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
     @Bean
     public MessageSource messageSource() {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasenames("classpath:/messages/messages", "classpath:/messages/spgauth-messages");
+        messageSource.setBasenames("classpath:/messages/messages", "classpath:/messages/spgauth-messages", "classpath:/messages/core-messages");
         messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(5);

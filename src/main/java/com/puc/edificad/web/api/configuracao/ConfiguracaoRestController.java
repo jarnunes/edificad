@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/config")
-public class ConfiguracaoController {
+public class ConfiguracaoRestController {
 
     private ConfiguracaoService configuracaoService;
 

@@ -18,6 +18,7 @@ spring:
       idle-timeout: 60000
       validation-timeout: 3000
       initialization-fail-timeout: 5000
+
   mail:
     host: ${edificad.mail.host}
     # port: 465
@@ -29,6 +30,22 @@ spring:
           auth: true
         starttls:
           enable: true
+
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+      jakarta:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            database:
+              action: none
+  #            scripts:
+  #              action: create # values: create or drop
+  #              create-target: database/postgress/schema-create.sql
+  #              drop-target: database/postgress/schema-drop.sql
 
 spg:
   web:
@@ -66,7 +83,7 @@ spring:
           schema-generation:
             create-source: metadata
             database:
-              action: none
+              action: update
             scripts:
               action: create # values: create or drop
               create-target: database/postgress/schema-create.sql

@@ -1,9 +1,8 @@
 package com.puc.edificad.services;
 
-import com.puc.edificad.model.edsuser.Role;
-import com.puc.edificad.model.edsuser.RoleUser;
-import com.puc.edificad.model.edsuser.User;
-import com.puc.edificad.services.edsuser.UserService;
+
+import com.jnunes.spgauth.model.User;
+import com.jnunes.spgauth.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -46,17 +45,17 @@ public class DatabaseService {
         user.setEmail("admin@email.com");
         user.setPassword("123");
         user.setFullName("System Administrator Test");
-        user.setUserRoles(Stream.of(Role.ADMIN, Role.WEBSERVICES).map(this::obterRoles).collect(Collectors.toSet()));
+//        user.setUserRoles(Stream.of(Role.ADMIN, Role.WEBSERVICES).map(this::obterRoles).collect(Collectors.toSet()));
         userService.save(user);
 
         user.setPassword("123");
         return user;
     }
 
-    private RoleUser obterRoles(Role role){
-        RoleUser roleUser = new RoleUser();
-        roleUser.setRole(role);
-        return roleUser;
-    }
+//    private RoleUser obterRoles(Role role){
+//        RoleUser roleUser = new RoleUser();
+//        roleUser.setRole(role);
+//        return roleUser;
+//    }
 
 }

@@ -1,11 +1,10 @@
 package com.puc.edificad.services;
 
 import com.jnunes.spgauth.model.Role;
-import com.jnunes.spgauth.model.RoleUser;
+import com.jnunes.spgcore.service.dto.AutocompleteDto;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.Voluntario;
-import com.puc.edificad.services.dto.AutocompleteDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,13 +50,4 @@ public class PesquisaServiceImpl implements PesquisaService {
         return createFrom(voluntarioService.findByNome(searchValue), Voluntario::getNome);
     }
 
-    @Override
-    public List<AutocompleteDto> obterUserRoles(String search) {
-        return Arrays.stream(Role.values()).map(role -> {
-            AutocompleteDto dto = new AutocompleteDto();
-            dto.setId(role);
-            dto.setText(role.getValue());
-            return dto;
-        }).toList();
-    }
 }

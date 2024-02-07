@@ -2,7 +2,7 @@ package com.puc.edificad.controller;
 
 import com.puc.edificad.TestUtils;
 import com.puc.edificad.commons.object_mother.ObjMotherConfiguracao;
-import com.puc.edificad.commons.utils.JsonUtils;
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.puc.edificad.model.Configuracao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

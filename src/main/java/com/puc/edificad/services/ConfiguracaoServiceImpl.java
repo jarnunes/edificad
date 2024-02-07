@@ -36,8 +36,8 @@ public class ConfiguracaoServiceImpl extends BaseServiceImpl<Configuracao> imple
 
     private Configuracao copyToStoredEntityOrToNewInstance(Configuracao entity){
         Configuracao storedEntity = repository.findFirstConfiguracao().orElse(new Configuracao());
-        storedEntity.setTokenExpiresAt(entity.getTokenExpiresAt());
-        storedEntity.setTokenSecretKey(entity.getTokenSecretKey());
+//        storedEntity.setTokenExpiresAt(entity.getTokenExpiresAt());
+//        storedEntity.setTokenSecretKey(entity.getTokenSecretKey());
         return storedEntity;
     }
 

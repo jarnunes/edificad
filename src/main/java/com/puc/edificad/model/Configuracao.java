@@ -17,7 +17,5 @@ import java.io.Serial;
 public class Configuracao extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 7258385743541484317L;
-    private String tokenSecretKey;
 
-    private Integer tokenExpiresAt;
 }

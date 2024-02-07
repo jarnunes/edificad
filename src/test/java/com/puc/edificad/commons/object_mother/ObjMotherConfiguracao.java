@@ -1,7 +1,7 @@
 package com.puc.edificad.commons.object_mother;
 
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.puc.edificad.commons.builder.ConfiguracaoBuilder;
-import com.puc.edificad.commons.utils.JsonUtils;
 import com.puc.edificad.model.Configuracao;
 
 public class ObjMotherConfiguracao extends ObjMotherBase {
