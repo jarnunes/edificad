@@ -11,7 +11,8 @@ import java.util.List;
 public interface VoluntarioRepository extends BaseRepository<Voluntario> {
 
     @Query("from Voluntario vo where "
-            + " (:nomeVoluntario is null or vo.nome ilike concat('%', cast(:nomeVoluntario as string) , '%') ) ")
+        + " (:nomeVoluntario is null or vo.nome ilike concat('%', cast(:nomeVoluntario as string) , '%') ) "
+        + " order by vo.id limit 10 ")
     List<Voluntario> findByNome(String nomeVoluntario);
 
 }

@@ -1,3 +1,3 @@
-$("#completeBeneficiario").select2(getSettingsSelect2('/api/autocomplete/beneficiarios'));
-$("#completeCesta").select2(getSettingsSelect2('/api/autocomplete/cestas'));
-$("#completeVoluntario").select2(getSettingsSelect2('/api/autocomplete/voluntarios'));
+$("#completeBeneficiario").select2(getSettingsSelect2('/autocomplete/beneficiarios'));
+$("#completeCesta").select2(getSettingsSelect2('/autocomplete/cestas'));
+$("#completeVoluntario").select2(getSettingsSelect2('/autocomplete/voluntarios'));

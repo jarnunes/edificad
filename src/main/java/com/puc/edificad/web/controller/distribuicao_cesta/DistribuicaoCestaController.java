@@ -1,6 +1,7 @@
 package com.puc.edificad.web.controller.distribuicao_cesta;
 
-import com.jnunes.spgcore.web.CrudController;
+import com.jnunes.spgcore.web.CrudControllerSec;
+import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;
@@ -10,6 +11,8 @@ import com.puc.edificad.services.CestaService;
 import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.services.VoluntarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -20,17 +23,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/distribuicao-cesta")
-public class DistribuicaoCestaController extends CrudController<DistribuicaoCesta> {
+@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_DISTRIBUICAO_CESTA')")
+public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoCesta> {
 
     private DistribuicaoCestaService service;
-
     private BeneficiarioService beneficiarioService;
     private VoluntarioService voluntarioService;
     private CestaService cestaService;
-
 
     @Autowired
     public void setService(DistribuicaoCestaService serviceIn) {
@@ -55,6 +58,14 @@ public class DistribuicaoCestaController extends CrudController<DistribuicaoCest
     @Override
     protected ModelAndView getModelAndViewListPage() {
         return new ModelAndView("distribuicao-cesta/list");
+    }
+
+
+    @GetMapping
+    ModelAndView entitiesList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+        @RequestParam(value = "search",required = false) Optional<String> search,
+        @RequestParam(value = "nav",defaultValue = "false",required = false) boolean nav) {
+        return super.getEntitiesList(page, size, search, nav, service::findAll, service::findAll);
     }
 
     @GetMapping("/create")
@@ -98,4 +109,10 @@ public class DistribuicaoCestaController extends CrudController<DistribuicaoCest
     List<Cesta> cestaList() {
         return cestaService.findAll();
     }
+
+    @PostMapping({"/delete"})
+    ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
+        return super.deleteAll(ids, service::deleteById);
+    }
+
 }

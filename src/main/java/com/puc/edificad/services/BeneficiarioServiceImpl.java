@@ -31,7 +31,7 @@ public class BeneficiarioServiceImpl extends BaseServiceImpl<Beneficiario> imple
     }
     @Override
     public List<Beneficiario> findByNomeCpf(String nome, String cpf) {
-        return repository.findByNomeCpf( nome, cpf);
+        return repository.findByNomeCpf(nome, cpf);
     }
 
     @Override

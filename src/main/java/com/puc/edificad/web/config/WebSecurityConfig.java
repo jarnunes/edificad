@@ -88,8 +88,6 @@ public class WebSecurityConfig {
                 .securityMatcher(API_PATTERN)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(POST, "/api/auth/login").permitAll()
-                        .requestMatchers(GET, "/api/autocomplete/**").permitAll()
-                        .requestMatchers(GET, AuthWebSecurityConst.REQUEST_AUTHORIZE_AUTOCOMPLETE).permitAll()
                         .requestMatchers(POST, "/api/auth/create").hasAnyRole(webServicesAdminRoles())
                         .requestMatchers(POST, API_CONFIG_PATTERN).hasAnyRole(webServicesAdminRoles())
                         .requestMatchers(GET, API_CONFIG_PATTERN).hasAnyRole(webServicesAdminRoles())

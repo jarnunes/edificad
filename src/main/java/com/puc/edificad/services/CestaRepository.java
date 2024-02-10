@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface CestaRepository extends BaseRepository<Cesta> {
 
-    @Query("from Cesta c where (:nome is null or c.nome ilike concat('%', cast(:nome as string) , '%'))")
+    @Query("from Cesta c "
+        + " where (:nome is null or c.nome ilike concat('%', cast(:nome as string) , '%')) "
+        + " order by c.id limit 10 ")
     List<Cesta> findByNome(String nome);
 }
