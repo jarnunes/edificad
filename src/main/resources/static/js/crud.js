@@ -4,7 +4,7 @@ $(CLASS_SAVE_NEW_BTN.dClass).click(function () {
 
 // begin edit crud
 $(CLASS_MINI_BTN_EDIT.dClass).click(function () {
-    let selectedID = getSelectedIds().shift()
+    let selectedID = selected.shift()
     console.log(PathInfo.requestUpdateURL(selectedID))
      JSUtils.redirect(PathInfo.requestUpdateURL(selectedID))
 });
@@ -12,7 +12,7 @@ $(CLASS_MINI_BTN_EDIT.dClass).click(function () {
 
 // begin delete crud
 $(CLASS_MINI_BTN_DELETE.dClass).click(function () {
-    let selectedIds = getSelectedIds();
+    let selectedIds = selected;
     let deleteMessage = `Os registros selecionados serão removidos. Confirma a exclusão de ${selectedIds.length} registro(s) ?`
 
     jQueryUtils.append(CLASS_CONTAINER_TO_MODAL.dClass, HTMLUtils.getModalDeleteConfirm(deleteMessage))
@@ -36,6 +36,8 @@ function successCrudDeleteHandler(json) {
     jQueryUtils.removeRows(json.data)
     jQueryUtils.hideModal(CLASS_MODAL.dClass)
     jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
+    jQueryUtils.removeDatatableRows('#datatableCesta', selected)
+    selected = []
 }
 
 function errorCrudDeleteHandler(json) {
@@ -82,7 +84,8 @@ function successDependenteDeleteHandler(response) {
     jQueryUtils.addSuccessMessage(response.messages)
     jQueryUtils.toggleModal(CLASS_MODAL.dClass)
     jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
-    jQueryUtils.scrollToTop()
+    jQueryUtils.scrollToTop();
+
 }
 
 function errorDependenteDeleteHandler(response) {

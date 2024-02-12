@@ -2,7 +2,7 @@ package com.puc.edificad.services;
 
 import com.jnunes.spgcore.commons.utils.DateTimeUtils;
 import com.jnunes.spgcore.commons.utils.ValidationUtils;
-import com.jnunes.spgcore.service.BaseServiceImpl;
+import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.mapper.DistribuicaoCestaMapper;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;

@@ -1,6 +1,6 @@
 package com.puc.edificad.web.controller.crud;
 
-import com.jnunes.spgcore.service.dto.AutocompleteDto;
+import com.jnunes.spgcore.services.dto.AutocompleteDto;
 import com.jnunes.spgcore.web.CrudController;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;

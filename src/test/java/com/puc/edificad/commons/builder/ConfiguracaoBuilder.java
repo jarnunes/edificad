@@ -12,12 +12,12 @@ public class ConfiguracaoBuilder {
     }
 
     public ConfiguracaoBuilder comToken(String token) {
-        configuracao.setTokenSecretKey(token);
+        //configuracao.setTokenSecretKey(token);
         return this;
     }
 
     public ConfiguracaoBuilder comDuracaoValidadeToken(Integer duracaoEmMinutos) {
-        configuracao.setTokenExpiresAt(duracaoEmMinutos);
+        //configuracao.setTokenExpiresAt(duracaoEmMinutos);
         return this;
     }
 

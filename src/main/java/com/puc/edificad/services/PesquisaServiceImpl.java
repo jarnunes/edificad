@@ -1,7 +1,7 @@
 package com.puc.edificad.services;
 
 import com.jnunes.spgauth.model.Role;
-import com.jnunes.spgcore.service.dto.AutocompleteDto;
+import com.jnunes.spgcore.services.dto.AutocompleteDto;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.Voluntario;

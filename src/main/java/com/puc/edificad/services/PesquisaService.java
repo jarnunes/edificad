@@ -1,7 +1,7 @@
 package com.puc.edificad.services;
 
-import com.jnunes.spgcore.service.AutocompleteService;
-import com.jnunes.spgcore.service.dto.AutocompleteDto;
+import com.jnunes.spgcore.services.AutocompleteService;
+import com.jnunes.spgcore.services.dto.AutocompleteDto;
 
 import java.util.List;
 

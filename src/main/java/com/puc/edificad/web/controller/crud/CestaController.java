@@ -1,11 +1,11 @@
 package com.puc.edificad.web.controller.crud;
 
-import com.jnunes.spgcore.service.dto.AutocompleteDto;
+import com.jnunes.spgcore.commons.datatable.DataTablePage;
+import com.jnunes.spgcore.commons.datatable.DataTableRequest;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.services.CestaService;
-import com.puc.edificad.services.PesquisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/cesta")
@@ -38,10 +37,14 @@ public class CestaController extends CrudControllerSec<Cesta> {
     }
 
     @GetMapping
-    ModelAndView entitiesList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
-        @RequestParam(value = "search",required = false) Optional<String> search,
-        @RequestParam(value = "nav",defaultValue = "false",required = false) boolean nav) {
-        return super.getEntitiesList(page, size, search, nav, service::findAll, service::findAll);
+    ModelAndView viewPage(){
+        return getModelAndViewListPage();
+    }
+
+    @PostMapping
+    @ResponseBody
+    DataTablePage<Cesta> datatableList(@RequestBody DataTableRequest pagingRequest) {
+        return super.viewList(pagingRequest, service);
     }
 
     @GetMapping("/create")
@@ -70,7 +73,7 @@ public class CestaController extends CrudControllerSec<Cesta> {
     }
 
     @ModelAttribute("cestaList")
-    List<Cesta> autocomplete(){
+    List<Cesta> autocomplete() {
         return service.findAll();
     }
 

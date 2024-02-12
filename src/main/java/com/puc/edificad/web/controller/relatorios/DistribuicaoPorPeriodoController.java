@@ -1,7 +1,7 @@
 package com.puc.edificad.web.controller.relatorios;
 
 import com.jnunes.spgcore.commons.exceptions.ValidationException;
-import com.jnunes.spgcore.service.dto.AutocompleteDto;
+import com.jnunes.spgcore.services.dto.AutocompleteDto;
 import com.puc.edificad.services.*;
 import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import jakarta.servlet.http.HttpServletResponse;

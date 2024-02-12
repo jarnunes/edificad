@@ -1,0 +1,5 @@
+- pendente:
+    - crusamento de perfis(divergencia de perfis): se o usuário tem um perfil A que nega o acesso a um recurso R1 e um perfil B que concede acesso ao mesmo recurso, deve se exibir nessa listagem.
+    - Uso de datatables com thymeleaf:
+        https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-datatable
+        https://medium.com/@gustavo.ponce.ch/spring-boot-jquery-datatables-a2e816e2b5e9

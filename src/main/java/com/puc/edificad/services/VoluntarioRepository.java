@@ -1,6 +1,6 @@
 package com.puc.edificad.services;
 
-import com.jnunes.spgcore.service.BaseRepository;
+import com.jnunes.spgcore.services.BaseRepository;
 import com.puc.edificad.model.Voluntario;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

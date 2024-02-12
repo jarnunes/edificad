@@ -3,25 +3,31 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{crud-template}">
-<head><title>Cestas</title></head>
+<head>
+    <title>Cestas</title>
+</head>
 <body>
 
 <span layout:fragment="title">Cesta</span>
 <div layout:fragment="content">
 
-    <div class="card-container">
+    <div class="card-container overflow-auto">
         <div class="ec-table-toolbar">
             <div class="ec-table-toolbar-actions">
-                <th:block th:insert="~{cesta/list-actions::crudactions}"></th:block>
+                <th:block th:insert="~{cesta/list-actions::crudactions}" ></th:block>
             </div>
-            <div th:replace="~{layout/fragments/crud/toolbar-search::toolbar-search(path='/cesta')}"></div>
         </div>
+        <table id="datatableCesta" class="table table-striped table-bordered table-hover">
+            <thead class="table-secondary">
+                <tr>
+                    <th>ID</th>
+                    <th th:text="#{cesta.nome}"></th>
+                    <th th:text="#{cesta.quantidade}"></th>
+                    <th th:text="#{cesta.descrição}"></th>
+                </tr>
+            </thead>
+        </table>
 
-        <div class="ec-table-container">
-            <th:block th:insert="~{cesta/list-datatable::datatable}" ></th:block>
-
-            <div th:replace="~{layout/fragments/paginator::paginator(path='/cesta')}"></div>
-        </div>
     </div>
 
     <!-- Modal Container: All modals will be inside here -->

@@ -1,7 +1,7 @@
 package com.puc.edificad.services;
 
 import com.jnunes.spgcore.commons.utils.ValidationUtils;
-import com.jnunes.spgcore.service.BaseServiceImpl;
+import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.mapper.DependenteMapper;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.dto.DependenteDto;

@@ -1,6 +1,6 @@
 package com.puc.edificad.services;
 
-import com.jnunes.spgcore.service.BaseRepository;
+import com.jnunes.spgcore.services.BaseRepository;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;

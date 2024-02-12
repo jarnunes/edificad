@@ -1,6 +1,6 @@
 package com.puc.edificad.web.controller;
 
-import com.jnunes.spgcore.service.dto.AutocompleteDto;
+import com.jnunes.spgcore.services.dto.AutocompleteDto;
 import com.puc.edificad.services.PesquisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

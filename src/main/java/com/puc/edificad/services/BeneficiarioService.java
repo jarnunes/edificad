@@ -1,6 +1,6 @@
 package com.puc.edificad.services;
 
-import com.jnunes.spgcore.service.BaseService;
+import com.jnunes.spgcore.services.BaseService;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.dto.BeneficiarioDto;
 
