@@ -1,7 +1,5 @@
 package com.puc.edificad.services;
 
-import com.jnunes.spgcore.commons.utils.ValidationUtils;
-import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.mapper.DependenteMapper;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.dto.DependenteDto;
@@ -13,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class DependenteServiceImpl extends BaseServiceImpl<Dependente> implements DependenteService {
+public class DependenteServiceImpl extends PersonServiceImpl<Dependente> implements DependenteService {
 
     private DependenteMapper dependenteMapper;
 
@@ -27,10 +25,10 @@ public class DependenteServiceImpl extends BaseServiceImpl<Dependente> implement
         return super.findAll().stream().map(dependenteMapper::toDto).toList();
     }
 
+
     @Override
     public DependenteDto save(DependenteDto dto) {
         Dependente entity = dependenteMapper.toEntity(dto);
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
         super.save(entity);
         return dependenteMapper.toDto(entity);
     }
@@ -38,8 +36,6 @@ public class DependenteServiceImpl extends BaseServiceImpl<Dependente> implement
     @Override
     public DependenteDto update(DependenteDto dto) {
         Dependente entity = dependenteMapper.toEntity(dto);
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
-        super.update(entity);
-        return dependenteMapper.toDto(entity);
+        return dependenteMapper.toDto(super.update(entity));
     }
 }

@@ -1,10 +1,10 @@
 package com.puc.edificad.services;
 
-import com.jnunes.spgcore.commons.utils.ValidationUtils;
 import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.mapper.BeneficiarioMapper;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.dto.BeneficiarioDto;
+import com.puc.edificad.services.validation.BeneficiarioValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class BeneficiarioServiceImpl extends BaseServiceImpl<Beneficiario> implements BeneficiarioService {
+public class BeneficiarioServiceImpl extends PersonServiceImpl<Beneficiario> implements BeneficiarioService {
 
     private BeneficiarioRepository repository;
 
@@ -34,18 +34,13 @@ public class BeneficiarioServiceImpl extends BaseServiceImpl<Beneficiario> imple
         return repository.findByNomeCpf(nome, cpf);
     }
 
-    @Override
-    public Beneficiario save(Beneficiario entity) {
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
-        return super.save(entity);
-    }
 
     @Override
     public Beneficiario update(BeneficiarioDto dto) {
-        Beneficiario entity = beneficiarioMapper.toEntity(dto);
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
-        return super.update(entity);
+        return super.update(beneficiarioMapper.toEntity(dto));
     }
+
+
 
     @Override
     public Optional<Beneficiario> getEntityWithSearchAttrs(String searchValue) {

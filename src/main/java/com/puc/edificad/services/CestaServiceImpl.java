@@ -4,6 +4,7 @@ import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.model.Cesta;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +39,10 @@ public class CestaServiceImpl extends BaseServiceImpl<Cesta> implements CestaSer
         Cesta entitySearchExample = new Cesta();
         entitySearchExample.setNome(searchValue);
         return Optional.of(entitySearchExample);
+    }
+
+    @Override
+    public Integer obterQuantidadeEstoque(Long idCesta) {
+        return repository.findById(idCesta).map(it -> it.getQuantidadeEstoque()).orElseThrow();
     }
 }

@@ -12,6 +12,7 @@ import com.puc.edificad.model.dto.DistribuicaoCestaDto;
 import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
 import com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto;
+import com.puc.edificad.services.validation.DistribuicaoCestaValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +21,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Year;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +35,6 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
 
     private BeneficiarioService beneficiarioService;
     private CestaService cestaService;
-    private VoluntarioService voluntarioService;
 
     @Autowired
     public void setDistribuicaoCestaMapper(DistribuicaoCestaMapper mapper) {
@@ -58,10 +57,6 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
         this.cestaService = serviceIn;
     }
 
-    @Autowired
-    public void setVoluntarioService(VoluntarioService serviceIn){
-        this.voluntarioService = serviceIn;
-    }
     @Override
     public DistribuicaoCestaDto save(DistribuicaoCestaDto dto) {
         DistribuicaoCesta entity = distribuicaoCestaMapper.toEntity(dto);
@@ -71,9 +66,11 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
 
     @Override
     public DistribuicaoCesta save(DistribuicaoCesta entity) {
-        cestaService.darBaixaDistribuicaoCesta(entity.getCesta().getId(), 1);
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataHora());
+        DistribuicaoCestaValidation validation = new DistribuicaoCestaValidation(entity);
+        validation.validarQuantidadeEstoque();
+        validation.validarSeDataHoraEntregaSuperiorDataHoraAtual();
 
+        cestaService.darBaixaDistribuicaoCesta(entity.getCesta().getId(), 1);
         return super.save(entity);
     }
 

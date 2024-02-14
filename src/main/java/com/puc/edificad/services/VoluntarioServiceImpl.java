@@ -1,7 +1,5 @@
 package com.puc.edificad.services;
 
-import com.jnunes.spgcore.commons.utils.ValidationUtils;
-import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.model.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class VoluntarioServiceImpl extends BaseServiceImpl<Voluntario> implements VoluntarioService {
+public class VoluntarioServiceImpl extends PersonServiceImpl<Voluntario> implements VoluntarioService {
 
     private VoluntarioRepository repository;
 
@@ -26,17 +24,6 @@ public class VoluntarioServiceImpl extends BaseServiceImpl<Voluntario> implement
         return repository.findByNome(nome);
     }
 
-    @Override
-    public Voluntario save(Voluntario entity) {
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
-        return super.save(entity);
-    }
-
-    @Override
-    public Voluntario update(Voluntario entity) {
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataNascimento());
-        return super.update(entity);
-    }
 
     @Override
     public Optional<Voluntario> getEntityWithSearchAttrs(String searchValue) {
