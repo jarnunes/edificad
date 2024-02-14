@@ -1,12 +1,11 @@
 package com.puc.edificad.web.controller.crud;
 
-import com.jnunes.spgcore.services.dto.AutocompleteDto;
-import com.jnunes.spgcore.web.CrudController;
+import com.jnunes.spgcore.commons.datatable.DataTablePage;
+import com.jnunes.spgcore.commons.datatable.DataTableRequest;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.services.BeneficiarioService;
-import com.puc.edificad.services.PesquisaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/beneficiario")
@@ -35,11 +33,16 @@ public class BeneficiarioController extends CrudControllerSec<Beneficiario> {
     }
 
     @GetMapping
-    ModelAndView entitiesList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
-        @RequestParam(value = "search",required = false) Optional<String> search,
-        @RequestParam(value = "nav",defaultValue = "false",required = false) boolean nav) {
-        return super.getEntitiesList(page, size, search, nav, service::findAll, service::findAll);
+    ModelAndView entitiesList() {
+        return getModelAndViewListPage();
     }
+
+    @PostMapping
+    @ResponseBody
+    DataTablePage<Beneficiario> datatableList(@RequestBody DataTableRequest pagingRequest) {
+        return super.viewList(pagingRequest, service);
+    }
+
     @GetMapping("/create")
     String create(Model model) {
         model.addAttribute("entity", new Beneficiario());

@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.jnunes</groupId>
         <artifactId>spg-parent</artifactId>
-        <version>1.2</version>
+        <version>1.3</version>
         <relativePath/>
     </parent>
 
@@ -21,6 +21,8 @@
         <java.version>17</java.version>
         <jxls.version>2.13.0</jxls.version>
         <maven.test.skip>true</maven.test.skip>
+        <spg-core.version>1.3</spg-core.version>
+        <spg-auth.version>1.3</spg-auth.version>
     </properties>
 
     <dependencies>
@@ -75,12 +77,12 @@
         <dependency>
             <groupId>com.jnunes</groupId>
             <artifactId>spg-core</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <version>${spg-core.version}</version>
         </dependency>
         <dependency>
             <groupId>com.jnunes</groupId>
             <artifactId>spg-auth</artifactId>
-            <version>1.3-SNAPSHOT</version>
+            <version>${spg-auth.version}</version>
         </dependency>
     </dependencies>
 

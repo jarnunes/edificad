@@ -3,29 +3,70 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{crud-template}">
-<head><title>Beneficiários</title></head>
+<head>
+    <title th:text="#{beneficiario}"></title>
+</head>
 <body>
 
-<span layout:fragment="title">Beneficiários</span>
+<span layout:fragment="title" th:text="#{beneficiario}"></span>
 <div layout:fragment="content">
 
-    <div class="card-container">
+    <div class="card-container overflow-auto">
         <div class="ec-table-toolbar">
             <div class="ec-table-toolbar-actions">
                 <th:block th:insert="~{beneficiario/list-actions::crudactions}"></th:block>
             </div>
-            <div th:replace="~{layout/fragments/crud/toolbar-search::toolbar-search(path='/beneficiario')}"></div>
         </div>
 
         <div class="ec-table-container">
-            <th:block th:insert="~{beneficiario/list-datatable::datatable}"></th:block>
-
-            <div th:replace="~{layout/fragments/paginator::paginator(path='/beneficiario')}"></div>
+            <table class="spg-datatable table table-sm table-bordered table-striped border-top">
+                <thead class="border-top">
+                <tr>
+                    <th></th>
+                    <th th:text="#{entity.id}"></th>
+                    <th th:text="#{pessoa.nome}"></th>
+                    <th th:text="#{pessoa.email}"></th>
+                    <th th:text="#{pessoa.phone}"></th>
+                    <th th:text="#{pessoa.cpf}"></th>
+                    <th th:text="#{pessoa.data.nascimento}"></th>
+                    <th th:text="#{pessoa.dependentes}"></th>
+                </tr>
+                </thead>
+            </table>
         </div>
     </div>
-
     <!-- Modal Container: All modals will be inside here -->
     <div class="modal-container" id="modalContainer"></div>
 </div>
 
+
+<script layout:fragment="local-script">
+    table = $('.spg-datatable').DataTable(configureDatatable({
+        endpoint: '/beneficiario',
+        columns: [
+            {
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: ''
+            },
+            {data: "id"},
+            {data: "nome"},
+            {data: "email"},
+            {data: "telefone"},
+            {data: "cpf"},
+            {data: "dataNascimento"},
+            {data: "dependentes.length"},
+        ],
+        order: [1, 'asc'],
+    }));
+
+    setSelectHandler('.spg-datatable');
+    addRowExpansionEventListener('.spg-datatable', data => {
+            let htmlEndereco = buildEndereco(data.endereco);
+            let htmlDependentes =  buildDependentes(data.dependentes);
+            return htmlEndereco + htmlDependentes;
+    });
+
+</script>
 </body>

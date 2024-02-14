@@ -9,13 +9,12 @@
         <span class="btn-label">Novo</span>
     </a>
 
-
     <button sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EDIT', 'ROLE_EDIT_VOLUNTARIO')" type="button"
-            class="btn btn-secondary mini-btn-edit" disabled>
+            class="btn btn-secondary mini-btn-edit disabled">
         <i class="bi bi-pencil-fill"></i>
     </button>
     <button sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DELETE', 'ROLE_DELETE_VOLUNTARIO')" type="button"
-            class="btn btn-secondary mini-btn-delete" disabled>
+            class="btn btn-secondary mini-btn-delete disabled">
         <i class="bi bi-trash3-fill"></i>
     </button>
 </th:block>

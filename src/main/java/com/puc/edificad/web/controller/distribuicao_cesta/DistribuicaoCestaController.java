@@ -1,5 +1,7 @@
 package com.puc.edificad.web.controller.distribuicao_cesta;
 
+import com.jnunes.spgcore.commons.datatable.DataTablePage;
+import com.jnunes.spgcore.commons.datatable.DataTableRequest;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.puc.edificad.model.Beneficiario;
@@ -23,7 +25,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/distribuicao-cesta")
@@ -62,10 +63,14 @@ public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoC
 
 
     @GetMapping
-    ModelAndView entitiesList(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
-        @RequestParam(value = "search",required = false) Optional<String> search,
-        @RequestParam(value = "nav",defaultValue = "false",required = false) boolean nav) {
-        return super.getEntitiesList(page, size, search, nav, service::findAll, service::findAll);
+    ModelAndView entitiesList() {
+        return getModelAndViewListPage();
+    }
+
+    @PostMapping
+    @ResponseBody
+    DataTablePage<DistribuicaoCesta> datatableList(@RequestBody DataTableRequest pagingRequest) {
+        return super.viewList(pagingRequest, service);
     }
 
     @GetMapping("/create")

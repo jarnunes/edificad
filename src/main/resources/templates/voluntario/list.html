@@ -3,10 +3,12 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{crud-template}">
-<head><title>Voluntários</title></head>
+<head>
+    <title th:text="#{voluntario}"></title>
+</head>
 <body>
 
-<span layout:fragment="title">Voluntários</span>
+<span layout:fragment="title" th:text="#{voluntario}"></span>
 <div layout:fragment="content">
 
     <div class="card-container">
@@ -14,17 +16,52 @@
             <div class="ec-table-toolbar-actions">
                 <th:block th:insert="~{voluntario/list-actions::crudactions}"></th:block>
             </div>
-            <div th:replace="~{layout/fragments/crud/toolbar-search::toolbar-search(path='/voluntario')}"></div>
         </div>
 
-        <div class="ec-table-container">
-            <th:block th:insert="~{voluntario/list-datatable::datatable}"></th:block>
-            <div th:replace="~{layout/fragments/paginator::paginator(path='/voluntario')}"></div>
-        </div>
+        <table class="spg-datatable table table-striped table-bordered table-hover border-top">
+            <thead>
+            <tr>
+                <th></th>
+                <th th:text="#{entity.id}"></th>
+                <th th:text="#{pessoa.nome}"></th>
+                <th th:text="#{pessoa.email}"></th>
+                <th th:text="#{pessoa.phone}"></th>
+                <th th:text="#{pessoa.cpf}"></th>
+                <th th:text="#{pessoa.data.nascimento}"></th>
+                <th th:text="#{voluntario.qtde.projetos}"></th>
+            </tr>
+            </thead>
+        </table>
     </div>
 
     <!-- Modal Container: All modals will be inside here -->
     <div class="modal-container" id="modalContainer"></div>
 </div>
+
+<script layout:fragment="local-script">
+    $('.spg-datatable').DataTable(configureDatatable({
+        endpoint: '/voluntario',
+        columns: [
+            {
+                className: 'dt-control',
+                orderable: false,
+                data: null,
+                defaultContent: ''
+            },
+            {data: "id"},
+            {data: "nome"},
+            {data: "email"},
+            {data: "telefone"},
+            {data: "cpf"},
+            {data: "dataNascimento"},
+            {data: "numeroProjetosParticipados"},
+        ],
+        order: [1, 'asc'],
+    }));
+
+    setSelectHandler('.spg-datatable');
+    addRowExpansionEventListener('.spg-datatable', data => buildEndereco(data.endereco));
+
+</script>
 
 </body>
