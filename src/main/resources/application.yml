@@ -117,6 +117,14 @@ spring:
     username: ${edificad.dbusername}
     password: ${edificad.dbpassword}
 
+  jpa:
+    properties:
+      javax:
+        persistence:
+          schema-generation:
+            database:
+              action: none
+
 logging:
   level:
     org.hibernate.SQL: fatal
