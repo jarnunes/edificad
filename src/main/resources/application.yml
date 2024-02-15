@@ -21,7 +21,6 @@ spring:
 
   mail:
     host: ${edificad.mail.host}
-    # port: 465
     username: ${edificad.mail.username}
     password: ${edificad.mail.password}
     properties:
@@ -42,10 +41,6 @@ spring:
             create-source: metadata
             database:
               action: none
-  #            scripts:
-  #              action: create # values: create or drop
-  #              create-target: database/postgress/schema-create.sql
-  #              drop-target: database/postgress/schema-drop.sql
 
 spg:
   web:
