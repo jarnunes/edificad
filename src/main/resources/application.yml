@@ -127,4 +127,4 @@ logging:
     org.hibernate.type: fatal
     org.springframework: warn
     org.springframework.security: warn
-    com.jnunes.spgcore.services.mail: error
+    ##com.jnunes.spgcore.services.mail: error
