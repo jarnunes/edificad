@@ -21,6 +21,7 @@ spring:
 
   mail:
     host: ${edificad.mail.host}
+    port: ${edificad.mail.port}
     username: ${edificad.mail.username}
     password: ${edificad.mail.password}
     properties:

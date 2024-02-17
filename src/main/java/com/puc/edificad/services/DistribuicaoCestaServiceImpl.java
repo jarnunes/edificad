@@ -77,7 +77,10 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
     @Override
     public void update(DistribuicaoCestaDto dto) {
         DistribuicaoCesta entity = distribuicaoCestaMapper.toEntity(dto);
-        ValidationUtils.validateDateTimeAfterNow(entity.getDataHora());
+        DistribuicaoCestaValidation validation = new DistribuicaoCestaValidation(entity);
+        validation.validarQuantidadeEstoque();
+        validation.validarSeDataHoraEntregaSuperiorDataHoraAtual();
+
         super.update(entity);
     }
 

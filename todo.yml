@@ -3,7 +3,7 @@
     - Uso de datatables com thymeleaf:
         https://frontbackend.com/thymeleaf/spring-boot-bootstrap-thymeleaf-datatable
         https://medium.com/@gustavo.ponce.ch/spring-boot-jquery-datatables-a2e816e2b5e9
-    - criar uma página de erro específica para acesso negado a recurso
+    - criar uma página de erro específica para acesso negado a recurso: ok
     - melhorar estilo do datatable : ok
     - melhorar cards do painel de configuração
     - adicionar botão de configuração no dashboard
