@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.jnunes</groupId>
         <artifactId>spg-parent</artifactId>
-        <version>1.3</version>
+        <version>1.3-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
