@@ -1,14 +1,12 @@
 package com.puc.edificad.web.controller.crud;
 
 import com.jnunes.spgcore.commons.exceptions.ValidationException;
-
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.services.BeneficiarioService;
 import com.puc.edificad.services.DependenteService;
-import com.jnunes.spgcore.web.CrudController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

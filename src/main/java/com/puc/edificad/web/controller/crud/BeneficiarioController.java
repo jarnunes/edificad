@@ -1,9 +1,9 @@
 package com.puc.edificad.web.controller.crud;
 
-import com.jnunes.spgcore.commons.datatable.DataTablePage;
-import com.jnunes.spgcore.commons.datatable.DataTableRequest;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
+import com.jnunes.spgdatatable.DataTablePage;
+import com.jnunes.spgdatatable.DataTableRequest;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.services.BeneficiarioService;
 import org.springframework.beans.factory.annotation.Autowired;
