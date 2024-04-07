@@ -3,6 +3,8 @@ package com.puc.edificad.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jnunes.spgcore.model.BaseEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +22,9 @@ public class Cesta extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 3705931356023443175L;
+
+    @NotBlank(message = "cesta.nome.obrigatorio")
+    @NotNull(message = "cesta.nome.obrigatorio")
     @Column(nullable = false, unique = true, length = 50)
     private String nome;
 

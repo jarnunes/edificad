@@ -1,0 +1,17 @@
+<!-- Build Info -->
+<div class="modal fade" id="modalBuildInfo" tabindex="-1" aria-labelledby="modalBuildInfo" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" th:text="#{core.application.current.version}"></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body overflow-auto">
+                <div><strong>Branch: </strong><th:block th:text="${@gitInfo.gitBranch}"/></div>
+                <div class="text-nowrap"><strong>Commit: </strong><th:block th:text="${@gitInfo.gitCommitId}"/></div>
+                <div><strong>Version: </strong><th:block th:text="${@gitInfo.buildVersion}"/></div>
+                <div><strong>Build: </strong><th:block th:text="${@gitInfo.getBuildDate()}"/></div>
+            </div>
+        </div>
+    </div>
+</div>

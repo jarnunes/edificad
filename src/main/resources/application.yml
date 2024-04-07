@@ -43,12 +43,6 @@ spring:
             database:
               action: none
 
-spg:
-  web:
-    index:
-      path: index
-
-
 logging:
   file:
     name: 'logs/Edificad.log'

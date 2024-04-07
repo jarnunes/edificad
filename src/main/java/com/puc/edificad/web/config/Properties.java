@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 public class Properties {
 
 
-
     @Value("${spring.mail.username}")
     private String emailOrigin;
 
