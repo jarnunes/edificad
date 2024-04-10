@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.jnunes</groupId>
         <artifactId>spg-parent</artifactId>
-        <version>1.4</version>
+        <version>1.5</version>
         <relativePath/>
     </parent>
 
@@ -21,8 +21,10 @@
         <java.version>17</java.version>
         <jxls.version>2.13.0</jxls.version>
         <maven.test.skip>true</maven.test.skip>
-        <spg-core.version>1.5-SNAPSHOT</spg-core.version>
-        <spg-auth.version>1.4</spg-auth.version>
+        <spg-core.version>1.5</spg-core.version>
+        <spg-datatable.version>1.0</spg-datatable.version>
+        <spg-auth.version>1.5</spg-auth.version>
+        <spg-elipse.version>1.4</spg-elipse.version>
         <git-commit.version>4.9.10</git-commit.version>
     </properties>
 
@@ -83,8 +85,28 @@
         </dependency>
         <dependency>
             <groupId>com.jnunes</groupId>
+            <artifactId>spg-datatable</artifactId>
+            <version>${spg-datatable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jnunes</groupId>
             <artifactId>spg-auth</artifactId>
             <version>${spg-auth.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jnunes</groupId>
+            <artifactId>spg-elipse</artifactId>
+            <version>${spg-elipse.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

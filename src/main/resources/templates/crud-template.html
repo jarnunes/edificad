@@ -2,12 +2,14 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{primary-template}">
+      layout:decorate="~{elipse-template}">
 
 <th:block layout:fragment="custom-styles">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script th:src="@{/js/ChartUtils.js}"></script>
+
+    <link rel="stylesheet" href="/assets/datatables/core/1.13.7/css/jquery.dataTables.css">
     <link rel="stylesheet" th:href="@{/css/custom-datatables.css}">
 
     <!-- scripts inside owner pages -->
@@ -21,6 +23,10 @@
 
 
 <th:block layout:fragment="custom-scripts">
+    <script th:src="@{/assets/datatables/core/1.13.7/js/jquery.dataTables.js}"></script>
+    <script th:src="@{/assets/datatables/select/1.7.0/js/dataTables.select.min.js}"></script>
+    <script th:src="@{/js/datatable-config.js}"></script>
+
     <script th:src="@{/js/autocomplete.js}"></script>
     <script th:src="@{/js/edificad-commons.js}"></script>
     <!-- scripts inside owner pages -->
