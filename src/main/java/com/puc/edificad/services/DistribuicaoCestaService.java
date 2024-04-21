@@ -37,4 +37,5 @@ public interface DistribuicaoCestaService extends BaseService<DistribuicaoCesta>
     List<DistribuicaoCestaPorPeriodo> obterDistribuicaoPorPeriodo(LocalDate inicio, LocalDate fim,
         Cesta cesta, Beneficiario beneficiario, Voluntario voluntario);
 
+    void cancelarDistribuicaoCesta(Long idDistribuicaoCesta, String motivoCancelamento);
 }

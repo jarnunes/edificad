@@ -3,6 +3,7 @@ package com.puc.edificad.services;
 import com.puc.edificad.mapper.DependenteMapper;
 import com.puc.edificad.model.Dependente;
 import com.puc.edificad.model.dto.DependenteDto;
+import com.puc.edificad.services.config.ParametroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,10 +15,16 @@ import java.util.List;
 public class DependenteServiceImpl extends PersonServiceImpl<Dependente> implements DependenteService {
 
     private DependenteMapper dependenteMapper;
+    private ParametroService parametroService;
 
     @Autowired
     public void setDependenteMapper(DependenteMapper mapper) {
         this.dependenteMapper = mapper;
+    }
+
+    @Autowired
+    void setParametroService(ParametroService parametroService) {
+        this.parametroService = parametroService;
     }
 
     @Override

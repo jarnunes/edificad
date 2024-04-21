@@ -10,8 +10,15 @@
     - não adicionar nulos na lista de selecionados : ok
     - ao ordenar com uma linha selecionada, o botão editar está ficando desabilitado: ok
 
+- criar indexs para principais colunas do banco.
 
 - salvar e novo parou de funcionar.
 - criar parametros para ligar/desligar a remoção de distribuição de cestas
 - criar parametro para ligar/desligar a contagem de cestas ao cancelar a distribuição de cestas (trabalhar com prefixo de parametros)
+- Parametro:
+      nome:
+- Parametro:
+    nome: PERMITE_CANCELAR_DISTRIBUICAO_CESTA
+    tipo: Boolean
+    recurso: cesta, beneficiario, relatorio etc etc
 - criar schedule para limpar tokens de redefinição de senhas.

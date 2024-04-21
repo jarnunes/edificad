@@ -3,7 +3,7 @@ package com.puc.edificad.controller;
 import com.puc.edificad.TestUtils;
 import com.puc.edificad.commons.object_mother.ObjMotherConfiguracao;
 import com.jnunes.spgcore.commons.utils.JsonUtils;
-import com.puc.edificad.model.Configuracao;
+import com.puc.edificad.model.config.Configuracao;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

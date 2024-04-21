@@ -38,4 +38,9 @@ public class DistribuicaoCesta extends BaseEntity {
     @JoinColumn(name = "cesta_fk", nullable = false)
     private Cesta cesta;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime cancelamento;
+    private String motivoCancelamento;
+    private String usuarioCancelamento;
+
 }

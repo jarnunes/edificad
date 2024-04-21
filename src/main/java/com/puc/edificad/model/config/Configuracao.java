@@ -1,4 +1,4 @@
-package com.puc.edificad.model;
+package com.puc.edificad.model.config;
 
 import com.jnunes.spgcore.model.BaseEntity;
 import jakarta.persistence.Entity;

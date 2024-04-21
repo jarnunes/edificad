@@ -43,4 +43,10 @@
         </a>
     </li>
 
+    <li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_PARAMETRO')">
+        <a th:href="@{/parametro}">
+            <i class="bi bi-text-paragraph"></i>
+            <span th:text="#{menu.parametro}"></span>
+        </a>
+    </li>
 </th:block>

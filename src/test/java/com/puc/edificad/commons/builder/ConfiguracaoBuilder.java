@@ -1,6 +1,6 @@
 package com.puc.edificad.commons.builder;
 
-import com.puc.edificad.model.Configuracao;
+import com.puc.edificad.model.config.Configuracao;
 
 public class ConfiguracaoBuilder {
 

@@ -1,5 +1,6 @@
 package com.puc.edificad.services;
 
+import com.jnunes.spgauth.commons.utils.AuthUtils;
 import com.jnunes.spgcore.commons.utils.DateTimeUtils;
 import com.jnunes.spgcore.commons.utils.ValidationUtils;
 import com.jnunes.spgcore.services.BaseServiceImpl;
@@ -146,5 +147,19 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
         Beneficiario beneficiario, Voluntario voluntario) {
         return repository.obterDistribuicaoPorPeriodo(DateTimeUtils.toStartOfDay(inicio),
                 DateTimeUtils.toEndOfDay(fim), cesta, beneficiario, voluntario);
+    }
+
+    @Override
+    public void cancelarDistribuicaoCesta(Long idDistribuicaoCesta, String motivoCancelamento) {
+        DistribuicaoCesta distribuicaoCesta = findById(idDistribuicaoCesta).orElseThrow();
+        distribuicaoCesta.setCancelamento(LocalDateTime.now());
+        distribuicaoCesta.setMotivoCancelamento(motivoCancelamento);
+        distribuicaoCesta.setUsuarioCancelamento(AuthUtils.currentUsername());
+
+        DistribuicaoCestaValidation validation = new DistribuicaoCestaValidation(distribuicaoCesta);
+        validation.validarSePermiteCancelarDistribuicao();
+        validation.validarSeExisteJustificativaCancelamento();
+
+        update(distribuicaoCesta);
     }
 }

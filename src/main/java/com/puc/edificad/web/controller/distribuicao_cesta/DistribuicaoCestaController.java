@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/distribuicao-cesta")
@@ -118,6 +119,17 @@ public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoC
     @PostMapping({"/delete"})
     ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
         return super.deleteAll(ids, service::deleteById);
+    }
+
+    @PostMapping("/cancelar-distribuicao")
+    ResponseEntity<AjaxResponse> cancelarDistribuicao(@RequestBody CancelarDistribuicaoRequest request){
+        request.getIdsSelecionados().forEach(idSelecionado ->
+            service.cancelarDistribuicaoCesta(idSelecionado, request.getMotivoCancelamento()));
+
+        AjaxResponse response = new AjaxResponse();
+        response.setStatusCode(0);
+        response.setMessages(Stream.of("Removido com sucesso.").toList());
+        return ResponseEntity.ok(response);
     }
 
 }
