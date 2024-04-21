@@ -11,5 +11,7 @@
     - ao ordenar com uma linha selecionada, o botão editar está ficando desabilitado: ok
 
 
-- editar parou de funcionar
-- estilo do autocomplete parou de funcionar
+- salvar e novo parou de funcionar.
+- criar parametros para ligar/desligar a remoção de distribuição de cestas
+- criar parametro para ligar/desligar a contagem de cestas ao cancelar a distribuição de cestas (trabalhar com prefixo de parametros)
+- criar schedule para limpar tokens de redefinição de senhas.
