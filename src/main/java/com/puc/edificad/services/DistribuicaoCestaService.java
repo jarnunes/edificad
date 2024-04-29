@@ -9,6 +9,9 @@ import com.puc.edificad.model.dto.DistribuicaoCestaDto;
 import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
 import com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -37,4 +40,7 @@ public interface DistribuicaoCestaService extends BaseService<DistribuicaoCesta>
     List<DistribuicaoCestaPorPeriodo> obterDistribuicaoPorPeriodo(LocalDate inicio, LocalDate fim,
         Cesta cesta, Beneficiario beneficiario, Voluntario voluntario);
 
+    void cancelarDistribuicaoCesta(Long idDistribuicaoCesta, String motivoCancelamento);
+
+    Page<DistribuicaoCesta> obterDistribuicaoCestasNaoCanceladas(String searchValue, Pageable pageable);
 }

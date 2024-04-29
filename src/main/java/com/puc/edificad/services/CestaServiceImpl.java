@@ -3,11 +3,15 @@ package com.puc.edificad.services;
 import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.model.Cesta;
+import com.puc.edificad.model.config.TipoParametroConfiguracao;
+import com.puc.edificad.model.config.ValorParametroLogico;
+import com.puc.edificad.services.config.ParametroService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,10 +20,16 @@ import java.util.Optional;
 public class CestaServiceImpl extends BaseServiceImpl<Cesta> implements CestaService {
 
     private CestaRepository repository;
+    private ParametroService parametroService;
 
     @Autowired
     public void setRepository(CestaRepository repositoryIn) {
         this.repository = repositoryIn;
+    }
+
+    @Autowired
+    public void setParametroService(ParametroService serviceIn){
+        this.parametroService = serviceIn;
     }
 
     @Override
@@ -43,6 +53,16 @@ public class CestaServiceImpl extends BaseServiceImpl<Cesta> implements CestaSer
 
     @Override
     public Integer obterQuantidadeEstoque(Long idCesta) {
-        return repository.findById(idCesta).map(it -> it.getQuantidadeEstoque()).orElseThrow();
+        return repository.findById(idCesta).map(Cesta::getQuantidadeEstoque).orElseThrow();
+    }
+
+    @Override
+    public void contabilizarCestaEmEstoqueNoCancelamentoDistribuicaoCesta(Long idCesta) {
+        if(parametroService.contabilizarEstoqueDepoisCancelamentoDistribuicaoCesta()){
+            findById(idCesta).ifPresent(cesta -> {
+                cesta.setQuantidadeEstoque(cesta.getQuantidadeEstoque() + 1);
+                update(cesta);
+            });
+        }
     }
 }

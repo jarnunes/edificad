@@ -1,5 +1,6 @@
 package com.puc.edificad.services;
 
+import com.jnunes.spgauth.commons.utils.AuthUtils;
 import com.jnunes.spgcore.commons.utils.DateTimeUtils;
 import com.jnunes.spgcore.commons.utils.ValidationUtils;
 import com.jnunes.spgcore.services.BaseServiceImpl;
@@ -8,12 +9,17 @@ import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;
 import com.puc.edificad.model.Voluntario;
+import com.puc.edificad.model.config.TipoParametroConfiguracao;
+import com.puc.edificad.model.config.ValorParametroLogico;
 import com.puc.edificad.model.dto.DistribuicaoCestaDto;
 import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
 import com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto;
 import com.puc.edificad.services.validation.DistribuicaoCestaValidation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +29,7 @@ import java.time.Month;
 import java.time.Year;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
@@ -136,7 +143,6 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
         DistribuicaoCesta entitySearch = new DistribuicaoCesta();
         beneficiarioService.getEntityWithSearchAttrs(searchValue).ifPresent(entitySearch::setBeneficiario);
         cestaService.getEntityWithSearchAttrs(searchValue).ifPresent(entitySearch::setCesta);
-//        voluntarioService.getEntityWithSearchAttrs(searchValue).ifPresent(entitySearch::setVoluntario);
 
         return Optional.of(entitySearch);
     }
@@ -146,5 +152,25 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
         Beneficiario beneficiario, Voluntario voluntario) {
         return repository.obterDistribuicaoPorPeriodo(DateTimeUtils.toStartOfDay(inicio),
                 DateTimeUtils.toEndOfDay(fim), cesta, beneficiario, voluntario);
+    }
+
+    @Override
+    public void cancelarDistribuicaoCesta(Long idDistribuicaoCesta, String motivoCancelamento) {
+        DistribuicaoCesta distribuicaoCesta = findById(idDistribuicaoCesta).orElseThrow();
+        distribuicaoCesta.setCancelamento(LocalDateTime.now());
+        distribuicaoCesta.setMotivoCancelamento(motivoCancelamento);
+        distribuicaoCesta.setUsuarioCancelamento(AuthUtils.currentUsername());
+
+        DistribuicaoCestaValidation validation = new DistribuicaoCestaValidation(distribuicaoCesta);
+        validation.validarSePermiteCancelarDistribuicao();
+        validation.validarSeExisteJustificativaCancelamento();
+        update(distribuicaoCesta);
+
+        cestaService.contabilizarCestaEmEstoqueNoCancelamentoDistribuicaoCesta(distribuicaoCesta.getCesta().getId());
+    }
+
+    @Override
+    public Page<DistribuicaoCesta> obterDistribuicaoCestasNaoCanceladas(String searchValue, Pageable pageable) {
+        return repository.obterDistribuicaoCestasNaoCanceladas(searchValue, pageable);
     }
 }

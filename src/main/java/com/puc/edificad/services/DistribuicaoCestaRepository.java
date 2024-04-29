@@ -7,6 +7,8 @@ import com.puc.edificad.model.DistribuicaoCesta;
 import com.puc.edificad.model.Voluntario;
 import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -30,7 +32,9 @@ public interface DistribuicaoCestaRepository extends BaseRepository<Distribuicao
         + "     extract(MONTH from dc.dataHora), "
         + "     count(dc.id)) "
         + " from    DistribuicaoCesta dc "
-        + " where   dc.dataHora >= :dataInicioReferencia and dc.dataHora <= :dataFimReferencia "
+        + " where dc.cancelamento is null "
+        + " and dc.dataHora >= :dataInicioReferencia "
+        + " and dc.dataHora <= :dataFimReferencia "
         + " group by 1, 2 " )
     List<QuantidadesPorAnoMes> obterQuantidadesBeneficiariosAssistidosEmUmPeriodo(LocalDateTime dataInicioReferencia,
         LocalDateTime dataFimReferencia);
@@ -41,7 +45,9 @@ public interface DistribuicaoCestaRepository extends BaseRepository<Distribuicao
             + "     extract(MONTH from dc.dataHora), "
             + "     count(dc.beneficiario.id)) "
             + " from    DistribuicaoCesta dc "
-            + " where   dc.dataHora >= :dataInicioReferencia and dc.dataHora <= :dataFimReferencia "
+            + " where dc.cancelamento is null "
+            + "   and dc.dataHora >= :dataInicioReferencia "
+            + "   and dc.dataHora <= :dataFimReferencia "
             + " group by 1, 2 " )
     List<QuantidadesPorAnoMes> obterQuantidadesCestasDistribuidasEmUmPeriodo(LocalDateTime dataInicioReferencia,
         LocalDateTime dataFimReferencia);
@@ -52,7 +58,8 @@ public interface DistribuicaoCestaRepository extends BaseRepository<Distribuicao
         + "     join dc.cesta as ct "
         + "     join dc.beneficiario bc "
         + "     join dc.voluntario vl "
-        + " where dc.dataHora >= :inicio  "
+        + " where dc.cancelamento is null  "
+        + "   and dc.dataHora >= :inicio "
         + "   and dc.dataHora <= :fim "
         + "   and (:cesta is null or ct = :cesta ) "
         + "   and (:beneficiario is null or bc = :beneficiario ) "
@@ -60,4 +67,15 @@ public interface DistribuicaoCestaRepository extends BaseRepository<Distribuicao
         + " order by dc.dataHora ")
     List<DistribuicaoCestaPorPeriodo> obterDistribuicaoPorPeriodo(LocalDateTime inicio, LocalDateTime fim, Cesta cesta,
         Beneficiario beneficiario, Voluntario voluntario);
+
+    @Query("from DistribuicaoCesta dc where dc.cancelamento is null" +
+            " and (:searchValue is null " +
+            "       or (lower(dc.beneficiario.nome) ilike lower(concat('%', cast(:searchValue as string), '%'))) " +
+            "       or (lower(dc.beneficiario.cpf) ilike lower(concat('%', cast(:searchValue as string), '%'))) " +
+            "       or (lower(dc.voluntario.nome) ilike lower(concat('%', cast(:searchValue as string), '%'))) " +
+            "       or (lower(dc.voluntario.cpf) ilike lower(concat('%', cast(:searchValue as string), '%'))) " +
+            "       or (lower(dc.cesta.nome) ilike lower(concat('%', cast(:searchValue as string), '%'))) " +
+            "       or (lower(cast(dc.dataHora as string)) ilike lower(concat('%', cast(:searchValue as string), '%'))) " +
+            "     )")
+    Page<DistribuicaoCesta> obterDistribuicaoCestasNaoCanceladas(String searchValue, Pageable pageable);
 }

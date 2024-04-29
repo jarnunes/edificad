@@ -11,5 +11,6 @@ public interface CestaService extends BaseService<Cesta> {
     List<Cesta> findByNome(String nome);
 
     void darBaixaDistribuicaoCesta(Long idCesta, Integer quantidade);
+    void contabilizarCestaEmEstoqueNoCancelamentoDistribuicaoCesta(Long idCesta);
     Integer obterQuantidadeEstoque(Long idCesta);
 }

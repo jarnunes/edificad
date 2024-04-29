@@ -1,9 +1,14 @@
 package com.puc.edificad.web.controller.distribuicao_cesta;
 
+import com.jnunes.spgcore.commons.exceptions.ValidationException;
+import com.jnunes.spgcore.commons.utils.ExceptionUtils;
+import com.jnunes.spgcore.commons.utils.MessageUtils;
+import com.jnunes.spgcore.commons.utils.ValidationUtils;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.jnunes.spgdatatable.DataTablePage;
 import com.jnunes.spgdatatable.DataTableRequest;
+import com.jnunes.spgdatatable.adapters.PageRequestAdapter;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;
@@ -12,7 +17,12 @@ import com.puc.edificad.services.BeneficiarioService;
 import com.puc.edificad.services.CestaService;
 import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.services.VoluntarioService;
+import jakarta.persistence.EntityNotFoundException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -24,7 +34,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.LongConsumer;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/distribuicao-cesta")
@@ -70,7 +86,14 @@ public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoC
     @PostMapping
     @ResponseBody
     DataTablePage<DistribuicaoCesta> datatableList(@RequestBody DataTableRequest pagingRequest) {
-        return super.viewList(pagingRequest, service);
+        PageRequestAdapter adapter = new PageRequestAdapter(pagingRequest);
+        Page<DistribuicaoCesta> page = service.obterDistribuicaoCestasNaoCanceladas(pagingRequest.getSearch().getValue(), adapter.getPageRequest());
+        DataTablePage<DistribuicaoCesta> dataTablePage = new DataTablePage<>();
+        dataTablePage.setData(page.getContent());
+        dataTablePage.setRecordsFiltered((int)page.getTotalElements());
+        dataTablePage.setRecordsTotal(service.count().intValue());
+        dataTablePage.setDraw(pagingRequest.getDraw());
+        return dataTablePage;
     }
 
     @GetMapping("/create")
@@ -118,6 +141,27 @@ public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoC
     @PostMapping({"/delete"})
     ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
         return super.deleteAll(ids, service::deleteById);
+    }
+
+    @PostMapping("/cancelar-distribuicao")
+    ResponseEntity<AjaxResponse> cancelarDistribuicao(@RequestBody CancelarDistribuicaoRequest request) {
+        AjaxResponse response = new AjaxResponse();
+        response.setStatusCode(0);
+
+        try {
+            request.getIdsSelecionados().forEach(idSelecionado ->
+                    service.cancelarDistribuicaoCesta(idSelecionado, request.getMotivoCancelamento()));
+        } catch (Exception e) {
+            if (e instanceof ValidationException validationException) {
+                response.addMessage(validationException.getMessage());
+            } else {
+                response.addMessage("Erro ao processar requisição. Detalhes.: " + ExceptionUtils.getRootCause(e));
+            }
+
+            return ResponseEntity.internalServerError().body(response);
+        }
+        response.setMessages(Stream.of("Removido com sucesso.").toList());
+        return ResponseEntity.ok(response);
     }
 
 }

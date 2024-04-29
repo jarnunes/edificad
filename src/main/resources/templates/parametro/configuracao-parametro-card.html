@@ -1,0 +1,17 @@
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_VIEW_PARAMETRO')" class="col-6">
+    <a th:href="@{/parametro}" class="text-decoration-none p-0 m-0">
+        <div class="card user-select-none">
+            <div class="card-body position-relative w-100">
+                <h3>Parâmetro</h3>
+                <span class="d-block">Configuração de parâmetros</span>
+                <div class="position-absolute end-0 top-0 h-100 w-100 d-flex align-items-center justify-content-end">
+                    <i th:class="${'bi bi-list-check card-cian fw-bold'}" style="font-size: 50px"></i>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

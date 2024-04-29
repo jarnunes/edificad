@@ -65,8 +65,59 @@
             },
         ]
     }));
-
     setSelectHandler('.spg-datatable');
+
+    $('.mini-btn-cancel').click(function () {
+        let idForm = 'formMotivoCancelamento'
+
+        jQueryUtils.append(CLASS_CONTAINER_TO_MODAL.dClass, getModalMotivoCancelamento(idForm))
+        jQueryUtils.showModal(CLASS_MODAL.dClass)
+
+        // add listener to cancel button
+        $(CLASS_BTN_CANCEL_MODAL.dClass).click(function () {
+            jQueryUtils.hideModal(CLASS_MODAL.dClass)
+            jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
+        })
+
+        // add listener to confirm button
+        $(CLASS_BTN_CONFIRM_MODAL.dClass).click(function () {
+            let url = JSUtils.getCurrentPath() + '/cancelar-distribuicao'
+            let formData = new FormData(document.getElementById(idForm));
+            let jsonRequest = Object.fromEntries(formData);
+            jsonRequest['idsSelecionados'] = SELECTED;
+            postHandler(url, jsonRequest, successCrudDeleteHandler, errorCrudDeleteHandler)
+        });
+    });
+
+    function getModalMotivoCancelamento(idForm) {
+        return `
+        <div class="modal fade ${CLASS_MODAL.className}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="Delete Confirmation" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Motivo cancelamento</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form id="${idForm}">
+                                <textarea class="form-control" id="motivoCancelamento" name="motivoCancelamento" rows="3" required></textarea>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary ${CLASS_BTN_CANCEL_MODAL.className}" data-bs-dismiss="modal">
+                                <span class="d-none d-md-block">Cancelar</span>
+                                <i class="bi bi-x-lg d-block d-md-none"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary ${CLASS_BTN_CONFIRM_MODAL.className}">
+                                Confirmar
+                            </button>
+                        </div>
+                </div>
+            </div>
+        </div>`
+    }
+
 </script>
 
 </body>

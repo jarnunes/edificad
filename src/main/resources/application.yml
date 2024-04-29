@@ -41,7 +41,7 @@ spring:
           schema-generation:
             create-source: metadata
             database:
-              action: none
+              action: update
 
 logging:
   file:
@@ -75,9 +75,9 @@ spring:
             database:
               action: update
             scripts:
-              action: create # values: create or drop
-              create-target: database/postgress/schema-create.sql
-              drop-target: database/postgress/schema-drop.sql
+              action: update # values: create or drop
+              create-target: database/postgress/schema-create2.sql
+              drop-target: database/postgress/schema-drop2.sql
 ---
 
 spring:

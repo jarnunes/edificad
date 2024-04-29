@@ -16,6 +16,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
         messageSource.setBasenames(
                 "classpath:/messages/core-messages",
                 "classpath:/messages/spgauth-messages",
+                "classpath:/messages/elipse-messages",
                 "classpath:/messages/messages");
         messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setDefaultEncoding("UTF-8");

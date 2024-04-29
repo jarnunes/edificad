@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{crud-template}">
+<head>
+    <title th:text="#{parametros}"></title>
+</head>
+<body>
+
+<span layout:fragment="title" th:text="#{parametro}"></span>
+<div layout:fragment="content"
+     th:with="dataType=com.puc.edificad.model.config.TipoDataTypeParametro">
+
+    <div class="card-container">
+        <form method="POST" th:action="@{/parametro/pesquisar}" th:object="${searchFormParametro}" >
+            <div class="ec-fields-container">
+                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
+                    <div class="col">
+                        <label for="completeParametro" th:text="#{parametro}"></label>
+                        <div class="input-group">
+                            <select id="completeParametro" class="form-select select2-single" th:field="*{parametro}">
+                                <option value="" th:text="#{autocomplete.select}"></option>
+                                <option th:each="enum : ${parametroList}"
+                                        th:value="${enum.id}"
+                                        th:text="${enum.text}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div  class="ec-table-toolbar pb-2">
+                    <div class="ec-table-toolbar-actions">
+                        <button type="submit" class="btn btn-secondary">
+                            <span class="btn-label">Pesquisar</span>
+                        </button>
+                        <th:block th:if="${searchForm.parametro ne null and searchForm.parametro.DType ne null}">
+                            <a  th:if="${searchForm.parametro.DType.isBoolean()}"
+                                th:href="@{/parametro/configurar-logico}" class="btn btn-secondary">Configurar</a>
+
+                            <a  th:if="${searchForm.parametro.DType.isNumeric()}"
+                                th:href="@{/parametro/configurar-numeric}" class="btn btn-secondary">Configurar</a>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+<!--        <table class="spg-datatable table table-striped table-bordered table-hover border-top">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th></th>-->
+<!--                <th th:text="#{parametro}"></th>-->
+<!--                <th th:text="#{parametro.dominio}"></th>-->
+<!--                <th th:text="#{parametro.dtype}"></th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--        </table>-->
+    </div>
+
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+</div>
+
+<script layout:fragment="local-script">
+    $('.spg-datatable').DataTable(configureDatatable({
+        endpoint: '/parametro',
+        filter: false,
+        columns: [
+            {
+                orderable: false,
+                data: null,
+                defaultContent: ''
+            },
+            {data: "nome"},
+            {data: "dominio"},
+            {data: "dtype"},
+        ],
+        order: [1, 'asc'],
+    }));
+
+    // setSelectHandler('.spg-datatable');
+    // addRowExpansionEventListener('.spg-datatable', data => buildEndereco(data.endereco));
+
+</script>
+
+</body>
