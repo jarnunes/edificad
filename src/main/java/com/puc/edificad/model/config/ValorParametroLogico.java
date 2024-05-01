@@ -12,7 +12,6 @@ import java.io.Serial;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@SequenceGenerator(name = "seq_generator", sequenceName = "seq_valor_parametro_logico", allocationSize = 1)
 public class ValorParametroLogico extends ValorParametro {
 
 

@@ -13,7 +13,7 @@ import java.io.Serial;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @Inheritance(strategy = InheritanceType.JOINED)
-@SequenceGenerator(name = "seq_generator", sequenceName = "seq_valor_parametro", allocationSize = 1)
+@SequenceGenerator(name = "seq_generator", sequenceName = "seq_valor_param", allocationSize = 1)
 public class ValorParametro extends BaseEntity {
 
     @Serial

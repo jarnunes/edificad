@@ -16,3 +16,5 @@ INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date,
 VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_RELATORIOS');
 INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
 VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Dashboard Resources', 'VIEW_CONFIGURACAO');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Configuração > Parâmetro', 'VIEW_PARAMETRO');

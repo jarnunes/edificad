@@ -75,9 +75,9 @@ spring:
             database:
               action: update
             scripts:
-              action: update # values: create or drop
-              create-target: database/postgress/schema-create2.sql
-              drop-target: database/postgress/schema-drop2.sql
+              action: create # values: create or drop
+              create-target: database/postgress/schema-create-update.sql
+              drop-target: database/postgress/schema-drop-update.sql
 ---
 
 spring:
