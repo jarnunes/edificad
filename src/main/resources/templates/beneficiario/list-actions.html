@@ -3,17 +3,17 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <th:block th:fragment="crudactions">
-    <a sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_CREATE', 'ROLE_CREATE_BENEFICIARIO')"
+    <a sec:authorize="hasAnyRole('ADMIN', 'ACTION_CREATE', 'CREATE_BENEFICIARIO')"
        th:href="@{/beneficiario/create}" class="btn btn-primary" role="button">
         <i class="bi bi-plus-lg"></i>
         <span class="btn-label">Novo</span>
     </a>
 
-    <button sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_EDIT', 'ROLE_EDIT_BENEFICIARIO')" type="button"
+    <button sec:authorize="hasAnyRole('ADMIN', 'ACTION_EDIT', 'EDIT_BENEFICIARIO')" type="button"
             class="btn btn-secondary mini-btn-edit disabled">
         <i class="bi bi-pencil-fill"></i>
     </button>
-    <button sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_DELETE', 'ROLE_DELETE_BENEFICIARIO')" type="button"
+    <button sec:authorize="hasAnyRole('ADMIN', 'ACTION_DELETE', 'DELETE_BENEFICIARIO')" type="button"
             class="btn btn-secondary mini-btn-delete disabled">
         <i class="bi bi-trash3-fill"></i>
     </button>
