@@ -55,14 +55,8 @@ public class VoluntarioController extends CrudControllerSec<Voluntario> {
 
     @PostMapping("/save")
     String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
-        Voluntario entity, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "voluntario/create";
-        final Long entityId = entity.getId();
-
-        service.save(entity);
-        addSuccess(attributes, entityId);
-
-        return saveAndNew ? redirect("/voluntario/create") : redirect("/voluntario/update", entity.getId());
+        Voluntario entity, BindingResult result, RedirectAttributes attributes, Model model) {
+        return internalSaveAndNew(entity, saveAndNew, "/voluntario", service, result, attributes, model);
     }
 
     @GetMapping("/update/{id}")

@@ -16,10 +16,8 @@ public class EdificadApplication {
         SpringApplication.run(EdificadApplication.class, args);
     }
 
-
-
-    @Bean
-    public ErrorProperties getError(){
-        return new ErrorProperties();
-    }
+//    @Bean
+//    public ErrorProperties getError(){
+//        return new ErrorProperties();
+//    }
 }

@@ -51,14 +51,8 @@ public class BeneficiarioController extends CrudControllerSec<Beneficiario> {
 
     @PostMapping("/save")
     public String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
-        Beneficiario entity, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "beneficiario/create";
-        final Long entityId = entity.getId();
-
-        service.save(entity);
-        addSuccess(attributes, entityId);
-
-        return saveAndNew ? redirect("/beneficiario/create") : redirect("/beneficiario/update", entity.getId());
+        Beneficiario entity, BindingResult result, RedirectAttributes attributes, Model model) {
+        return internalSaveAndNew(entity, saveAndNew, "/beneficiario", service, result, attributes, model);
     }
 
     @GetMapping("/update/{id}")

@@ -14,16 +14,15 @@ public class ApplicationConfig implements WebMvcConfigurer {
     public MessageSource messageSource() {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasenames(
-                "classpath:/messages/core-messages",
-                "classpath:/messages/spgauth-messages",
-                "classpath:/messages/elipse-messages",
-                "classpath:/messages/messages");
+            "classpath:/messages/messages",
+            "classpath:/messages/spgauth-messages",
+            "classpath:/messages/core-messages",
+            "classpath:/messages/elipse-messages");
         messageSource.setUseCodeAsDefaultMessage(true);
         messageSource.setDefaultEncoding("UTF-8");
         messageSource.setCacheSeconds(5);
         return messageSource;
     }
-
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {

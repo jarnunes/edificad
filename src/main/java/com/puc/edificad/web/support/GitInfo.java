@@ -19,7 +19,7 @@ public class GitInfo {
     @Value("${git.build.version}")
     String buildVersion;
 
-    @Value("${git.commit.committer.time}")
+    @Value("${git.build.time}")
     String buildDate;
 
 

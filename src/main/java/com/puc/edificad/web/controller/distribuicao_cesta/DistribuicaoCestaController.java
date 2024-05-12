@@ -2,8 +2,6 @@ package com.puc.edificad.web.controller.distribuicao_cesta;
 
 import com.jnunes.spgcore.commons.exceptions.ValidationException;
 import com.jnunes.spgcore.commons.utils.ExceptionUtils;
-import com.jnunes.spgcore.commons.utils.MessageUtils;
-import com.jnunes.spgcore.commons.utils.ValidationUtils;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.jnunes.spgdatatable.DataTablePage;
@@ -17,11 +15,7 @@ import com.puc.edificad.services.BeneficiarioService;
 import com.puc.edificad.services.CestaService;
 import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.services.VoluntarioService;
-import jakarta.persistence.EntityNotFoundException;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,12 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.LongConsumer;
-import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 @Controller
@@ -106,14 +95,8 @@ public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoC
 
     @PostMapping("/save")
     public String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
-        DistribuicaoCesta entity, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "distribuicao-cesta/create";
-        final Long entityId = entity.getId();
-
-        service.save(entity);
-        addSuccess(attributes, entityId);
-
-        return saveAndNew ? redirect("/distribuicao-cesta/create") : redirect("/distribuicao-cesta/update", entity.getId());
+        DistribuicaoCesta entity, BindingResult result, RedirectAttributes attributes, Model model) {
+        return internalSaveAndNew(entity, saveAndNew, "/distribuicao-cesta", service, result, attributes, model);
     }
 
     @GetMapping("/update/{id}")

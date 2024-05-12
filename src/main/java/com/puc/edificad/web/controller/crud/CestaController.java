@@ -1,11 +1,17 @@
 package com.puc.edificad.web.controller.crud;
 
+import com.jnunes.spgcore.commons.utils.ExceptionUtils;
+import com.jnunes.spgcore.model.BaseEntity;
+import com.jnunes.spgcore.model.BaseEntityId;
+import com.jnunes.spgcore.services.BaseService;
+import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
 import com.jnunes.spgdatatable.DataTablePage;
 import com.jnunes.spgdatatable.DataTableRequest;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.services.CestaService;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +24,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.function.Consumer;
 
+@CommonsLog
 @Controller
 @RequestMapping("/cesta")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_CESTA')")
@@ -48,21 +56,15 @@ public class CestaController extends CrudControllerSec<Cesta> {
     }
 
     @GetMapping("/create")
-    String create(Model model) {
+    String create(Model model, @ModelAttribute("entity") final Cesta entity) {
         model.addAttribute("entity", new Cesta());
         return "cesta/create";
     }
 
     @PostMapping("/save")
     public String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
-        Cesta entity, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "cesta/create";
-        final Long entityId = entity.getId();
-
-        service.save(entity);
-        addSuccess(attributes, entityId);
-
-        return saveAndNew ? redirect("/cesta/create") : redirect("/cesta/update", entity.getId());
+        @ModelAttribute Cesta entity, BindingResult result, RedirectAttributes attributes, Model model) {
+        return internalSaveAndNew(entity, saveAndNew, "/cesta", service, result, attributes, model);
     }
 
     @GetMapping("/update/{id}")
