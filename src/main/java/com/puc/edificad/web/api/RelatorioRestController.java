@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,7 +26,8 @@ public class RelatorioRestController extends BaseController {
 
     @GetMapping("/resumo-distribuicao")
     ResumoDistribuicaoCestaDto obterResumo() {
-        return service.obterResumoDeDistribuicaoCestas();
+//        return service.obterResumoDeDistribuicaoCestas();
+        return null;
     }
 
     @GetMapping("/resumo-beneficiarios-assistidos")
@@ -33,8 +35,9 @@ public class RelatorioRestController extends BaseController {
         @RequestParam Integer anoReferencia, @RequestParam Integer mesReferencia,
         @RequestParam Long qtdMesesAnteriores) {
 
-        return service.obterQuantidadesBeneficiariosAssistidosPorMesAno(DateTimeUtils.toYear(anoReferencia),
-            DateTimeUtils.toMonth(mesReferencia), qtdMesesAnteriores);
+        return new ArrayList<>();
+//        return service.obterQuantidadesBeneficiariosAssistidosPorMesAno(DateTimeUtils.toYear(anoReferencia),
+//            DateTimeUtils.toMonth(mesReferencia), qtdMesesAnteriores);
     }
 
     @GetMapping("/resumo-cestas-distribuidas")
@@ -42,8 +45,9 @@ public class RelatorioRestController extends BaseController {
         @RequestParam Integer anoReferencia, @RequestParam Integer mesReferencia,
         @RequestParam Long qtdMesesAnteriores) {
 
-        return service.obterQuantidadeCestasDistribuidasPorMesAno(DateTimeUtils.toYear(anoReferencia),
-            DateTimeUtils.toMonth(mesReferencia), qtdMesesAnteriores);
+//        return service.obterQuantidadeCestasDistribuidasPorMesAno(DateTimeUtils.toYear(anoReferencia),
+//            DateTimeUtils.toMonth(mesReferencia), qtdMesesAnteriores);
+        return new ArrayList<>();
     }
 
 }

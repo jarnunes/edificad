@@ -7,6 +7,7 @@ import com.puc.edificad.model.DistribuicaoCesta;
 import com.puc.edificad.model.Voluntario;
 import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
+import com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -27,6 +28,17 @@ public interface DistribuicaoCestaRepository extends BaseRepository<Distribuicao
     List<DistribuicaoCesta> findByCestaBeneficiarioVoluntarioData(String cesta, String cpfBeneficiario,
         String cpfVoluntario, LocalDate data);
 
+    @Query("select new com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto( "
+        + "     count(dc.id), "
+        + "     count(distinct dc.beneficiario.id)"
+        + " ) "
+        + " from DistribuicaoCesta dc "
+        + " where dc.cancelamento is null "
+        + "     and dc.dataHora >= :dataInicioReferencia "
+        + "     and dc.dataHora < :dataFimReferencia " )
+    ResumoDistribuicaoCestaDto obterResumoDeDistribuicaoCestas(LocalDateTime dataInicioReferencia,
+        LocalDateTime dataFimReferencia);
+
     @Query("select new com.puc.edificad.services.dto.QuantidadesPorAnoMes( "
         + "     extract(YEAR from dc.dataHora), "
         + "     extract(MONTH from dc.dataHora), "
@@ -34,15 +46,15 @@ public interface DistribuicaoCestaRepository extends BaseRepository<Distribuicao
         + " from    DistribuicaoCesta dc "
         + " where dc.cancelamento is null "
         + " and dc.dataHora >= :dataInicioReferencia "
-        + " and dc.dataHora <= :dataFimReferencia "
+        + " and dc.dataHora < :dataFimReferencia "
         + " group by 1, 2 " )
     List<QuantidadesPorAnoMes> obterQuantidadesBeneficiariosAssistidosEmUmPeriodo(LocalDateTime dataInicioReferencia,
         LocalDateTime dataFimReferencia);
 
 
     @Query("select new com.puc.edificad.services.dto.QuantidadesPorAnoMes( "
-            + "     extract(YEAR from dc.dataHora), "
-            + "     extract(MONTH from dc.dataHora), "
+            + "     year (dc.dataHora), "
+            + "     month(dc.dataHora), "
             + "     count(dc.beneficiario.id)) "
             + " from    DistribuicaoCesta dc "
             + " where dc.cancelamento is null "

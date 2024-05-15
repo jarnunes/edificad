@@ -22,3 +22,5 @@
     tipo: Boolean
     recurso: cesta, beneficiario, relatorio etc etc
 - criar schedule para limpar tokens de redefinição de senhas.
+
+- melhorar logica do cache interno

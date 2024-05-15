@@ -12,4 +12,8 @@ public class ResumoDistribuicaoCestaDto {
     private Long beneficiariosAssistidos;
     private Long quantidadeEstoque;
 
+    public ResumoDistribuicaoCestaDto(Long cestasDistribuidas, Long beneficiariosAssistidos) {
+        this.cestasDistribuidas = cestasDistribuidas;
+        this.beneficiariosAssistidos = beneficiariosAssistidos;
+    }
 }

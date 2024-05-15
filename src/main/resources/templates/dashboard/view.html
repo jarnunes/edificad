@@ -12,12 +12,101 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4 cards-dashboard">
         <div th:replace="~{dashboard/cards}"></div>
 
-        <div th:replace="~{dashboard/chart-cestas-entregues}"></div>
-        <div th:replace="~{dashboard/chart-beneficiarios-assistidos}"></div>
-        <div th:replace="~{dashboard/chart-estoque-por-tipo-cesta}"></div>
-
+        <div th:replace="~{dashboard/chart-distribuicao-por-mes}"></div>
+        <div th:replace="~{dashboard/chart-assistencia-por-mes}"></div>
+        <div th:replace="~{dashboard/chart-cestas-em-estoque}"></div>
     </div>
 
-</div>
+    <div class="dashboard-config">
+        <i class="bi bi-gear-fill"></i>
+    </div>
 
-</body>
+    <!-- Modal Container: All modals will be inside here -->
+    <div class="modal-container" id="modalContainer"></div>
+
+</div>
+<script layout:fragment="local-script">
+    const idFormConfigDashboard = 'configuracaoDashboardForm'
+
+    // add listener to confirm button
+    $('.dashboard-config').click(function () {
+        getHandler('/dashboard/configuracao', null,
+            (json) => {
+
+                jQueryUtils.append(CLASS_CONTAINER_TO_MODAL.dClass, buildModalConfigDashboard(idFormConfigDashboard, json))
+                jQueryUtils.showModal(CLASS_MODAL.dClass)
+
+                // add listener to cancel button
+                $(CLASS_BTN_CANCEL_MODAL.dClass).click(function () {
+                    jQueryUtils.hideModal(CLASS_MODAL.dClass)
+                    jQueryUtils.removeWithTimeout(CLASS_MODAL.dClass)
+                })
+
+                // add listener to confirm button
+                $(CLASS_BTN_CONFIRM_MODAL.dClass).click(salvarConfiguracaoDashboard);
+            },
+            (json) => {
+                console.log('Erro na configuração do dashboard. Detalhes: ' +  json);
+            });
+
+    });
+
+    function salvarConfiguracaoDashboard(){
+        let formData = new FormData(document.getElementById(idFormConfigDashboard));
+        let jsonRequest = Object.fromEntries(formData);
+        console.log(jsonRequest)
+        postHandler('dashboard/salvar-configuracao', jsonRequest, successCrudDeleteHandler, errorCrudDeleteHandler)
+        window.location.reload(true);
+    }
+
+    buildModalConfigDashboard = function (idForm, jsonConfig) {
+        let opcoes = ''
+        let maximoPeriodoEmMesesPermitidosExibicao = jsonConfig.maximo_periodo_em_meses_permitidos_exibicao;
+        let periodoExibicaoEmMeses = jsonConfig.periodo_exibicao_em_meses;
+
+        for (let i = 1; i <= maximoPeriodoEmMesesPermitidosExibicao; i++) {
+            let labelMes = i === 1 ? 'mês' : 'meses';
+            if (i === periodoExibicaoEmMeses) {
+                opcoes += `<option value="${i}" selected>${i} ${labelMes}</option>`
+            } else {
+                opcoes += `<option value="${i}">${i} ${labelMes}</option>`
+            }
+        }
+
+        return `
+        <div class="modal fade ${CLASS_MODAL.className}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="Delete Confirmation" aria-hidden="true">
+
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form id="${idForm}" method="POST" action="/dashboard/salvar-configuracao">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Configuração Dashboard</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row m-0 pb-3 g-4">
+                                <div class="col-12">
+                                    <label for="periodo">Período Exibição</label>
+                                    <select id="periodo_exibicao_em_meses" name="periodo_exibicao_em_meses" class="form-select form-select" aria-label="Selecionar periodo exibição">
+                                      ${opcoes}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary ${CLASS_BTN_CANCEL_MODAL.className}" data-bs-dismiss="modal">
+                                <span class="d-none d-md-block">Cancelar</span>
+                                <i class="bi bi-x-lg d-block d-md-none"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary ${CLASS_BTN_CONFIRM_MODAL.className}">
+                                Confirmar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>`
+    }
+
+
+</script>

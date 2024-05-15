@@ -104,38 +104,23 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
     }
 
     @Override
-    public ResumoDistribuicaoCestaDto obterResumoDeDistribuicaoCestas() {
-        ResumoDistribuicaoCestaDto resumo = new ResumoDistribuicaoCestaDto();
-        resumo.setCestasDistribuidas(repository.count());
-        resumo.setBeneficiariosAssistidos(beneficiarioService.count());
+    public ResumoDistribuicaoCestaDto obterResumoDeDistribuicaoCestas(LocalDateTime dataInicioReferencia,
+        LocalDateTime dataFimReferencia) {
+        ResumoDistribuicaoCestaDto resumo = repository.obterResumoDeDistribuicaoCestas(dataInicioReferencia, dataFimReferencia);
         resumo.setQuantidadeEstoque(cestaService.count());
         return resumo;
     }
 
     @Override
-    public List<QuantidadesPorAnoMes> obterQuantidadesBeneficiariosAssistidosPorMesAno(Year anoReferencia,
-        Month mesReferencia, Long qtdMesesAnteriores){
-        return processarObterQuantidadesPorMesAno(anoReferencia, mesReferencia, qtdMesesAnteriores,
-            repository::obterQuantidadesBeneficiariosAssistidosEmUmPeriodo);
+    public List<QuantidadesPorAnoMes> obterQuantidadesBeneficiariosAssistidosPorMesAno(LocalDateTime dataInicioReferencia,
+        LocalDateTime dataFimReferencia){
+        return repository.obterQuantidadesBeneficiariosAssistidosEmUmPeriodo(dataInicioReferencia, dataFimReferencia);
     }
 
     @Override
-    public List<QuantidadesPorAnoMes> obterQuantidadeCestasDistribuidasPorMesAno(Year anoReferencia,
-        Month mesReferencia, Long qtdMesesAnteriores){
-        return processarObterQuantidadesPorMesAno(anoReferencia, mesReferencia, qtdMesesAnteriores,
-            repository::obterQuantidadesCestasDistribuidasEmUmPeriodo);
-    }
-
-    private List<QuantidadesPorAnoMes> processarObterQuantidadesPorMesAno(Year anoReferencia,
-        Month mesReferencia, Long qtdMesesAnteriores,
-        BiFunction<LocalDateTime, LocalDateTime, List<QuantidadesPorAnoMes>> functionObterResultadoQuery){
-        final LocalDateTime fimReferencia = DateTimeUtils.endOfLastDay(anoReferencia, mesReferencia);
-        final LocalDateTime inicioReferencia = fimReferencia.minusMonths(qtdMesesAnteriores);
-
-        List<QuantidadesPorAnoMes> resultado = functionObterResultadoQuery.apply(inicioReferencia, fimReferencia);
-
-        resultado.sort(Comparator.comparing(QuantidadesPorAnoMes::getAno).thenComparing(QuantidadesPorAnoMes::getMes));
-        return resultado;
+    public List<QuantidadesPorAnoMes> obterQuantidadeCestasDistribuidasPorPeriodo(LocalDateTime dataInicioReferencia,
+        LocalDateTime dataFimReferencia){
+        return repository.obterQuantidadesCestasDistribuidasEmUmPeriodo(dataInicioReferencia, dataFimReferencia);
     }
 
     @Override

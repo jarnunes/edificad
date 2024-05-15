@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Year;
 import java.util.List;
@@ -29,13 +30,14 @@ public interface DistribuicaoCestaService extends BaseService<DistribuicaoCesta>
 
     List<DistribuicaoCestaDto> findBy(String cesta, String cpfBeneficiario, String cpfVoluntario, LocalDate data);
 
-    ResumoDistribuicaoCestaDto obterResumoDeDistribuicaoCestas();
+    ResumoDistribuicaoCestaDto obterResumoDeDistribuicaoCestas(LocalDateTime dataInicioReferencia,
+                                                               LocalDateTime dataFimReferencia);
 
-    List<QuantidadesPorAnoMes> obterQuantidadesBeneficiariosAssistidosPorMesAno(Year anoReferencia,
-        Month mesReferencia, Long qtdMesesAnteriores);
+    List<QuantidadesPorAnoMes> obterQuantidadesBeneficiariosAssistidosPorMesAno(LocalDateTime dataInicioReferencia,
+        LocalDateTime dataFimReferencia);
 
-    List<QuantidadesPorAnoMes> obterQuantidadeCestasDistribuidasPorMesAno(Year anoReferencia,
-        Month mesReferencia, Long qtdMesesAnteriores);
+    List<QuantidadesPorAnoMes> obterQuantidadeCestasDistribuidasPorPeriodo(LocalDateTime dataInicioReferencia,
+        LocalDateTime dataFimReferencia);
 
     List<DistribuicaoCestaPorPeriodo> obterDistribuicaoPorPeriodo(LocalDate inicio, LocalDate fim,
         Cesta cesta, Beneficiario beneficiario, Voluntario voluntario);

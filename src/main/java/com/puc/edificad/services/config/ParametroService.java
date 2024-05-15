@@ -3,6 +3,7 @@ package com.puc.edificad.services.config;
 import com.jnunes.spgcore.services.BaseService;
 import com.puc.edificad.model.config.Parametro;
 import com.puc.edificad.model.config.TipoParametroConfiguracao;
+import com.puc.edificad.model.dto.ConfiguracaoDashboardDto;
 
 public interface ParametroService extends BaseService<Parametro> {
 
@@ -22,5 +23,7 @@ public interface ParametroService extends BaseService<Parametro> {
      * {@link com.puc.edificad.model.config.TipoParametroConfiguracao#CONTABILIZAR_ESTOQUE_DEPOIS_CANCELAMENTO_DISTRIBUICAO_CESTA}
      */
     boolean contabilizarEstoqueDepoisCancelamentoDistribuicaoCesta();
+
+    ConfiguracaoDashboardDto obterConfiguracaoDashboard();
 
 }

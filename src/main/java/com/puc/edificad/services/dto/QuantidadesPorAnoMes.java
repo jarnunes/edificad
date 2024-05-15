@@ -13,16 +13,16 @@ import java.time.Year;
 @NoArgsConstructor
 public class QuantidadesPorAnoMes {
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
-    private Year ano;
+    private Integer ano;
 
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
-    private Month mes;
+    private Integer mes;
 
     private Long quantidade;
 
-    public QuantidadesPorAnoMes(Object yearIn, Object monthIn, Object quantidade) {
-        setAno(Year.of((Integer) yearIn));
-        setMes(Month.of((Integer) monthIn));
+    public QuantidadesPorAnoMes(Integer yearIn, Integer monthIn, Object quantidade) {
+        setAno(yearIn);
+        setMes(monthIn);
         setQuantidade((Long) quantidade);
     }
 }

@@ -4,5 +4,6 @@ import com.jnunes.spgcore.commons.LabelMessage;
 
 public enum TipoDominioParametro implements LabelMessage {
     CESTA,
-    DISTRIBUICAO_CESTA
+    DISTRIBUICAO_CESTA,
+    DASHBOARD
 }

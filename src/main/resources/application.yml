@@ -1,7 +1,6 @@
 server:
   port: 5000
   max-http-request-header-size: 102400
-
 spring:
   application:
     name: 'Edificad'
@@ -42,6 +41,8 @@ spring:
             create-source: metadata
             database:
               action: update
+  jackson:
+    property-naming-strategy: SNAKE_CASE
 
 logging:
   file:

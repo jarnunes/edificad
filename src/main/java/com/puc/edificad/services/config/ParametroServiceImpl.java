@@ -1,18 +1,20 @@
 package com.puc.edificad.services.config;
 
+import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.commons.utils.BooUtils;
 import com.puc.edificad.model.config.Parametro;
 import com.puc.edificad.model.config.TipoParametroConfiguracao;
+import com.puc.edificad.model.config.ValorParametroJson;
 import com.puc.edificad.model.config.ValorParametroLogico;
+import com.puc.edificad.model.dto.ConfiguracaoDashboardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.puc.edificad.model.config.TipoParametroConfiguracao.CONTABILIZAR_ESTOQUE_DEPOIS_CANCELAMENTO_DISTRIBUICAO_CESTA;
-import static com.puc.edificad.model.config.TipoParametroConfiguracao.PERMITIR_CANCELAMENTO_DISTRIBUICAO_CESTA;
+import static com.puc.edificad.model.config.TipoParametroConfiguracao.*;
 
 @Service
 @Transactional
@@ -63,4 +65,13 @@ public class ParametroServiceImpl extends BaseServiceImpl<Parametro> implements 
         return obterValorParametroLogicoOuDefault(CONTABILIZAR_ESTOQUE_DEPOIS_CANCELAMENTO_DISTRIBUICAO_CESTA);
     }
 
+    @Override
+    public ConfiguracaoDashboardDto obterConfiguracaoDashboard() {
+        ValorParametroJson valorParametro = valorParametroService.obterValorParametroJson(CONFIGURACAO_DASHBOARD);
+
+        if(valorParametro == null)
+            return new ConfiguracaoDashboardDto();
+        
+        return JsonUtils.toObject(valorParametro.getValor(), ConfiguracaoDashboardDto.class);
+    }
 }

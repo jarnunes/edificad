@@ -115,6 +115,13 @@ create table valor_parametro
     primary key (id)
 );
 
+create table valor_parametro_json
+(
+    id    bigint not null,
+    valor oid,
+    primary key (id)
+);
+
 create table valor_parametro_logico
 (
     id    bigint not null,
@@ -145,5 +152,6 @@ alter table if exists distribuicao_cesta add constraint FKclrnnaphrrbf973bkngc1n
 alter table if exists pessoa add constraint FKg2aal0p0ich7gudkwm6vomdke foreign key (endereco_fk) references endereco;
 alter table if exists voluntario add constraint FK2ag8fj8brxi11f01mur9klmw foreign key (id) references pessoa;
 alter table if exists valor_parametro add constraint FK8ugrd62oikn9uumx3or088guk foreign key (parametro_fk) references parametro;
+alter table if exists valor_parametro_json add constraint FK84sy8gql9jd7vbmt4anrtk3hx foreign key (id) references valor_parametro;
 alter table if exists valor_parametro_logico add constraint FKakbk91gm6tfk0qsijionox7xw foreign key (id) references valor_parametro;
 alter table if exists valor_parametro_numerico add constraint FKj9va0dpl503geedaqr2kdrxa foreign key (id) references valor_parametro;

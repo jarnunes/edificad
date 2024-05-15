@@ -6,8 +6,7 @@ import com.puc.edificad.services.config.ParametroRepository;
 import lombok.Getter;
 
 import static com.puc.edificad.model.config.TipoDataTypeParametro.BOOLEAN;
-import static com.puc.edificad.model.config.TipoDominioParametro.CESTA;
-import static com.puc.edificad.model.config.TipoDominioParametro.DISTRIBUICAO_CESTA;
+import static com.puc.edificad.model.config.TipoDominioParametro.*;
 
 @Getter
 public enum TipoParametroConfiguracao implements ParametroMediator, LabelMessage {
@@ -15,7 +14,8 @@ public enum TipoParametroConfiguracao implements ParametroMediator, LabelMessage
     PERMITIR_CANCELAMENTO_DISTRIBUICAO_CESTA(DISTRIBUICAO_CESTA, BOOLEAN, false,
         "Indica se pode ser cancelada distribuição de cestas"),
     CONTABILIZAR_ESTOQUE_DEPOIS_CANCELAMENTO_DISTRIBUICAO_CESTA(CESTA, BOOLEAN, true,
-        "Indica se a quantidade de cestas em estoque será incrementada após cancelar distribuição");
+        "Indica se a quantidade de cestas em estoque será incrementada após cancelar distribuição"),
+    CONFIGURACAO_DASHBOARD(DASHBOARD, TipoDataTypeParametro.JSON, null, "Configuração do dashboard");
     final TipoDominioParametro dominio;
     final TipoDataTypeParametro dType;
     final String descricao;

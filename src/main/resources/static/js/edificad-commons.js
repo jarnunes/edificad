@@ -25,7 +25,7 @@ createDepRow = function (dep) {
             <td>${dep.id}</td>
             <td>${dep.nome}</td>
             <td>${dep.cpf}</td>
-            <td>${dep.dataNascimento}</td>
+            <td>${dep.data_nascimento}</td>
             </tr>`;
 }
 
@@ -36,3 +36,4 @@ buildEndereco = function (endereco) {
                     <dd>${endereco.cep} / ${endereco.cidade}</dd>
                 </dl>`;
 }
+

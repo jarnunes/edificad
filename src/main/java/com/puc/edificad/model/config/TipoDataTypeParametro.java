@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum TipoDataTypeParametro {
 
     BOOLEAN(Boolean.class),
-    NUMERIC(Integer.class);
+    NUMERIC(Integer.class),
+    JSON(String.class);
 
     final Class<?> type;
 

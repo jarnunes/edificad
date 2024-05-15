@@ -3,7 +3,6 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{crud-template}">
-<body>
 
 <span layout:fragment="title" th:text="${@helper.getOperation(entity)}"></span>
 <div layout:fragment="content">
@@ -41,12 +40,12 @@
                     </div>
                     <div class="col">
                         <label for="cpf">CPF</label>
-                        <input type="text" class="form-control cpf-mask" id="cpf" maxlength="14"
+                        <input type="text" class="form-control cpf" id="cpf" maxlength="14"
                                th:field="*{cpf}" required/>
                     </div>
                     <div class="col">
                         <label for="telefone">Telefone</label>
-                        <input type="tel" class="form-control phone-mask" id="telefone" maxlength="15"
+                        <input type="tel" class="form-control phone-with-dd" id="telefone" maxlength="15"
                                th:field="*{telefone}" required/>
                     </div>
                     <div class="col">
@@ -74,7 +73,7 @@
 
                     <div class="col">
                         <label for="cep">Cep</label>
-                        <input type="text" class="form-control cep-mask" id="cep" maxlength="10"
+                        <input type="text" class="form-control cep" id="cep" maxlength="10"
                                th:field="*{endereco.cep}" required/>
                     </div>
 
@@ -128,4 +127,3 @@
     <div class="modal-container" id="modalContainer"></div>
 
 </div>
-</body>

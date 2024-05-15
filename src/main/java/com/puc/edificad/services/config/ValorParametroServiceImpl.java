@@ -39,4 +39,12 @@ public class ValorParametroServiceImpl extends BaseServiceImpl<ValorParametro> i
         return valorParametroRepository.findFirstByParametro_Nome(parametro)
                 .map(ValorParametroNumerico.class::cast).orElse(null);
     }
+
+    @Override
+    public ValorParametroJson obterValorParametroJson(TipoParametroConfiguracao parametro) {
+        validarTipoValorParametro(parametro, TipoDataTypeParametro.JSON);
+        return valorParametroRepository.findFirstByParametro_Nome(parametro)
+            .map(ValorParametroJson.class::cast).orElse(null);
+    }
+
 }

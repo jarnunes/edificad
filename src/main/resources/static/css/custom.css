@@ -14,8 +14,27 @@
     cursor: pointer;
 }
 
-div.card-image{
+div.card-image {
     background: var(--ec-primary);
     width: 100%;
     height: 10em;
+}
+
+div.dashboard-config {
+    width: 3.2em;
+    height: 3.2em;
+    position: fixed;
+    bottom: 1em;
+    right: 0;
+    background-color: var(--bs-primary);
+    border-radius: 50% 0 0 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+div.dashboard-config i {
+    font-size: 1.7em;
+    color: #fff;
 }
