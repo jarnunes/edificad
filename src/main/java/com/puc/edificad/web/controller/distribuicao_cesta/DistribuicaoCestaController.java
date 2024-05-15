@@ -143,7 +143,7 @@ public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoC
 
             return ResponseEntity.internalServerError().body(response);
         }
-        response.setMessages(Stream.of("Removido com sucesso.").toList());
+        response.setMessages(Stream.of("Cancelamento registrado com sucesso.").toList());
         return ResponseEntity.ok(response);
     }
 

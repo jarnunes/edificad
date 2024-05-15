@@ -144,7 +144,7 @@ public class DistribuicaoCestaServiceImpl extends BaseServiceImpl<DistribuicaoCe
         DistribuicaoCesta distribuicaoCesta = findById(idDistribuicaoCesta).orElseThrow();
         distribuicaoCesta.setCancelamento(LocalDateTime.now());
         distribuicaoCesta.setMotivoCancelamento(motivoCancelamento);
-        distribuicaoCesta.setUsuarioCancelamento(AuthUtils.currentUsername());
+        distribuicaoCesta.setUsuarioCancelamento(AuthUtils.currentUsernameRequired());
 
         DistribuicaoCestaValidation validation = new DistribuicaoCestaValidation(distribuicaoCesta);
         validation.validarSePermiteCancelarDistribuicao();
