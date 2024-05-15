@@ -40,16 +40,16 @@
                     </div>
                     <div class="col">
                         <label for="cpf">CPF</label>
-                        <input type="text" class="form-control cpf-mask" id="cpf" th:field="*{cpf}" maxlength="14"/>
+                        <input type="text" class="form-control cpf" id="cpf" th:field="*{cpf}" maxlength="14"/>
                     </div>
                     <div class="col">
                         <label for="telefone">Telefone</label>
-                        <input type="tel" class="form-control phone-mask" id="telefone" th:field="*{telefone}" maxlength="15" />
+                        <input type="tel" class="form-control phone-with-dd" id="telefone" th:field="*{telefone}" maxlength="15" />
                     </div>
                     <div class="col">
                         <label for="dataNascimento">Data de nascimento</label>
                         <input type="date" class="form-control" id="dataNascimento" maxlength="8"
-                               th:field="*{dataNascimento}" required/>
+                               th:field="*{dataNascimento}" />
                     </div>
                 </div>
             </div>

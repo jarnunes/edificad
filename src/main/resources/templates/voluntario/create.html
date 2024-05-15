@@ -34,17 +34,17 @@
                     </div>
                     <div class="col">
                         <label for="cpf" th:text="#{pessoa.cpf}"></label>
-                        <input type="text" class="form-control cpf-mask" id="cpf" maxlength="14" minlength="14"
+                        <input type="text" class="form-control cpf" id="cpf" maxlength="14" minlength="14"
                                th:field="*{cpf}" required/>
                     </div>
                     <div class="col">
                         <label for="telefone" th:text="#{pessoa.phone}"></label>
-                        <input type="tel" class="form-control phone-mask" id="telefone" maxlength="15"
+                        <input type="tel" class="form-control phone-with-dd" id="telefone" maxlength="15"
                                th:field="*{telefone}" required/>
                     </div>
                     <div class="col">
                         <label for="qtdeProjetos" th:text="#{voluntario.qtde.projetos}"></label>
-                        <input type="number" class="form-control phone-mask" id="qtdeProjetos" maxlength="15"
+                        <input type="number" class="form-control" id="qtdeProjetos" maxlength="15"
                                th:field="*{numeroProjetosParticipados}"/>
                     </div>
                     <div class="col">
@@ -72,7 +72,7 @@
 
                     <div class="col">
                         <label for="cep">Cep</label>
-                        <input type="text" class="form-control cep-mask" id="cep" maxlength="10"
+                        <input type="text" class="form-control cep" id="cep" maxlength="10"
                                th:field="*{endereco.cep}" required/>
                     </div>
 
