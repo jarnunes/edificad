@@ -61,10 +61,10 @@
 
     buildModalConfigDashboard = function (idForm, jsonConfig) {
         let opcoes = ''
-        let maximoPeriodoEmMesesPermitidosExibicao = jsonConfig.maximo_periodo_em_meses_permitidos_exibicao;
+        let periodoMaximoExibicaoPermitidoEmMeses = jsonConfig.periodo_maximo_exibicao_permitido_em_meses;
         let periodoExibicaoEmMeses = jsonConfig.periodo_exibicao_em_meses;
 
-        for (let i = 1; i <= maximoPeriodoEmMesesPermitidosExibicao; i++) {
+        for (let i = 1; i <= periodoMaximoExibicaoPermitidoEmMeses; i++) {
             let labelMes = i === 1 ? 'mês' : 'meses';
             if (i === periodoExibicaoEmMeses) {
                 opcoes += `<option value="${i}" selected>${i} ${labelMes}</option>`
