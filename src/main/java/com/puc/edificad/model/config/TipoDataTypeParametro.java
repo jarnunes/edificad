@@ -16,11 +16,14 @@ public enum TipoDataTypeParametro {
     }
 
     public boolean isBoolean() {
-        return this.type.equals(Boolean.class);
+        return this.equals(BOOLEAN);
     }
 
     public boolean isNumeric() {
-        return this.type.equals(Integer.class);
+        return this.equals(NUMERIC);
     }
 
+    public boolean isJson() {
+        return this.equals(JSON);
+    }
 }

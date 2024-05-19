@@ -1,0 +1,18 @@
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!--/*@thymesVar id="valor" type="com.puc.edificad.model.config.ValorParametroLogico"*/-->
+
+<div class="col-6">
+    <label for="completeValores" th:text="#{parametro.valor}"></label>
+    <div class="input-group">
+        <select id="completeValores" class="form-select"
+                th:field="*{valor}">
+            <option value="" th:text="#{autocomplete.select}"></option>
+            <option th:each="enum : ${booleanList}" th:value="${enum.id}"
+                    th:text="${enum.text}">
+            </option>
+        </select>
+    </div>
+</div>

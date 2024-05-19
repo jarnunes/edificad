@@ -6,10 +6,13 @@
 <body>
 
 <span layout:fragment="title" th:text="${@helper.getOperation(valorParametro)}"></span>
-<div layout:fragment="content">
+<div layout:fragment="content"
+     th:with="dataType=${valorParametro.parametro.getDType()}">
 
     <div class="card-container overflow-hidden">
-        <form id="entityForm" method="POST" th:action="@{/parametro/save}" th:object="${valorParametro}">
+        <!--/*@thymesVar id="nomeTipo" type="java.lang.String"*/-->
+
+        <form id="entityForm" method="POST" th:action="@{'/parametro' + ${urlPOST}}" th:object="${valorParametro}">
             <input type="hidden" id="id" name="id" th:field="*{id}"/>
             <input type="hidden" id="dType" name="dType" th:field="*{parametro.DType}"/>
             <div class="ec-table-toolbar">
@@ -17,33 +20,30 @@
                     <a class="btn btn-secondary opacity-75" th:href="@{/parametro}" role="button">
                         <i class="bi bi-arrow-left"></i>
                     </a>
-                    <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
+
+                    <button type="submit" class="btn btn-primary btn-save">
+                        <i class="bi bi-check-lg"></i>
+                        <span class="btn-label">Salvar</span>
+                    </button>
                 </div>
             </div>
 
             <div class="ec-fields-container">
-                <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
-                    <div class="col">
+                <div class="row m-0 pb-3 g-4">
+                    <div class="col-6">
                         <label for="title" th:text="#{parametro}"></label>
                         <input type="text" class="form-control" id="title" autofocus="autofocus"
                                th:field="*{parametro.nome}" required readonly/>
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         <label for="dominio" th:text="#{parametro.dominio}"></label>
                         <input type="email" class="form-control" id="dominio"
                                th:field="*{parametro.dominio}" required readonly/>
                     </div>
-                    <div th:if="${valorParametro.parametro ne null and valorParametro.parametro.getDType().isBoolean()}" class="col">
-                        <label for="completeValores" th:text="#{parametro.valor}"></label>
-                        <div class="input-group">
-                            <select id="completeValores" class="form-select"
-                                    th:field="*{valor}">
-                                <option value="" th:text="#{autocomplete.select}"></option>
-                                <option th:each="enum : ${booleanList}" th:value="${enum.id}"
-                                        th:text="${enum.text}"></option>
-                            </select>
-                        </div>
-                    </div>
+
+                    <th:block th:if="${dataType.isBoolean()}" th:insert="~{parametro/valor-parametro-boolean}" />
+                    <th:block th:if="${dataType.isNumeric()}" th:insert="~{parametro/valor-parametro-numerico}" />
+                    <th:block th:if="${dataType.isJson()}" th:insert="~{parametro/valor-parametro-json}" />
                 </div>
             </div>
         </form>

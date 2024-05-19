@@ -10,10 +10,12 @@
 
 <span layout:fragment="title" th:text="#{parametro}"></span>
 <div layout:fragment="content"
-     th:with="dataType=com.puc.edificad.model.config.TipoDataTypeParametro">
+     th:with="permiteConfiguracao=true">
 
     <div class="card-container">
-        <form method="POST" th:action="@{/parametro/pesquisar}" th:object="${searchFormParametro}" >
+
+        <!-- Pesquisar -->
+        <form method="POST" th:action="@{/parametro/pesquisar}" th:object="${searchForm}" >
             <div class="ec-fields-container">
                 <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
                     <div class="col">
@@ -35,54 +37,42 @@
                         <button type="submit" class="btn btn-secondary">
                             <span class="btn-label">Pesquisar</span>
                         </button>
-                        <th:block th:if="${searchForm.parametro ne null and searchForm.parametro.DType ne null}">
-                            <a  th:if="${searchForm.parametro.DType.isBoolean()}"
+                        <th:block th:unless="${instancia == null}">
+                            <a  th:if="${instancia.DType.isBoolean()}"
                                 th:href="@{/parametro/configurar-logico}" class="btn btn-secondary">Configurar</a>
 
-                            <a  th:if="${searchForm.parametro.DType.isNumeric()}"
+                            <a  th:if="${instancia.DType.isNumeric()}"
                                 th:href="@{/parametro/configurar-numeric}" class="btn btn-secondary">Configurar</a>
+
+                            <a  th:if="${instancia.DType.isJson()}"
+                                th:href="@{/parametro/configurar-json}" class="btn btn-secondary">Configurar</a>
                         </th:block>
                     </div>
                 </div>
             </div>
-        </form>
 
-<!--        <table class="spg-datatable table table-striped table-bordered table-hover border-top">-->
-<!--            <thead>-->
-<!--            <tr>-->
-<!--                <th></th>-->
-<!--                <th th:text="#{parametro}"></th>-->
-<!--                <th th:text="#{parametro.dominio}"></th>-->
-<!--                <th th:text="#{parametro.dtype}"></th>-->
-<!--            </tr>-->
-<!--            </thead>-->
-<!--        </table>-->
+            <table class="spg-datatable table table-striped table-bordered table-hover border-top"
+                   th:unless="${instancia == null}" >
+                <thead>
+                    <tr>
+                        <th th:text="#{parametro}"></th>
+                        <th th:text="#{parametro.dtype}"></th>
+                        <th th:text="#{parametro.dominio}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${instancia.nome}"></td>
+                        <td th:text="${instancia.DType.name()}"></td>
+                        <td th:text="${instancia.dominio.name()}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
     </div>
 
     <!-- Modal Container: All modals will be inside here -->
     <div class="modal-container" id="modalContainer"></div>
 </div>
-
-<script layout:fragment="local-script">
-    $('.spg-datatable').DataTable(configureDatatable({
-        endpoint: '/parametro',
-        filter: false,
-        columns: [
-            {
-                orderable: false,
-                data: null,
-                defaultContent: ''
-            },
-            {data: "nome"},
-            {data: "dominio"},
-            {data: "dtype"},
-        ],
-        order: [1, 'asc'],
-    }));
-
-    // setSelectHandler('.spg-datatable');
-    // addRowExpansionEventListener('.spg-datatable', data => buildEndereco(data.endereco));
-
-</script>
 
 </body>

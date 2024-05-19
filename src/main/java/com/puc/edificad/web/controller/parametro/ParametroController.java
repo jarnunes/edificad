@@ -1,21 +1,19 @@
 package com.puc.edificad.web.controller.parametro;
 
+import com.jnunes.spgauth.commons.utils.AuthUtils;
+import com.jnunes.spgcore.commons.exceptions.ValidationException;
 import com.jnunes.spgcore.services.dto.AutocompleteDto;
 import com.jnunes.spgcore.web.CrudControllerSec;
 import com.jnunes.spgcore.web.support.AjaxResponse;
-import com.jnunes.spgdatatable.DataTablePage;
-import com.jnunes.spgdatatable.DataTableRequest;
-import com.jnunes.spgdatatable.adapters.PageRequestAdapter;
 import com.puc.edificad.commons.datatypes.DataTypeBoolean;
 import com.puc.edificad.model.config.*;
 import com.puc.edificad.services.PesquisaService;
 import com.puc.edificad.services.config.ParametroService;
 import com.puc.edificad.services.config.ValorParametroService;
+import com.puc.edificad.web.support.cache.Cache;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,13 +32,16 @@ import java.util.Optional;
 @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_PARAMETRO')")
 public class ParametroController extends CrudControllerSec<Parametro> {
 
-    private static final String SEARCH_FORM = "searchForm";
+    private static final String CACHE_KEY_PARAMETRO_EDICAO = "parametroEdicao";
+    public static final String URL_POST = "urlPOST";
+    public static final String PATH_SAVE_LOGICO = "/save-logico";
+    public static final String PATH_SAVE_NUMERICO = "/save-numerico";
+    public static final String PATH_SAVE_JSON = "/save-json";
 
-    ParametroService service;
-    ValorParametroService valorParametroService;
-    PesquisaService pesquisaService;
-    TipoParametroConfiguracao tipoParametro;
-    Parametro parametro = new Parametro();
+    private Cache cache;
+    private ParametroService service;
+    private ValorParametroService valorParametroService;
+    private PesquisaService pesquisaService;
 
     @Autowired
     public void setService(ParametroService serviceIn) {
@@ -57,95 +58,111 @@ public class ParametroController extends CrudControllerSec<Parametro> {
         this.valorParametroService = valorParametroService;
     }
 
+    @Autowired
+    void setCache(Cache cache){
+        this.cache = cache;
+    }
+
     @Override
     protected ModelAndView getModelAndViewListPage() {
         return new ModelAndView("parametro/list");
     }
 
     @GetMapping
-    ModelAndView entitiesList(ModelMap modelMap, @ModelAttribute(SEARCH_FORM) final SearchForm form) {
-        modelMap.put("searchFormParametro", form);
+    ModelAndView entitiesList(ModelMap modelMap) {
+        modelMap.put("searchForm", new SearchForm());
 
-        if(form != null && form.getParametro() != null){
-            modelMap.put("permitirConfiguracao", true);
-            tipoParametro = form.getParametro();
-        }
+        obterParametroNoCache().ifPresent(param -> {
+                 modelMap.put("instancia", param.getInstance());
+                 modelMap.put("permitirConfiguracao", true);
+             });
 
         return getModelAndViewListPage();
     }
 
-    @PostMapping
-    @ResponseBody
-    DataTablePage<Parametro> datatableList(@RequestBody DataTableRequest pagingRequest) {
-        PageRequestAdapter adapter = new PageRequestAdapter(pagingRequest);
-        Example<Parametro> example = Example.of(parametro);
-        Page<Parametro> page = service.findAll(example, adapter.getPageRequest());
-        DataTablePage<Parametro> dataTablePage = new DataTablePage<>();
-        dataTablePage.setData(page.getContent());
-        dataTablePage.setRecordsFiltered((int) page.getTotalElements());
-        dataTablePage.setRecordsTotal(service.count().intValue());
-        dataTablePage.setDraw(pagingRequest.getDraw());
-        return dataTablePage;
-    }
-
     @GetMapping("/configurar-logico")
-    String configurarParametroLogico(Model model, RedirectAttributes attributes) {
-        if (tipoParametro == null) {
-            addError(attributes, "Necessário selecionar um parâmetro para iniciar configuração.");
-            redirect("/parametro");
-        }
+    String configurarParametroLogico(Model model) {
+        TipoParametroConfiguracao parametroEdicao = obterParametroParaEdicao();
+        ValorParametro valorParametro = obterValorParametroParaEdicao(parametroEdicao);
+        model.addAttribute("valorParametro", valorParametro);
+        model.addAttribute(URL_POST, PATH_SAVE_LOGICO);
+        return "parametro/create";
+    }
 
-        Parametro instanciaParametro = tipoParametro.getInstance();
+    @GetMapping("/configurar-numerico")
+    String configurarParametroNumerico(Model model) {
+        TipoParametroConfiguracao parametroEdicao = obterParametroParaEdicao();
+        ValorParametro valorParametro = obterValorParametroParaEdicao(parametroEdicao);
+        model.addAttribute("valorParametro", valorParametro);
+        model.addAttribute(URL_POST, PATH_SAVE_NUMERICO);
+        return "parametro/create";
+    }
+
+    @GetMapping("/configurar-json")
+    String configurarParametroJson(Model model) {
+        TipoParametroConfiguracao parametroEdicao = obterParametroParaEdicao();
+        ValorParametro valorParametro = obterValorParametroParaEdicao(parametroEdicao);
+        model.addAttribute("valorParametro", valorParametro);
+        model.addAttribute(URL_POST, PATH_SAVE_JSON);
+        return "parametro/create";
+    }
+
+    private ValorParametro obterValorParametroParaEdicao(TipoParametroConfiguracao parametroConfiguracao) {
+        Parametro instanciaParametro = parametroConfiguracao.getInstance();
         Optional<ValorParametro> valorParametro = instanciaParametro.getValoresParametro().stream().findFirst();
-        if(valorParametro.isPresent()){
-            model.addAttribute("valorParametro", valorParametro.get());
-            return "parametro/create-boolean";
-        }
+        if (valorParametro.isPresent())
+            return valorParametro.get();
 
-        if (instanciaParametro.getDType().isBoolean()) {
-            ValorParametroLogico valorParametroLogico = new ValorParametroLogico();
-            valorParametroLogico.setParametro(instanciaParametro);
-            model.addAttribute("valorParametro", valorParametroLogico);
-        } else if (instanciaParametro.getDType().isNumeric()) {
-            ValorParametroNumerico valorParametroNumerico = new ValorParametroNumerico();
-            valorParametroNumerico.setParametro(instanciaParametro);
-            model.addAttribute("valorParametro", valorParametroNumerico);
-        }
+        ValorParametro novaInstancia = switch (parametroConfiguracao.getDType()) {
+            case BOOLEAN -> new ValorParametroLogico();
+            case NUMERIC -> new ValorParametroNumerico();
+            case JSON -> new ValorParametroJson();
+        };
 
-        return "parametro/create-boolean";
+        novaInstancia.setParametro(instanciaParametro);
+        return novaInstancia;
     }
 
-    @GetMapping("/configurar")
-    String create(Model model) {
-        if(parametro.getId() != null && !parametro.getValoresParametro().isEmpty()){
-            model.addAttribute("valorParametro",
-                parametro.getValoresParametro().stream().findFirst().get());
-            return "create-boolean";
-        }
-
-        if (parametro.getDType().isBoolean()) {
-            ValorParametroLogico valorParametroLogico = new ValorParametroLogico();
-            valorParametroLogico.setParametro(parametro);
-            model.addAttribute("valorParametro", valorParametroLogico);
-        } else if (parametro.getDType().isNumeric()) {
-            ValorParametroNumerico valorParametro = new ValorParametroNumerico();
-            valorParametro.setParametro(parametro);
-            model.addAttribute("valorParametro", valorParametro);
-        }
-
-        return "create-boolean";
+    private TipoParametroConfiguracao obterParametroParaEdicao(){
+        return obterParametroNoCache().orElseThrow(() -> new ValidationException("parametro.obrigatorio.na.edicao"));
     }
 
-    @PostMapping("/save")
-    String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
-        ValorParametroLogico entity, BindingResult result, RedirectAttributes attributes) {
+    private Optional<TipoParametroConfiguracao> obterParametroNoCache(){
+        return cache.getOptionalItem(getClass(), CACHE_KEY_PARAMETRO_EDICAO, AuthUtils.currentUserIdRequired())
+                .map(TipoParametroConfiguracao.class::cast);
+    }
+
+    @PostMapping(PATH_SAVE_LOGICO)
+    String saveLogico(ValorParametroLogico entity, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) return "parametro/create";
         final Long entityId = entity.getId();
 
         entity.getParametro().getNome().save(entity);
 
         addSuccess(attributes, entityId);
-        return saveAndNew ? redirect("/parametro/create") : redirect("/parametro/update-logico", entity.getId());
+        return redirect("/parametro/update-logico", entity.getId());
+    }
+
+    @PostMapping(PATH_SAVE_NUMERICO)
+    String saveNumerico(ValorParametroNumerico entity, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) return "parametro/create";
+        final Long entityId = entity.getId();
+
+        entity.getParametro().getNome().save(entity);
+
+        addSuccess(attributes, entityId);
+        return redirect("/parametro/update-numerico", entity.getId());
+    }
+
+    @PostMapping(PATH_SAVE_JSON)
+    String saveJson(ValorParametroJson entity, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) return "parametro/create";
+        final Long entityId = entity.getId();
+
+        entity.getParametro().getNome().save(entity);
+
+        addSuccess(attributes, entityId);
+        return redirect("/parametro/update-json", entity.getId());
     }
 
     @GetMapping("/update-logico/{id}")
@@ -153,7 +170,32 @@ public class ParametroController extends CrudControllerSec<Parametro> {
         Optional<ValorParametro> valorParametro= valorParametroService.findById(id);
         if(valorParametro.isPresent()){
             modelMap.addAttribute("valorParametro",valorParametro.get());
-            return "parametro/create-boolean";
+            modelMap.addAttribute(URL_POST, PATH_SAVE_LOGICO);
+            return "parametro/create";
+        }
+
+        return "parametro";
+    }
+
+    @GetMapping("/update-numerico/{id}")
+    String preUpdateNumerico(@PathVariable Long id, ModelMap modelMap) {
+        Optional<ValorParametro> valorParametro= valorParametroService.findById(id);
+        if(valorParametro.isPresent()){
+            modelMap.addAttribute("valorParametro",valorParametro.get());
+            modelMap.addAttribute(URL_POST, PATH_SAVE_NUMERICO);
+            return "parametro/create";
+        }
+
+        return "parametro";
+    }
+
+    @GetMapping("/update-json/{id}")
+    String preUpdateJson(@PathVariable Long id, ModelMap modelMap) {
+        Optional<ValorParametro> valorParametro= valorParametroService.findById(id);
+        if(valorParametro.isPresent()){
+            modelMap.addAttribute("valorParametro",valorParametro.get());
+            modelMap.addAttribute(URL_POST, PATH_SAVE_JSON);
+            return "parametro/create";
         }
 
         return "parametro";
@@ -180,9 +222,13 @@ public class ParametroController extends CrudControllerSec<Parametro> {
     }
 
     @PostMapping("/pesquisar")
-    public String pesquisar(SearchForm searchForm, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute(SEARCH_FORM, searchForm);
+    public String pesquisar(SearchForm searchForm) {
+        adicionarParametroCache(searchForm.getParametro());
         return redirect("/parametro");
+    }
+
+    private void adicionarParametroCache(TipoParametroConfiguracao parametro){
+        cache.addItem(this.getClass(), CACHE_KEY_PARAMETRO_EDICAO, AuthUtils.currentUserIdRequired(), parametro, 1800);
     }
 
     @Getter
