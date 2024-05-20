@@ -13,7 +13,7 @@
     <groupId>com.puc</groupId>
     <artifactId>edificad</artifactId>
     <name>edificad</name>
-    <version>1.3.6</version>
+    <version>1.3.7</version>
 
     <properties>
         <java.version>17</java.version>
@@ -21,7 +21,7 @@
         <maven.test.skip>true</maven.test.skip>
         <spg-core.version>1.6.4</spg-core.version>
         <spg-datatable.version>1.6</spg-datatable.version>
-        <spg-auth.version>1.6.7-SNAPSHOT</spg-auth.version>
+        <spg-auth.version>1.6.7</spg-auth.version>
         <spg-elipse.version>1.6.3</spg-elipse.version>
         <git-commit.version>4.9.10</git-commit.version>
     </properties>
