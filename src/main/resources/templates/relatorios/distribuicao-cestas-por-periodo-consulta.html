@@ -24,12 +24,13 @@
                 <div class="row row-cols-1 row-cols-md-2 m-0 pb-3 g-4">
                     <div class="col">
                         <label th:text="#{relatorio.distribuicao.por.periodo.inicio}" for="inicioPeriodo"></label>
-                        <input type="date" class="form-control" id="inicioPeriodo" th:field="*{inicio}" required/>
+                        <input type="date" class="form-control" id="inicioPeriodo" th:field="*{inicio}" max="9999-12-31" required/>
                     </div>
 
                     <div class="col">
                         <label th:text="#{relatorio.distribuicao.por.periodo.fim}" for="fimPeriodo"></label>
-                        <input type="date" class="form-control" id="fimPeriodo" th:field="*{fim}" required/>
+                        <input type="date" class="form-control" id="fimPeriodo" th:field="*{fim}" required
+                               max="9999-12-31"/>
                     </div>
 
                     <div class="col">

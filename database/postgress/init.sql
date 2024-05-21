@@ -22,6 +22,8 @@ INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date,
 VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Beneficiário > Editar', 'EDIT_BENEFICIARIO');
 INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
 VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Beneficiário > Excluir', 'DELETE_BENEFICIARIO');
+INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
+VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Beneficiário > Dependente', 'VIEW_DEPENDENTE');
 
 INSERT INTO spg_auth_resource (id, create_date, create_user, last_modified_date, last_modified_user, description, name)
 VALUES ((SELECT nextval('seq_spg_auth_resource')), current_timestamp, 'system', null, null, 'Menu: Distribuição Cesta', 'VIEW_DISTRIBUICAO_CESTA');

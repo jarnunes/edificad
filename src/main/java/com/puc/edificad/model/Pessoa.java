@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serial;
@@ -43,5 +44,19 @@ public abstract class Pessoa extends BaseEntity {
     @JoinColumn(name = "endereco_fk")
     private Endereco endereco;
 
+    public void setNome(String nome) {
+        this.nome = StringUtils.trimToNull(nome);
+    }
 
+    public void setEmail(String email) {
+        this.email = StringUtils.trimToNull(email);
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = StringUtils.trimToNull(cpf);
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = StringUtils.trimToNull(telefone);
+    }
 }

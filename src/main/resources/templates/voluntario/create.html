@@ -49,7 +49,7 @@
                     </div>
                     <div class="col">
                         <label for="dataNascimento" th:text="#{pessoa.data.nascimento}"></label>
-                        <input type="date" class="form-control" id="dataNascimento"
+                        <input type="date" class="form-control" id="dataNascimento" max="9999-12-31"
                                th:field="*{dataNascimento}" required/>
                     </div>
                 </div>

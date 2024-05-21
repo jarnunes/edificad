@@ -17,13 +17,21 @@ $(".ec-table-container").on('click', CLASS_MINI_BTN_DELETE_ROW.dClass, function 
 
     // add listener to confirm button
     $(CLASS_BTN_CONFIRM_MODAL.dClass).click(function () {
-        deleteRow(id)
+        fetchDeleteHandler('/dependente/delete/' + id, successDependenteDeleteHandler, errorDependenteDeleteHandler)
         removeDeletedRow(id)
     })
 })
 
-function deleteRow(elementId) {
-    deleteHandler('/dependente/delete/' + elementId, successDependenteDeleteHandler, errorDependenteDeleteHandler)
+function fetchDeleteHandler(url, successFunction, errorFunction) {
+    fetch(url, {
+        method: 'DELETE'
+    }).then(res => {
+        let json = res.json();
+        if (res.status === 200)
+            json.then(data => successFunction(data))
+        else
+            json.then(data => errorFunction(data))
+    }).catch(error => errorFunction({'messages': [error]}));
 }
 
 function removeDeletedRow(elementId) {
