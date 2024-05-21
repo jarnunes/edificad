@@ -56,9 +56,8 @@ public class DependenteController extends CrudControllerSec<Dependente> {
     }
 
     @PostMapping("/save")
-    public String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
-        Dependente entity, BindingResult result, RedirectAttributes attributes, Model model) {
-        return internalSaveAndNew(entity, saveAndNew, "/dependente", service, result, attributes, model);
+    public String save(Dependente entity, BindingResult result, RedirectAttributes attributes, Model model) {
+        return internalSaveAndNew(entity, false, "/dependente", service, result, attributes, model);
     }
 
     @GetMapping("/update/{id}")

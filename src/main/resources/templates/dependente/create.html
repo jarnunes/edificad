@@ -15,7 +15,10 @@
                     <a class="btn btn-secondary opacity-75" th:href="@{/beneficiario/update/{id} (id=${entity.responsavel.id})}" role="button">
                         <i class="bi bi-arrow-left"></i>
                     </a>
-                    <div th:replace="~{layout/fragments/crud/save-buttons}"></div>
+                    <button type="submit" class="btn btn-primary btn-save">
+                        <i class="bi bi-check-lg"></i>
+                        <span class="btn-label">Salvar</span>
+                    </button>
                 </div>
             </div>
 
