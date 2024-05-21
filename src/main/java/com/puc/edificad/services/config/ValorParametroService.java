@@ -11,4 +11,7 @@ public interface ValorParametroService extends BaseService<ValorParametro> {
     ValorParametroNumerico obterValorParametroNumerico(TipoParametroConfiguracao parametro);
 
     ValorParametroJson obterValorParametroJson(TipoParametroConfiguracao parametro);
+
+    <T extends ValorParametro> void saveByType(T entity);
+
 }
