@@ -19,10 +19,10 @@
         <java.version>17</java.version>
         <jxls.version>2.13.0</jxls.version>
         <maven.test.skip>true</maven.test.skip>
-        <spg-core.version>1.6.5-SNAPSHOT</spg-core.version>
+        <spg-core.version>1.6.5</spg-core.version>
         <spg-datatable.version>1.6</spg-datatable.version>
-        <spg-parameter.version>0.0.1-SNAPSHOT</spg-parameter.version>
-        <spg-auth.version>1.6.8-SNAPSHOT</spg-auth.version>
+        <spg-parameter.version>1.0.0</spg-parameter.version>
+        <spg-auth.version>1.6.8</spg-auth.version>
         <spg-elipse.version>1.6.3</spg-elipse.version>
         <git-commit.version>4.9.10</git-commit.version>
     </properties>
