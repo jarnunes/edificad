@@ -1,20 +1,21 @@
 package com.puc.edificad.web.controller.parametro;
 
 import com.jnunes.spgauth.commons.utils.AuthUtils;
+import com.jnunes.spgauth.model.config.AuthEmailParameterType;
 import com.jnunes.spgcore.commons.exceptions.ValidationException;
 import com.jnunes.spgcore.services.dto.AutocompleteDto;
 import com.jnunes.spgcore.web.CrudControllerSec;
-import com.jnunes.spgcore.web.support.AjaxResponse;
+import com.jnunes.spgparameter.ParameterMediator;
+import com.jnunes.spgparameter.model.*;
+import com.jnunes.spgparameter.services.ParameterValueService;
 import com.puc.edificad.commons.datatypes.DataTypeBoolean;
-import com.puc.edificad.model.config.*;
+import com.puc.edificad.model.config.TipoDominioParametro;
+import com.puc.edificad.model.config.TipoParametroConfiguracao;
 import com.puc.edificad.services.PesquisaService;
-import com.puc.edificad.services.config.ParametroService;
-import com.puc.edificad.services.config.ValorParametroService;
 import com.puc.edificad.web.support.cache.Cache;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,29 +25,23 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/parametro")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_PARAMETRO')")
-public class ParametroController extends CrudControllerSec<Parametro> {
+public class ParametroController extends CrudControllerSec<Parameter> {
 
     private static final String CACHE_KEY_PARAMETRO_EDICAO = "parametroEdicao";
     public static final String URL_POST = "urlPOST";
     public static final String PATH_SAVE_LOGICO = "/save-logico";
     public static final String PATH_SAVE_NUMERICO = "/save-numerico";
     public static final String PATH_SAVE_JSON = "/save-json";
+    public static final String PATH_SAVE_HTML = "/save-html";
 
     private Cache cache;
-    private ParametroService service;
-    private ValorParametroService valorParametroService;
     private PesquisaService pesquisaService;
-
-    @Autowired
-    public void setService(ParametroService serviceIn) {
-        this.service = serviceIn;
-    }
+    private ParameterValueService parameterValueService;
 
     @Autowired
     void setPesquisaService(PesquisaService service) {
@@ -54,8 +49,8 @@ public class ParametroController extends CrudControllerSec<Parametro> {
     }
 
     @Autowired
-    void setValorParametroService(ValorParametroService valorParametroService){
-        this.valorParametroService = valorParametroService;
+    void setParameterValueService(ParameterValueService parameterValueService){
+        this.parameterValueService = parameterValueService;
     }
 
     @Autowired
@@ -82,8 +77,8 @@ public class ParametroController extends CrudControllerSec<Parametro> {
 
     @GetMapping("/configurar-logico")
     String configurarParametroLogico(Model model) {
-        TipoParametroConfiguracao parametroEdicao = obterParametroParaEdicao();
-        ValorParametro valorParametro = obterValorParametroParaEdicao(parametroEdicao);
+        ParameterMediator parametroEdicao = obterParametroParaEdicao();
+        ParameterValue valorParametro = obterValorParametroParaEdicao(parametroEdicao);
         model.addAttribute("valorParametro", valorParametro);
         model.addAttribute(URL_POST, PATH_SAVE_LOGICO);
         return "parametro/create";
@@ -91,8 +86,8 @@ public class ParametroController extends CrudControllerSec<Parametro> {
 
     @GetMapping("/configurar-numerico")
     String configurarParametroNumerico(Model model) {
-        TipoParametroConfiguracao parametroEdicao = obterParametroParaEdicao();
-        ValorParametro valorParametro = obterValorParametroParaEdicao(parametroEdicao);
+        ParameterMediator parametroEdicao = obterParametroParaEdicao();
+        ParameterValue valorParametro = obterValorParametroParaEdicao(parametroEdicao);
         model.addAttribute("valorParametro", valorParametro);
         model.addAttribute(URL_POST, PATH_SAVE_NUMERICO);
         return "parametro/create";
@@ -100,74 +95,99 @@ public class ParametroController extends CrudControllerSec<Parametro> {
 
     @GetMapping("/configurar-json")
     String configurarParametroJson(Model model) {
-        TipoParametroConfiguracao parametroEdicao = obterParametroParaEdicao();
-        ValorParametro valorParametro = obterValorParametroParaEdicao(parametroEdicao);
+        ParameterMediator parametroEdicao = obterParametroParaEdicao();
+        ParameterValue valorParametro = obterValorParametroParaEdicao(parametroEdicao);
         model.addAttribute("valorParametro", valorParametro);
         model.addAttribute(URL_POST, PATH_SAVE_JSON);
         return "parametro/create";
     }
 
-    private ValorParametro obterValorParametroParaEdicao(TipoParametroConfiguracao parametroConfiguracao) {
-        Parametro instanciaParametro = parametroConfiguracao.getInstance();
-        Optional<ValorParametro> valorParametro = instanciaParametro.getValoresParametro().stream().findFirst();
+    @GetMapping("/configurar-html")
+    String configurarParametroHtml(Model model) {
+
+        ParameterValue valorParametro = obterValorParametroParaEdicao(obterParametroParaEdicao());
+        model.addAttribute("valorParametro", valorParametro);
+        model.addAttribute(URL_POST, PATH_SAVE_HTML);
+        return "parametro/create";
+    }
+
+    private ParameterValue obterValorParametroParaEdicao(ParameterMediator parametroConfiguracao) {
+        Parameter instanciaParametro = parametroConfiguracao.getInstance();
+        Optional<ParameterValue> valorParametro = instanciaParametro.getParameterValues().stream().findFirst();
         if (valorParametro.isPresent())
             return valorParametro.get();
 
-        ValorParametro novaInstancia = switch (parametroConfiguracao.getDType()) {
-            case BOOLEAN -> new ValorParametroLogico();
-            case NUMERIC -> new ValorParametroNumerico();
-            case JSON -> new ValorParametroJson();
-        };
-
-        novaInstancia.setParametro(instanciaParametro);
+        ParameterValue novaInstancia = parametroConfiguracao.getParameterValueNewInstance();
+        novaInstancia.setParameter(instanciaParametro);
         return novaInstancia;
     }
 
-    private TipoParametroConfiguracao obterParametroParaEdicao(){
+
+    private ParameterMediator obterParametroParaEdicao(){
         return obterParametroNoCache().orElseThrow(() -> new ValidationException("parametro.obrigatorio.na.edicao"));
     }
 
-    private Optional<TipoParametroConfiguracao> obterParametroNoCache(){
+    private Optional<ParameterMediator> obterParametroNoCache() {
         return cache.getOptionalItem(getClass(), CACHE_KEY_PARAMETRO_EDICAO, AuthUtils.currentUserIdRequired())
-                .map(TipoParametroConfiguracao.class::cast);
+                .map(this::converterObjetoParaEnum);
+    }
+
+    private ParameterMediator converterObjetoParaEnum(Object param){
+        final String parametro = (String) param;
+        List<ParameterMediator> parametrosPermitidos = new ArrayList<>();
+        parametrosPermitidos.addAll(Arrays.stream(TipoParametroConfiguracao.values()).toList());
+        parametrosPermitidos.addAll(Arrays.stream(AuthEmailParameterType.values()).toList());
+        return parametrosPermitidos.stream().filter(it -> it.name().equals(parametro)).findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Tipo de argumento inválido para o parâmetro"));
     }
 
     @PostMapping(PATH_SAVE_LOGICO)
-    String saveLogico(ValorParametroLogico entity, BindingResult result, RedirectAttributes attributes) {
+    String saveLogico(ParameterValueBoolean entity, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) return "parametro/create";
         final Long entityId = entity.getId();
 
-        entity.getParametro().getNome().save(entity);
+        parameterValueService.saveParameterValue(entity);
 
         addSuccess(attributes, entityId);
         return redirect("/parametro/update-logico", entity.getId());
     }
 
     @PostMapping(PATH_SAVE_NUMERICO)
-    String saveNumerico(ValorParametroNumerico entity, BindingResult result, RedirectAttributes attributes) {
+    String saveNumerico(ParameterValueNumeric entity, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) return "parametro/create";
         final Long entityId = entity.getId();
 
-        entity.getParametro().getNome().save(entity);
+        parameterValueService.saveParameterValue(entity);
 
         addSuccess(attributes, entityId);
         return redirect("/parametro/update-numerico", entity.getId());
     }
 
     @PostMapping(PATH_SAVE_JSON)
-    String saveJson(ValorParametroJson entity, BindingResult result, RedirectAttributes attributes) {
+    String saveJson(ParameterValueJson entity, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) return "parametro/create";
         final Long entityId = entity.getId();
 
-        entity.getParametro().getNome().save(entity);
+        parameterValueService.saveParameterValue(entity);
 
         addSuccess(attributes, entityId);
         return redirect("/parametro/update-json", entity.getId());
     }
 
+    @PostMapping(PATH_SAVE_HTML)
+    String saveHTML(ParameterValueHtml entity, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) return "parametro/create";
+        final Long entityId = entity.getId();
+
+        parameterValueService.saveParameterValue(entity);
+
+        addSuccess(attributes, entityId);
+        return redirect("/parametro/update-html", entity.getId());
+    }
+
     @GetMapping("/update-logico/{id}")
     String preUpdate(@PathVariable Long id, ModelMap modelMap) {
-        Optional<ValorParametro> valorParametro= valorParametroService.findById(id);
+        Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
         if(valorParametro.isPresent()){
             modelMap.addAttribute("valorParametro",valorParametro.get());
             modelMap.addAttribute(URL_POST, PATH_SAVE_LOGICO);
@@ -179,7 +199,7 @@ public class ParametroController extends CrudControllerSec<Parametro> {
 
     @GetMapping("/update-numerico/{id}")
     String preUpdateNumerico(@PathVariable Long id, ModelMap modelMap) {
-        Optional<ValorParametro> valorParametro= valorParametroService.findById(id);
+        Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
         if(valorParametro.isPresent()){
             modelMap.addAttribute("valorParametro",valorParametro.get());
             modelMap.addAttribute(URL_POST, PATH_SAVE_NUMERICO);
@@ -191,7 +211,7 @@ public class ParametroController extends CrudControllerSec<Parametro> {
 
     @GetMapping("/update-json/{id}")
     String preUpdateJson(@PathVariable Long id, ModelMap modelMap) {
-        Optional<ValorParametro> valorParametro= valorParametroService.findById(id);
+        Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
         if(valorParametro.isPresent()){
             modelMap.addAttribute("valorParametro",valorParametro.get());
             modelMap.addAttribute(URL_POST, PATH_SAVE_JSON);
@@ -201,24 +221,31 @@ public class ParametroController extends CrudControllerSec<Parametro> {
         return "parametro";
     }
 
-    @PostMapping({"/delete"})
-    ResponseEntity<AjaxResponse> deleteAll(@RequestBody List<Long> ids) {
-        return super.deleteAll(ids, service::deleteById);
+    @GetMapping("/update-html/{id}")
+    String preUpdateHTML(@PathVariable Long id, ModelMap modelMap) {
+        Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
+        if(valorParametro.isPresent()){
+            modelMap.addAttribute("valorParametro",valorParametro.get());
+            modelMap.addAttribute(URL_POST, PATH_SAVE_HTML);
+            return "parametro/create";
+        }
+
+        return "parametro";
     }
 
     @ModelAttribute("parametroList")
     List<AutocompleteDto> parametroConfiguracaoList() {
-        return pesquisaService.createFrom(TipoParametroConfiguracao.values(), null);
-    }
-
-    @ModelAttribute("dominioParametrosConfiguracaoList")
-    List<AutocompleteDto> dominioParametrosConfiguracaoList() {
-        return pesquisaService.createFrom(TipoDominioParametro.values(), null);
+        return pesquisaService.createFrom(new ArrayList<>(), null);
     }
 
     @ModelAttribute("booleanList")
     List<AutocompleteDto> booleanList() {
         return pesquisaService.createFrom(DataTypeBoolean.values(), null);
+    }
+
+    @ModelAttribute("parametrosTemplateHtml")
+    Map<String, String> parametroDescriptions() {
+        return obterParametroNoCache().map(ParameterMediator::getDescriptions).orElse(null);
     }
 
     @PostMapping("/pesquisar")
@@ -227,14 +254,14 @@ public class ParametroController extends CrudControllerSec<Parametro> {
         return redirect("/parametro");
     }
 
-    private void adicionarParametroCache(TipoParametroConfiguracao parametro){
+    private void adicionarParametroCache(String parametro){
         cache.addItem(this.getClass(), CACHE_KEY_PARAMETRO_EDICAO, AuthUtils.currentUserIdRequired(), parametro, 1800);
     }
 
     @Getter
     @Setter
-    public static class SearchForm {
-        TipoParametroConfiguracao parametro;
+    public  static class SearchForm {
+        String parametro;
     }
 
 }

@@ -8,7 +8,7 @@
     <label for="completeValores" th:text="#{parametro.valor}"></label>
     <div class="input-group">
         <select id="completeValores" class="form-select"
-                th:field="*{valor}">
+                th:field="*{value}">
             <option value="" th:text="#{autocomplete.select}"></option>
             <option th:each="enum : ${booleanList}" th:value="${enum.id}"
                     th:text="${enum.text}">

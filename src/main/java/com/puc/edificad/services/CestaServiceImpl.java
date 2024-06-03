@@ -3,15 +3,11 @@ package com.puc.edificad.services;
 import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.commons.exceptions.EntityNotFoundException;
 import com.puc.edificad.model.Cesta;
-import com.puc.edificad.model.config.TipoParametroConfiguracao;
-import com.puc.edificad.model.config.ValorParametroLogico;
 import com.puc.edificad.services.config.ParametroService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 

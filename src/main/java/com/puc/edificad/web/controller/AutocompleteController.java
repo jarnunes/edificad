@@ -1,5 +1,6 @@
 package com.puc.edificad.web.controller;
 
+import com.jnunes.spgauth.model.config.AuthEmailParameterType;
 import com.jnunes.spgcore.commons.LabelMessage;
 import com.jnunes.spgcore.services.AutocompleteService;
 import com.jnunes.spgcore.services.dto.AutocompleteDto;
@@ -48,9 +49,11 @@ public class AutocompleteController {
 
     @GetMapping("/parametros")
     public ResponseEntity<List<AutocompleteDto>> completeParametros(@RequestParam(value = "q", required = false) String query) {
-        return ResponseEntity.ok(pesquisaService.createFrom(TipoParametroConfiguracao.values(), query));
+        List<AutocompleteDto> parametros = new ArrayList<>();
+        parametros.addAll(pesquisaService.createFrom(TipoParametroConfiguracao.values(), query));
+        parametros.addAll(pesquisaService.createFrom(AuthEmailParameterType.values(), query));
+        return ResponseEntity.ok(parametros);
     }
-
 
     @GetMapping("/dominio-parametros")
     public ResponseEntity<List<AutocompleteDto>> completeDominios(@RequestParam(value = "q", required = false) String query) {

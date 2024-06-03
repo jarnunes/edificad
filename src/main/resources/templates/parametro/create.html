@@ -7,14 +7,14 @@
 
 <span layout:fragment="title" th:text="${@helper.getOperation(valorParametro)}"></span>
 <div layout:fragment="content"
-     th:with="dataType=${valorParametro.parametro.getDType()}">
+     th:with="dataType=${valorParametro.parameter.dataType}">
 
     <div class="card-container overflow-hidden">
         <!--/*@thymesVar id="nomeTipo" type="java.lang.String"*/-->
 
         <form id="entityForm" method="POST" th:action="@{'/parametro' + ${urlPOST}}" th:object="${valorParametro}">
             <input type="hidden" id="id" name="id" th:field="*{id}"/>
-            <input type="hidden" id="dType" name="dType" th:field="*{parametro.DType}"/>
+            <input type="hidden" id="dataType" name="dataType" th:field="*{parameter.dataType}"/>
             <div class="ec-table-toolbar">
                 <div class="ec-table-toolbar-actions">
                     <a class="btn btn-secondary opacity-75" th:href="@{/parametro}" role="button">
@@ -33,17 +33,18 @@
                     <div class="col-6">
                         <label for="title" th:text="#{parametro}"></label>
                         <input type="text" class="form-control" id="title" autofocus="autofocus"
-                               th:field="*{parametro.nome}" required readonly/>
+                               th:field="*{parameter.name}" required readonly/>
                     </div>
                     <div class="col-6">
                         <label for="dominio" th:text="#{parametro.dominio}"></label>
-                        <input type="email" class="form-control" id="dominio"
-                               th:field="*{parametro.dominio}" required readonly/>
+                        <input type="text" class="form-control" id="dominio"
+                               th:field="*{parameter.domain}" required readonly/>
                     </div>
 
                     <th:block th:if="${dataType.isBoolean()}" th:insert="~{parametro/valor-parametro-boolean}" />
                     <th:block th:if="${dataType.isNumeric()}" th:insert="~{parametro/valor-parametro-numerico}" />
                     <th:block th:if="${dataType.isJson()}" th:insert="~{parametro/valor-parametro-json}" />
+                    <th:block th:if="${dataType.isHtml()}" th:insert="~{parametro/valor-parametro-html}" />
                 </div>
             </div>
         </form>

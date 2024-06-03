@@ -19,9 +19,10 @@
         <java.version>17</java.version>
         <jxls.version>2.13.0</jxls.version>
         <maven.test.skip>true</maven.test.skip>
-        <spg-core.version>1.6.4</spg-core.version>
+        <spg-core.version>1.6.5-SNAPSHOT</spg-core.version>
         <spg-datatable.version>1.6</spg-datatable.version>
-        <spg-auth.version>1.6.7</spg-auth.version>
+        <spg-parameter.version>0.0.1-SNAPSHOT</spg-parameter.version>
+        <spg-auth.version>1.6.8-SNAPSHOT</spg-auth.version>
         <spg-elipse.version>1.6.3</spg-elipse.version>
         <git-commit.version>4.9.10</git-commit.version>
     </properties>
@@ -85,6 +86,11 @@
             <groupId>com.jnunes</groupId>
             <artifactId>spg-datatable</artifactId>
             <version>${spg-datatable.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jnunes</groupId>
+            <artifactId>spg-parameter</artifactId>
+            <version>${spg-parameter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.jnunes</groupId>

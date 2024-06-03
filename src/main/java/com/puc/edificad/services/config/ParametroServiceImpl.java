@@ -2,11 +2,13 @@ package com.puc.edificad.services.config;
 
 import com.jnunes.spgcore.commons.utils.JsonUtils;
 import com.jnunes.spgcore.services.BaseServiceImpl;
+import com.jnunes.spgparameter.model.Parameter;
+import com.jnunes.spgparameter.model.ParameterValueBoolean;
+import com.jnunes.spgparameter.model.ParameterValueJson;
+import com.jnunes.spgparameter.services.ParameterValueRepository;
+import com.jnunes.spgparameter.services.ParameterValueService;
 import com.puc.edificad.commons.utils.BooUtils;
-import com.puc.edificad.model.config.Parametro;
 import com.puc.edificad.model.config.TipoParametroConfiguracao;
-import com.puc.edificad.model.config.ValorParametroJson;
-import com.puc.edificad.model.config.ValorParametroLogico;
 import com.puc.edificad.model.dto.ConfiguracaoDashboardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,40 +20,36 @@ import static com.puc.edificad.model.config.TipoParametroConfiguracao.*;
 
 @Service
 @Transactional
-public class ParametroServiceImpl extends BaseServiceImpl<Parametro> implements ParametroService {
+public class ParametroServiceImpl extends BaseServiceImpl<Parameter> implements ParametroService {
 
-    private ValorParametroService valorParametroService;
-    private ParametroRepository repository;
+    private ParameterValueService valorParametroService;
+    private ParameterValueRepository repository;
 
     @Autowired
-    void setParametroLogicoRepository(ValorParametroService valorParametroService) {
+    void setParametroLogicoRepository(ParameterValueService valorParametroService) {
         this.valorParametroService = valorParametroService;
     }
 
     @Autowired
-    void setRepository(ParametroRepository repository){
+    void setRepository(ParameterValueRepository repository){
         this.repository = repository;
     }
 
     @Override
-    public Parametro save(Parametro entity) {
+    public Parameter save(Parameter entity) {
         super.save(entity);
-        entity.getValoresParametro().forEach(valorParametro -> {
-            valorParametro.setParametro(entity);
+        entity.getParameterValues().forEach(valorParametro -> {
+            valorParametro.setParameter(entity);
             valorParametroService.save(valorParametro);
         });
 
         return entity;
     }
 
-    @Override
-    public Parametro obterParametroPorNome(TipoParametroConfiguracao nome) {
-        return repository.findFirstByNomeEquals(nome).orElse(null);
-    }
 
     private boolean obterValorParametroLogicoOuDefault(TipoParametroConfiguracao parametro) {
-        ValorParametroLogico logico = valorParametroService.obterValorParametroLogico(parametro);
-        return Optional.ofNullable(logico).map(ValorParametroLogico::getValor)
+        ParameterValueBoolean logico = valorParametroService.getLogicParameterValue(parametro);
+        return Optional.ofNullable(logico).map(ParameterValueBoolean::getValue)
                 .orElseGet(() -> BooUtils.toBoolean(parametro.getValorPadrao()));
     }
 
@@ -67,11 +65,11 @@ public class ParametroServiceImpl extends BaseServiceImpl<Parametro> implements 
 
     @Override
     public ConfiguracaoDashboardDto obterConfiguracaoDashboard() {
-        ValorParametroJson valorParametro = valorParametroService.obterValorParametroJson(CONFIGURACAO_DASHBOARD);
+        ParameterValueJson valorParametro = valorParametroService.getJsonParameterValue(CONFIGURACAO_DASHBOARD);
 
         if(valorParametro == null)
             return new ConfiguracaoDashboardDto();
-        
-        return JsonUtils.toObject(valorParametro.getValor(), ConfiguracaoDashboardDto.class);
+
+        return JsonUtils.toObject(valorParametro.getValue(), ConfiguracaoDashboardDto.class);
     }
 }

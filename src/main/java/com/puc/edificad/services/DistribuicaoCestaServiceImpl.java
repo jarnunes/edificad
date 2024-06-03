@@ -2,22 +2,18 @@ package com.puc.edificad.services;
 
 import com.jnunes.spgauth.commons.utils.AuthUtils;
 import com.jnunes.spgcore.commons.utils.DateTimeUtils;
-import com.jnunes.spgcore.commons.utils.ValidationUtils;
 import com.jnunes.spgcore.services.BaseServiceImpl;
 import com.puc.edificad.mapper.DistribuicaoCestaMapper;
 import com.puc.edificad.model.Beneficiario;
 import com.puc.edificad.model.Cesta;
 import com.puc.edificad.model.DistribuicaoCesta;
 import com.puc.edificad.model.Voluntario;
-import com.puc.edificad.model.config.TipoParametroConfiguracao;
-import com.puc.edificad.model.config.ValorParametroLogico;
 import com.puc.edificad.model.dto.DistribuicaoCestaDto;
 import com.puc.edificad.services.dto.DistribuicaoCestaPorPeriodo;
 import com.puc.edificad.services.dto.QuantidadesPorAnoMes;
 import com.puc.edificad.services.dto.ResumoDistribuicaoCestaDto;
 import com.puc.edificad.services.validation.DistribuicaoCestaValidation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,13 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.Year;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 @Service
 @Transactional

@@ -1,13 +1,12 @@
 package com.puc.edificad.services.config;
 
 import com.jnunes.spgcore.services.BaseService;
-import com.puc.edificad.model.config.Parametro;
+import com.jnunes.spgparameter.model.Parameter;
 import com.puc.edificad.model.config.TipoParametroConfiguracao;
 import com.puc.edificad.model.dto.ConfiguracaoDashboardDto;
 
-public interface ParametroService extends BaseService<Parametro> {
+public interface ParametroService extends BaseService<Parameter> {
 
-    Parametro obterParametroPorNome(TipoParametroConfiguracao nome);
     /**
      * @return boolean
      * <p>

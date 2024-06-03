@@ -1,0 +1,54 @@
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org" >
+
+<div class="col-12">
+
+
+    <textarea id="valorParametro" th:field="*{value}" name="valor" class="form-control" rows="10" aria-label="Valor  Parâmetro" required></textarea>
+
+    <th:block th:unless="${parametrosTemplateHtml == null or parametrosTemplateHtml.isEmpty()}">
+        <div class="accordion mt-5" id="panelParametros">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#valoresParametrosHTML" aria-expanded="true" aria-controls="collapseTwo">
+                        Tags
+                    </button>
+                </h2>
+                <div id="valoresParametrosHTML" class="accordion-collapse collapse show" data-bs-parent="#panelParametros">
+                    <div class="accordion-body">
+                        <ul class="text-decoration-none">
+                            <li th:each="parametroHTML : ${parametrosTemplateHtml}" style="list-style: none">
+                                <code th:text="${parametroHTML.key}"></code> : <th:block th:text="${parametroHTML.value}"></th:block>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </th:block>
+</div>
+
+<th:block layout:fragment="local-script">
+    <script src="https://cdn.tiny.cloud/1/ly1e9ypd7f4mctyq7k46lg4ikhguai46yt3knat1169y3poa/tinymce/7/tinymce.min.js"
+            referrerpolicy="origin"></script>
+
+    <!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate ai mentions tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Jardel Nunes',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ],
+            ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+        });
+
+
+    </script>
+</th:block>

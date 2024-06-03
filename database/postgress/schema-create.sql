@@ -3,8 +3,6 @@ create sequence seq_configuracao start with 1 increment by 1;
 create sequence seq_dist_cesta start with 1 increment by 1;
 create sequence seq_endereco start with 1 increment by 1;
 create sequence seq_pessoa start with 1 increment by 1;
-create sequence seq_parametro start with 1 increment by 1;
-create sequence seq_valor_param start with 1 increment by 1;
 
 create table beneficiario
 (
@@ -75,19 +73,6 @@ create table endereco
     primary key (id)
 );
 
-create table parametro
-(
-    id                 bigint not null,
-    create_date        timestamp(6),
-    create_user        varchar(255),
-    last_modified_date timestamp(6),
-    last_modified_user varchar(255),
-    d_type             varchar(255) not null,
-    nome               varchar(255) not null unique,
-    dominio            varchar(255) not null,
-    primary key (id)
-);
-
 create table pessoa
 (
     id                 bigint not null,
@@ -101,38 +86,6 @@ create table pessoa
     email              varchar(100) unique,
     nome               varchar(100) not null,
     endereco_fk        bigint,
-    primary key (id)
-);
-
-create table valor_parametro
-(
-    id                 bigint not null,
-    create_date        timestamp(6),
-    create_user        varchar(255),
-    last_modified_date timestamp(6),
-    last_modified_user varchar(255),
-    parametro_fk       bigint,
-    primary key (id)
-);
-
-create table valor_parametro_json
-(
-    id    bigint not null,
-    valor oid,
-    primary key (id)
-);
-
-create table valor_parametro_logico
-(
-    id    bigint not null,
-    valor boolean,
-    primary key (id)
-);
-
-create table valor_parametro_numerico
-(
-    id    bigint not null,
-    valor integer,
     primary key (id)
 );
 
@@ -151,7 +104,3 @@ alter table if exists distribuicao_cesta add constraint FKihhjsmi1k3367by7wb556m
 alter table if exists distribuicao_cesta add constraint FKclrnnaphrrbf973bkngc1nx5i foreign key (voluntario_fk) references voluntario;
 alter table if exists pessoa add constraint FKg2aal0p0ich7gudkwm6vomdke foreign key (endereco_fk) references endereco;
 alter table if exists voluntario add constraint FK2ag8fj8brxi11f01mur9klmw foreign key (id) references pessoa;
-alter table if exists valor_parametro add constraint FK8ugrd62oikn9uumx3or088guk foreign key (parametro_fk) references parametro;
-alter table if exists valor_parametro_json add constraint FK84sy8gql9jd7vbmt4anrtk3hx foreign key (id) references valor_parametro;
-alter table if exists valor_parametro_logico add constraint FKakbk91gm6tfk0qsijionox7xw foreign key (id) references valor_parametro;
-alter table if exists valor_parametro_numerico add constraint FKj9va0dpl503geedaqr2kdrxa foreign key (id) references valor_parametro;
