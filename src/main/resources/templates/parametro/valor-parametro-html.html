@@ -3,8 +3,6 @@
       xmlns:th="http://www.thymeleaf.org" >
 
 <div class="col-12">
-
-
     <textarea id="valorParametro" th:field="*{value}" name="valor" class="form-control" rows="10" aria-label="Valor  Parâmetro" required></textarea>
 
     <th:block th:unless="${parametrosTemplateHtml == null or parametrosTemplateHtml.isEmpty()}">

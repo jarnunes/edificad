@@ -10,8 +10,7 @@
         <select id="completeValores" class="form-select"
                 th:field="*{value}">
             <option value="" th:text="#{autocomplete.select}"></option>
-            <option th:each="enum : ${booleanList}" th:value="${enum.id}"
-                    th:text="${enum.text}">
+            <option th:each="enum : ${booleanList}" th:value="${enum.id}" th:text="${enum.text}">
             </option>
         </select>
     </div>

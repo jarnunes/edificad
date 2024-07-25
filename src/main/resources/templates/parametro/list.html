@@ -9,8 +9,7 @@
 <body>
 
 <span layout:fragment="title" th:text="#{parametro}"></span>
-<div layout:fragment="content"
-     th:with="permiteConfiguracao=true">
+<div layout:fragment="content" th:with="permiteConfiguracao=true">
 
     <div class="card-container">
 
@@ -21,7 +20,7 @@
                     <div class="col">
                         <label for="completeParametro" th:text="#{parametro}"></label>
                         <div class="input-group">
-                            <select id="completeParametro" class="form-select select2-single" th:field="*{parametro}">
+                            <select id="completeParametro" class="form-select select2-single" th:field="*{parametro}" required>
                                 <option value="" th:text="#{autocomplete.select}"></option>
                                 <option th:each="enum : ${parametroList}"
                                         th:value="${enum.id}"
@@ -38,17 +37,7 @@
                             <span class="btn-label">Pesquisar</span>
                         </button>
                         <th:block th:unless="${instancia == null}">
-                            <a  th:if="${instancia.dataType.isBoolean()}"
-                                th:href="@{/parametro/configurar-logico}" class="btn btn-secondary">Configurar</a>
-
-                            <a  th:if="${instancia.dataType.isNumeric()}"
-                                th:href="@{/parametro/configurar-numeric}" class="btn btn-secondary">Configurar</a>
-
-                            <a  th:if="${instancia.dataType.isJson()}"
-                                th:href="@{/parametro/configurar-json}" class="btn btn-secondary">Configurar</a>
-
-                            <a  th:if="${instancia.dataType.isHtml()}"
-                                th:href="@{/parametro/configurar-html}" class="btn btn-secondary">Configurar</a>
+                            <a  th:href="@{/parametro/configurar}" class="btn btn-secondary">Configurar</a>
                         </th:block>
                     </div>
                 </div>

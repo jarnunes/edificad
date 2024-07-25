@@ -64,7 +64,7 @@ public class CestaController extends CrudControllerSec<Cesta> {
     @PostMapping("/save")
     public String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
         @ModelAttribute Cesta entity, BindingResult result, RedirectAttributes attributes, Model model) {
-        return internalSaveAndNew(entity, saveAndNew, "/cesta", service, result, attributes, model);
+        return internalSaveAndNew(entity, saveAndNew, "cesta", service, result, attributes, model);
     }
 
     @GetMapping("/update/{id}")

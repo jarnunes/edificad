@@ -5,9 +5,8 @@
       layout:decorate="~{crud-template}">
 <body>
 
-<span layout:fragment="title" th:text="${@helper.getOperation(valorParametro)}"></span>
-<div layout:fragment="content"
-     th:with="dataType=${valorParametro.parameter.dataType}">
+<span layout:fragment="title">Edição de Parâmetro</span>
+<div layout:fragment="content" th:with="dataType=${valorParametro.parameter.dataType}">
 
     <div class="card-container overflow-hidden">
         <!--/*@thymesVar id="nomeTipo" type="java.lang.String"*/-->
@@ -51,47 +50,7 @@
     </div>
 
     <!-- Modal Container: All modals will be inside here -->
-    <div class="modal-container" id="modalContainer">
-
-        <!-- Modal: Module -->
-        <div class="modal fade" id="modalModule" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-             aria-labelledby="modalModuleLabel" aria-hidden="true">
-
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="modalModuleForm" th:action="@{/module/save}">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">Module</h5>
-                        </div>
-                        <div class="modal-body">
-                            <input type="hidden" id="courseId" name="courseId"/>
-                            <input type="hidden" id="entityId" name="id"/>
-
-                            <div class="modal-messages-container"></div>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="inputName" class="form-label">Name: </label>
-                                    <input type="text" class="form-control" id="inputName" name="name" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                <span class="d-none d-md-block">Cancel</span>
-                                <i class="bi bi-x-lg d-block d-md-none"></i>
-                            </button>
-                            <button type="submit" id="saveNewAction" class="btn btn-primary save-modal-form">
-                                Save & New
-                            </button>
-                            <button type="submit" id="saveAction" class="btn btn-primary save-modal-form">
-                                Save
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="modal-container" id="modalContainer"></div>
 
 </div>
 </body>

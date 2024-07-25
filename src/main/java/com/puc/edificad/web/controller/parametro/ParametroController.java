@@ -75,40 +75,22 @@ public class ParametroController extends CrudControllerSec<Parameter> {
         return getModelAndViewListPage();
     }
 
-    @GetMapping("/configurar-logico")
-    String configurarParametroLogico(Model model) {
-        ParameterMediator parametroEdicao = obterParametroParaEdicao();
-        ParameterValue valorParametro = obterValorParametroParaEdicao(parametroEdicao);
+    @GetMapping("/configurar")
+    String configurarParametro(Model model) {
+        final ParameterMediator parametroEdicao = obterParametroParaEdicao();
+        final ParameterValue valorParametro = obterValorParametroParaEdicao(parametroEdicao);
         model.addAttribute("valorParametro", valorParametro);
-        model.addAttribute(URL_POST, PATH_SAVE_LOGICO);
+        model.addAttribute(URL_POST, obterPathParaSalvarValorParametro(parametroEdicao.getDataType()));
         return "parametro/create";
     }
 
-    @GetMapping("/configurar-numerico")
-    String configurarParametroNumerico(Model model) {
-        ParameterMediator parametroEdicao = obterParametroParaEdicao();
-        ParameterValue valorParametro = obterValorParametroParaEdicao(parametroEdicao);
-        model.addAttribute("valorParametro", valorParametro);
-        model.addAttribute(URL_POST, PATH_SAVE_NUMERICO);
-        return "parametro/create";
-    }
-
-    @GetMapping("/configurar-json")
-    String configurarParametroJson(Model model) {
-        ParameterMediator parametroEdicao = obterParametroParaEdicao();
-        ParameterValue valorParametro = obterValorParametroParaEdicao(parametroEdicao);
-        model.addAttribute("valorParametro", valorParametro);
-        model.addAttribute(URL_POST, PATH_SAVE_JSON);
-        return "parametro/create";
-    }
-
-    @GetMapping("/configurar-html")
-    String configurarParametroHtml(Model model) {
-
-        ParameterValue valorParametro = obterValorParametroParaEdicao(obterParametroParaEdicao());
-        model.addAttribute("valorParametro", valorParametro);
-        model.addAttribute(URL_POST, PATH_SAVE_HTML);
-        return "parametro/create";
+    private String obterPathParaSalvarValorParametro(DataType dataType) {
+        return switch (dataType) {
+            case BOOLEAN -> PATH_SAVE_LOGICO;
+            case JSON -> PATH_SAVE_JSON;
+            case HTML -> PATH_SAVE_HTML;
+            default -> PATH_SAVE_NUMERICO;
+        };
     }
 
     private ParameterValue obterValorParametroParaEdicao(ParameterMediator parametroConfiguracao) {
@@ -121,7 +103,6 @@ public class ParametroController extends CrudControllerSec<Parameter> {
         novaInstancia.setParameter(instanciaParametro);
         return novaInstancia;
     }
-
 
     private ParameterMediator obterParametroParaEdicao(){
         return obterParametroNoCache().orElseThrow(() -> new ValidationException("parametro.obrigatorio.na.edicao"));
@@ -137,96 +118,46 @@ public class ParametroController extends CrudControllerSec<Parameter> {
         List<ParameterMediator> parametrosPermitidos = new ArrayList<>();
         parametrosPermitidos.addAll(Arrays.stream(TipoParametroConfiguracao.values()).toList());
         parametrosPermitidos.addAll(Arrays.stream(AuthEmailParameterType.values()).toList());
-        return parametrosPermitidos.stream().filter(it -> it.name().equals(parametro)).findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Tipo de argumento inválido para o parâmetro"));
+        return parametrosPermitidos.stream().filter(it -> it.name().equals(parametro)).findFirst().orElse(null);
     }
 
     @PostMapping(PATH_SAVE_LOGICO)
     String saveLogico(ParameterValueBoolean entity, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "parametro/create";
-        final Long entityId = entity.getId();
-
-        parameterValueService.saveParameterValue(entity);
-
-        addSuccess(attributes, entityId);
-        return redirect("/parametro/update-logico", entity.getId());
+        return internalSave(entity, result, attributes);
     }
 
     @PostMapping(PATH_SAVE_NUMERICO)
     String saveNumerico(ParameterValueNumeric entity, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "parametro/create";
-        final Long entityId = entity.getId();
-
-        parameterValueService.saveParameterValue(entity);
-
-        addSuccess(attributes, entityId);
-        return redirect("/parametro/update-numerico", entity.getId());
+        return internalSave(entity, result, attributes);
     }
 
     @PostMapping(PATH_SAVE_JSON)
     String saveJson(ParameterValueJson entity, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "parametro/create";
-        final Long entityId = entity.getId();
-
-        parameterValueService.saveParameterValue(entity);
-
-        addSuccess(attributes, entityId);
-        return redirect("/parametro/update-json", entity.getId());
+        return internalSave(entity, result, attributes);
     }
 
     @PostMapping(PATH_SAVE_HTML)
     String saveHTML(ParameterValueHtml entity, BindingResult result, RedirectAttributes attributes) {
+        return internalSave(entity, result, attributes);
+    }
+
+    private String internalSave(ParameterValue entity, BindingResult result, RedirectAttributes attributes){
         if (result.hasErrors()) return "parametro/create";
         final Long entityId = entity.getId();
 
         parameterValueService.saveParameterValue(entity);
 
         addSuccess(attributes, entityId);
-        return redirect("/parametro/update-html", entity.getId());
+        return redirect("/parametro/update", entity.getId());
     }
 
-    @GetMapping("/update-logico/{id}")
-    String preUpdate(@PathVariable Long id, ModelMap modelMap) {
+    @GetMapping("/update/{id}")
+    String preUpdateValorParametro(@PathVariable Long id, ModelMap modelMap) {
         Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
         if(valorParametro.isPresent()){
-            modelMap.addAttribute("valorParametro",valorParametro.get());
-            modelMap.addAttribute(URL_POST, PATH_SAVE_LOGICO);
-            return "parametro/create";
-        }
-
-        return "parametro";
-    }
-
-    @GetMapping("/update-numerico/{id}")
-    String preUpdateNumerico(@PathVariable Long id, ModelMap modelMap) {
-        Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
-        if(valorParametro.isPresent()){
-            modelMap.addAttribute("valorParametro",valorParametro.get());
-            modelMap.addAttribute(URL_POST, PATH_SAVE_NUMERICO);
-            return "parametro/create";
-        }
-
-        return "parametro";
-    }
-
-    @GetMapping("/update-json/{id}")
-    String preUpdateJson(@PathVariable Long id, ModelMap modelMap) {
-        Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
-        if(valorParametro.isPresent()){
-            modelMap.addAttribute("valorParametro",valorParametro.get());
-            modelMap.addAttribute(URL_POST, PATH_SAVE_JSON);
-            return "parametro/create";
-        }
-
-        return "parametro";
-    }
-
-    @GetMapping("/update-html/{id}")
-    String preUpdateHTML(@PathVariable Long id, ModelMap modelMap) {
-        Optional<ParameterValue> valorParametro= parameterValueService.findById(id);
-        if(valorParametro.isPresent()){
-            modelMap.addAttribute("valorParametro",valorParametro.get());
-            modelMap.addAttribute(URL_POST, PATH_SAVE_HTML);
+            ParameterValue valor = valorParametro.get();
+            modelMap.addAttribute("valorParametro", valor);
+            modelMap.addAttribute(URL_POST, obterPathParaSalvarValorParametro(valor.getParameter().getDataType()));
             return "parametro/create";
         }
 

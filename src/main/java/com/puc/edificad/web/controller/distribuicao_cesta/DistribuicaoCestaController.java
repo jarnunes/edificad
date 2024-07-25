@@ -15,6 +15,7 @@ import com.puc.edificad.services.BeneficiarioService;
 import com.puc.edificad.services.CestaService;
 import com.puc.edificad.services.DistribuicaoCestaService;
 import com.puc.edificad.services.VoluntarioService;
+import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
+@CommonsLog
 @Controller
 @RequestMapping("/distribuicao-cesta")
 @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_VIEW_DISTRIBUICAO_CESTA')")
@@ -86,17 +88,24 @@ public class DistribuicaoCestaController extends CrudControllerSec<DistribuicaoC
     }
 
     @GetMapping("/create")
-    String create(Model model) {
-        DistribuicaoCesta entity = new DistribuicaoCesta();
-        entity.setDataHora(LocalDateTime.now());
+    String create(Model model, @ModelAttribute(name = "entity") DistribuicaoCesta entity) {
         model.addAttribute("entity", entity);
         return "distribuicao-cesta/create";
     }
 
     @PostMapping("/save")
     public String save(@RequestParam(name = "saveAndNew", defaultValue = "false") boolean saveAndNew,
-        DistribuicaoCesta entity, BindingResult result, RedirectAttributes attributes, Model model) {
-        return internalSaveAndNew(entity, saveAndNew, "/distribuicao-cesta", service, result, attributes, model);
+        @ModelAttribute DistribuicaoCesta entity, BindingResult result, RedirectAttributes attributes, Model model) {
+        if (result.hasErrors()) {
+            return "distribuicao-cesta/create";
+        } else {
+            Long entityId = entity.getId();
+            service.save(entity);
+            this.addSuccess(attributes, entityId);
+            return saveAndNew
+                ? this.redirect( "/distribuicao-cesta/create")
+                : this.redirect("/distribuicao-cesta/update", entity.getId());
+        }
     }
 
     @GetMapping("/update/{id}")
